@@ -131,7 +131,7 @@ namespace suporteEngenhariaUI
 
         // --- Busca Dados API: Conversas ---
         // Método base para evitar duplicação de código
-        private async Task<Dictionary<string, ConversationStatusApi>> BuscarStatusConversoesAsync()
+        private async Task<Dictionary<string, ConversationStatusApi>?> BuscarStatusConversoesAsync()
         {
             HttpResponseMessage response = await client.GetAsync(ApiEndpointStatuses);
 
@@ -204,7 +204,7 @@ namespace suporteEngenhariaUI
                 HttpResponseMessage response = await client.PostAsync(endpointFinalizar, null);
 
                 string responseBody = await response.Content.ReadAsStringAsync();
-                CloseStatusApi statusResult = null;
+                CloseStatusApi? statusResult = null;
                 try
                 {
                     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
@@ -398,7 +398,7 @@ namespace suporteEngenhariaUI
         }
 
         // --- Tratamento de Erros (Helper) ---
-        private void MostrarErro(string titulo, Exception ex = null, string apiMensagem = null)
+        private void MostrarErro(string titulo, Exception? ex = null, string? apiMensagem = null)
         {
             string mensagemCompleta = titulo;
 
@@ -570,10 +570,10 @@ namespace suporteEngenhariaUI
     public class ConversationStatusApi
     {
         [System.Text.Json.Serialization.JsonPropertyName("sender_id")]
-        public string SenderId { get; set; }
+        public required string SenderId { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("status")]
-        public string Status { get; set; }
+        public required string Status { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("creation_timestamp")]
         public long CreationTimestamp { get; set; } // Unix timestamp (long)
@@ -595,10 +595,10 @@ namespace suporteEngenhariaUI
     public class CloseStatusApi
     {
         [System.Text.Json.Serialization.JsonPropertyName("status")]
-        public string Status { get; set; }
+        public required string Status { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("error")]
-        public string Error { get; set; }
+        public required string Error { get; set; }
     }
 
 } // Fim do namespace
