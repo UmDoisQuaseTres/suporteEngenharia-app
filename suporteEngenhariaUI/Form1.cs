@@ -1,13 +1,8 @@
-﻿using System; // Certifique-se que este using está presente
-using System.Collections.Generic;
-using System.Linq; // Necessário para .Where() e .ToList()
-using System.Net.Http;
+﻿
 using System.Net.Http.Headers;
 using System.Text; // Necessário para StringBuilder
 using System.Text.Json;
-using System.Text.Json.Serialization; // Para [JsonPropertyName]
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
 {
@@ -38,17 +33,6 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
             {
                 MessageBox.Show($"URL base da API inválida ('{ApiBaseUrl}'): {ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-
-            // Conexões de Eventos (Melhor feitas pelo Designer)
-            // Certifique-se que os eventos Load, SelectedIndexChanged (ambos ListViews),
-            // Click (ambos botões Atualizar e Finalizar) estão conectados aos métodos corretos
-            // no arquivo Form1.Designer.cs ou descomente as linhas abaixo se fez manualmente.
-            // this.Load += new System.EventHandler(this.Form1_Load);
-            // this.listViewAbertasParaFinalizar.SelectedIndexChanged += new System.EventHandler(this.listViewAbertasParaFinalizar_SelectedIndexChanged);
-            // this.listViewEncerradas.SelectedIndexChanged += new System.EventHandler(this.listViewEncerradas_SelectedIndexChanged); // Adicionado
-            // this.btnFinalizarSelecionada.Click += new System.EventHandler(this.btnFinalizarSelecionada_Click);
-            // this.button1.Click += new System.EventHandler(this.button1_Click);
-            // this.btnAtualizarEncerradas.Click += new System.EventHandler(this.btnAtualizarEncerradas_Click);
         }
 
         // --- Evento Load ---
@@ -92,11 +76,11 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
             // Desabilita botões de ação/atualização
             btnFinalizarSelecionada.Enabled = false;
             btnAtualizarEncerradas.Enabled = false;
-            button1.Enabled = false; // Botão de atualizar visão geral
+            button1.Enabled = false; 
 
             // Limpa listas e detalhes
-            listViewAbertasParaFinalizar.Items.Clear();
-            listViewEncerradas.Items.Clear();
+            //listViewAbertasParaFinalizar.Items.Clear();
+            //listViewEncerradas.Items.Clear();
             LimparDetalhes(); // Limpa painel de detalhes
         }
 
