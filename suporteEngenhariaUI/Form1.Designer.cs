@@ -61,6 +61,7 @@
             colEncLastUpdate = new ColumnHeader();
             colEncStatus = new ColumnHeader();
             colEncAberto = new ColumnHeader();
+            btnAtualizarAbertas = new Button();
             colSenderId = new ColumnHeader();
             tabControlEngenharia.SuspendLayout();
             tabPageVisaoGeral.SuspendLayout();
@@ -202,6 +203,7 @@
             // 
             // splitContainerFinalizar.Panel2
             // 
+            splitContainerFinalizar.Panel2.Controls.Add(btnAtualizarAbertas);
             splitContainerFinalizar.Panel2.Controls.Add(btnFinalizarSelecionada);
             splitContainerFinalizar.Panel2.Controls.Add(grpDetalhesMensagem);
             splitContainerFinalizar.Size = new Size(583, 283);
@@ -420,6 +422,17 @@
             colEncAberto.Tag = "colEncAberto";
             colEncAberto.Text = "Tempo em aberto";
             // 
+            // btnAtualizarAbertas
+            // 
+            btnAtualizarAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAtualizarAbertas.Location = new Point(20, 244);
+            btnAtualizarAbertas.Name = "btnAtualizarAbertas";
+            btnAtualizarAbertas.Size = new Size(136, 34);
+            btnAtualizarAbertas.TabIndex = 2;
+            btnAtualizarAbertas.Text = "Atualizar Abertas";
+            btnAtualizarAbertas.UseVisualStyleBackColor = true;
+            btnAtualizarAbertas.Click += btnAtualizarAbertas_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -487,5 +500,6 @@
         private Label label1;
         private Label lblValorTempoAberto;
         private ColumnHeader colEncAberto;
+        private Button btnAtualizarAbertas;
     }
 }

@@ -76,7 +76,7 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
             // Desabilita botões de ação/atualização
             btnFinalizarSelecionada.Enabled = false;
             btnAtualizarEncerradas.Enabled = false;
-            button1.Enabled = false; 
+            button1.Enabled = false;
 
             // Limpa listas e detalhes
             //listViewAbertasParaFinalizar.Items.Clear();
@@ -663,6 +663,38 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        // Evento de clique botão Atualizar SOMENTE Conversas Abertas
+        private async void btnAtualizarAbertas_Click(object sender, EventArgs e)
+        {
+            // Feedback visual específico para esta ação
+            this.Cursor = Cursors.WaitCursor;
+            Button? botaoClicado = sender as Button; // Pega referência ao botão clicado
+            if (botaoClicado != null) botaoClicado.Enabled = false; // Desabilita o próprio botão
+            btnFinalizarSelecionada.Enabled = false; // Desabilita finalizar durante a carga
+            LimparDetalhes(); // Limpa o painel de detalhes
+
+            // IMPORTANTE: Não precisa limpar a lista aqui, CarregarConversasAbertasAsync já faz isso.
+
+            try
+            {
+                // Chama diretamente o método que carrega e popula a lista de abertas
+                // Este método já busca, filtra e chama PopularListViewAbertas (que limpa a lista)
+                await CarregarConversasAbertasAsync();
+            }
+            catch (Exception ex)
+            {
+                // Mostra erro se falhar ao carregar/processar conversas abertas
+                MostrarErro("Erro ao atualizar lista de conversas abertas", ex);
+            }
+            finally
+            {
+                // Restaura o cursor e o botão de atualizar abertas
+                this.Cursor = Cursors.Default;
+                if (botaoClicado != null) botaoClicado.Enabled = true;
+                // O botão Finalizar continuará desabilitado até uma nova seleção
+            }
         }
     }
 } // Fim do namespace
