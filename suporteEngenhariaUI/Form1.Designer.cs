@@ -356,6 +356,7 @@
             btnAtualizarEncerradas.TabIndex = 1;
             btnAtualizarEncerradas.Text = "Atualizar Lista Encerradas";
             btnAtualizarEncerradas.UseVisualStyleBackColor = true;
+            btnAtualizarEncerradas.Click += btnAtualizarEncerradas_Click;
             // 
             // listViewEncerradas
             // 
@@ -394,6 +395,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(597, 317);
             Controls.Add(tabControlEngenharia);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Suporte engenharia - Controle";
             Load += Form1_Load;
