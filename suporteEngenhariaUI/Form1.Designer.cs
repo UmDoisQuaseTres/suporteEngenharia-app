@@ -46,6 +46,8 @@
             btnFinalizarSelecionada = new Button();
             grpDetalhesMensagem = new GroupBox();
             tableLayoutPanelDetalhes = new TableLayoutPanel();
+            lblValorTempoAberto = new Label();
+            label1 = new Label();
             lblValorLastUpdate = new Label();
             lblValorStatus = new Label();
             lblDescSenderId = new Label();
@@ -58,6 +60,7 @@
             colEncSenderId = new ColumnHeader();
             colEncLastUpdate = new ColumnHeader();
             colEncStatus = new ColumnHeader();
+            colEncAberto = new ColumnHeader();
             colSenderId = new ColumnHeader();
             tabControlEngenharia.SuspendLayout();
             tabPageVisaoGeral.SuspendLayout();
@@ -221,8 +224,8 @@
             // 
             // colLastUpdate
             // 
-            colLastUpdate.Tag = "Última Atualização";
-            colLastUpdate.Text = "Ultima atualização";
+            colLastUpdate.Tag = "Data de inicio";
+            colLastUpdate.Text = "Data de inicio";
             colLastUpdate.Width = 100;
             // 
             // colStatus
@@ -259,6 +262,8 @@
             tableLayoutPanelDetalhes.ColumnCount = 2;
             tableLayoutPanelDetalhes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanelDetalhes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelDetalhes.Controls.Add(lblValorTempoAberto, 1, 3);
+            tableLayoutPanelDetalhes.Controls.Add(label1, 0, 3);
             tableLayoutPanelDetalhes.Controls.Add(lblValorLastUpdate, 1, 2);
             tableLayoutPanelDetalhes.Controls.Add(lblValorStatus, 1, 1);
             tableLayoutPanelDetalhes.Controls.Add(lblDescSenderId, 0, 0);
@@ -268,18 +273,39 @@
             tableLayoutPanelDetalhes.Dock = DockStyle.Fill;
             tableLayoutPanelDetalhes.Location = new Point(3, 19);
             tableLayoutPanelDetalhes.Name = "tableLayoutPanelDetalhes";
-            tableLayoutPanelDetalhes.RowCount = 3;
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanelDetalhes.RowCount = 4;
+            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006218F));
+            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006275F));
+            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006256F));
+            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 24.9981251F));
             tableLayoutPanelDetalhes.Size = new Size(298, 90);
             tableLayoutPanelDetalhes.TabIndex = 0;
+            // 
+            // lblValorTempoAberto
+            // 
+            lblValorTempoAberto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblValorTempoAberto.Location = new Point(152, 71);
+            lblValorTempoAberto.Name = "lblValorTempoAberto";
+            lblValorTempoAberto.Size = new Size(143, 14);
+            lblValorTempoAberto.TabIndex = 8;
+            lblValorTempoAberto.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Left;
+            label1.AutoSize = true;
+            label1.Location = new Point(3, 70);
+            label1.Name = "label1";
+            label1.Size = new Size(104, 15);
+            label1.TabIndex = 7;
+            label1.Text = "Tempo em aberto:";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
+            label1.Click += label1_Click;
             // 
             // lblValorLastUpdate
             // 
             lblValorLastUpdate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorLastUpdate.Location = new Point(152, 68);
+            lblValorLastUpdate.Location = new Point(152, 48);
             lblValorLastUpdate.Name = "lblValorLastUpdate";
             lblValorLastUpdate.Size = new Size(143, 14);
             lblValorLastUpdate.TabIndex = 6;
@@ -288,7 +314,7 @@
             // lblValorStatus
             // 
             lblValorStatus.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorStatus.Location = new Point(152, 38);
+            lblValorStatus.Location = new Point(152, 26);
             lblValorStatus.Name = "lblValorStatus";
             lblValorStatus.Size = new Size(143, 14);
             lblValorStatus.TabIndex = 5;
@@ -298,7 +324,7 @@
             // 
             lblDescSenderId.Anchor = AnchorStyles.Left;
             lblDescSenderId.AutoSize = true;
-            lblDescSenderId.Location = new Point(3, 7);
+            lblDescSenderId.Location = new Point(3, 3);
             lblDescSenderId.Name = "lblDescSenderId";
             lblDescSenderId.Size = new Size(81, 15);
             lblDescSenderId.TabIndex = 0;
@@ -309,7 +335,7 @@
             // 
             lblDescStatus.Anchor = AnchorStyles.Left;
             lblDescStatus.AutoSize = true;
-            lblDescStatus.Location = new Point(3, 37);
+            lblDescStatus.Location = new Point(3, 25);
             lblDescStatus.Name = "lblDescStatus";
             lblDescStatus.Size = new Size(42, 15);
             lblDescStatus.TabIndex = 1;
@@ -320,17 +346,17 @@
             // 
             lblDescLastUpdate.Anchor = AnchorStyles.Left;
             lblDescLastUpdate.AutoSize = true;
-            lblDescLastUpdate.Location = new Point(3, 67);
+            lblDescLastUpdate.Location = new Point(3, 47);
             lblDescLastUpdate.Name = "lblDescLastUpdate";
-            lblDescLastUpdate.Size = new Size(63, 15);
+            lblDescLastUpdate.Size = new Size(81, 15);
             lblDescLastUpdate.TabIndex = 2;
-            lblDescLastUpdate.Text = "Última At.:";
+            lblDescLastUpdate.Text = "Data abertura:";
             lblDescLastUpdate.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblValorSenderId
             // 
             lblValorSenderId.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorSenderId.Location = new Point(152, 8);
+            lblValorSenderId.Location = new Point(152, 4);
             lblValorSenderId.Name = "lblValorSenderId";
             lblValorSenderId.Size = new Size(143, 14);
             lblValorSenderId.TabIndex = 4;
@@ -360,7 +386,7 @@
             // 
             // listViewEncerradas
             // 
-            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus });
+            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus, colEncAberto });
             listViewEncerradas.Dock = DockStyle.Fill;
             listViewEncerradas.FullRowSelect = true;
             listViewEncerradas.GridLines = true;
@@ -389,6 +415,11 @@
             colEncStatus.Text = "Status";
             colEncStatus.Width = 120;
             // 
+            // colEncAberto
+            // 
+            colEncAberto.Tag = "colEncAberto";
+            colEncAberto.Text = "Tempo em aberto";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -398,6 +429,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Suporte engenharia - Controle";
             Load += Form1_Load;
             tabControlEngenharia.ResumeLayout(false);
@@ -452,5 +484,8 @@
         private ColumnHeader colEncLastUpdate;
         private ColumnHeader colEncStatus;
         private Button btnAtualizarEncerradas;
+        private Label label1;
+        private Label lblValorTempoAberto;
+        private ColumnHeader colEncAberto;
     }
 }
