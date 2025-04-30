@@ -325,6 +325,7 @@
             resources.ApplyResources(statusStrip1, "statusStrip1");
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelInfo, toolStripProgressBar });
             statusStrip1.Name = "statusStrip1";
+            statusStrip1.SizingGrip = false;
             // 
             // toolStripStatusLabelInfo
             // 
@@ -343,8 +344,8 @@
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(statusStrip1);
             Controls.Add(tabControlEngenharia);
+            Controls.Add(statusStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";

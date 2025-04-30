@@ -118,6 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="listViewAbertasParaFinalizar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>322, 332</value>
+  </data>
+  <data name="btnAtualizarAbertas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 268</value>
+  </data>
+  <data name="btnFinalizarSelecionada.Location" type="System.Drawing.Point, System.Drawing">
+    <value>215, 268</value>
+  </data>
+  <data name="splitContainerFinalizar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>683, 332</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>281, 269</value>
+  </data>
+  <data name="grpResumoAbertas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 136</value>
+  </data>
+  <data name="tabPageVisaoGeral.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 338</value>
+  </data>
+  <data name="tabPageFinalizar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 338</value>
+  </data>
+  <data name="btnAtualizarEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>524, 300</value>
+  </data>
+  <data name="listViewEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 338</value>
+  </data>
+  <data name="tabPageEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 338</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabControlEngenharia.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControlEngenharia.Size" type="System.Drawing.Size, System.Drawing">
+    <value>697, 366</value>
+  </data>
   <data name="toolStripStatusLabelInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>549, 17</value>
   </data>
