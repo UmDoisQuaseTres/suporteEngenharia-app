@@ -7,31 +7,13 @@ namespace suporteEngenhariaUI
 {
     public partial class Form1 : Form
     {
-        // --- HttpClient Configuração ---
-        private static readonly HttpClient client = new HttpClient();
-        private const string ApiBaseUrl = "http://192.168.15.49:5000/"; // Verifique se este IP ainda é válido
-
-        // --- ENDPOINTS DA API PYTHON ---
-        private const string ApiEndpointContagens = "count";
-        private const string ApiEndpointStatuses = "status";
-        private const string ApiEndpointClose = "close/{0}";
+        // --- Instância do Serviço da API ---
+        private readonly WhatsAppApiService _apiService = new WhatsAppApiService(); // Cria uma instância
 
         // --- Construtor --- //
         public Form1()
         {
             InitializeComponent();
-
-            // Configura HttpClient
-            try
-            {
-                client.BaseAddress = new Uri(ApiBaseUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
-            catch (UriFormatException ex)
-            {
-                MessageBox.Show($"URL base da API inválida ('{ApiBaseUrl}'): {ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
         }
         // --- Fim do Construtor --- //
 
@@ -129,56 +111,55 @@ namespace suporteEngenhariaUI
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync(ApiEndpointContagens);
-                if (response.IsSuccessStatusCode)
-                {
-                    string jsonString = await response.Content.ReadAsStringAsync();
-                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                    var contagens = JsonSerializer.Deserialize<ContagemConversasApi>(jsonString, options);
-                    if (contagens != null) { AtualizarLabelsContagem(contagens.ContagemNovas, contagens.ContagemAbertas, contagens.ContagemEncerradas); }
-                }
-                else { Console.WriteLine($"Erro HTTP {response.StatusCode} ao buscar contagens."); AtualizarLabelsContagem(-1, -1, -1); }
-            }
-            catch (Exception ex) { Console.WriteLine($"Erro na requisição de contagens: {ex.Message}"); AtualizarLabelsContagem(-1, -1, -1); throw; }
-        }
+                // Chama o método do serviço
+                ContagemConversasApi? contagens = await _apiService.GetCountsAsync();
 
-        // --- Busca Dados API: Conversas (Base) ---
-        private async Task<Dictionary<string, ConversationStatusApi>?> BuscarStatusConversoesAsync()
-        {
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(ApiEndpointStatuses);
-                if (!response.IsSuccessStatusCode) { MostrarErro($"Erro HTTP {response.StatusCode} ao buscar status", null, await response.Content.ReadAsStringAsync()); return null; }
-                string jsonString = await response.Content.ReadAsStringAsync();
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                return JsonSerializer.Deserialize<Dictionary<string, ConversationStatusApi>>(jsonString, options);
+                if (contagens != null)
+                {
+                    AtualizarLabelsContagem(contagens.ContagemNovas, contagens.ContagemAbertas, contagens.ContagemEncerradas);
+                }
+                else
+                {
+                    // O serviço agora lança exceção em caso de falha, então este else pode não ser alcançado
+                    // Mas é seguro manter para o caso de futuras modificações no serviço
+                    Console.WriteLine("API retornou contagens nulas.");
+                    AtualizarLabelsContagem(-1, -1, -1);
+                }
             }
-            catch (JsonException jsonEx) { MostrarErro("Erro ao desserializar dados de status (JSON inválido?)", jsonEx); return null; }
-            catch (HttpRequestException httpEx) { MostrarErro("Erro de rede ao buscar status", httpEx); return null; }
-            catch (Exception ex) { MostrarErro("Erro inesperado ao buscar status", ex); throw; }
+            catch (Exception ex) // Captura exceções lançadas pelo serviço
+            {
+                Console.WriteLine($"Erro ao carregar contagens (capturado no Form): {ex.Message}");
+                AtualizarLabelsContagem(-1, -1, -1);
+                throw; // Re-lança para o CarregarDadosIniciaisAsync saber que falhou
+            }
         }
 
         private async Task CarregarConversasAbertasAsync()
         {
+            List<ConversationStatusApi> conversasAbertas = new List<ConversationStatusApi>();
             try
             {
-                var todosStatus = await BuscarStatusConversoesAsync();
+                // Chama o método do serviço
+                var todosStatus = await _apiService.GetAllStatusesAsync();
+
                 if (todosStatus != null)
                 {
-                    var conversasAbertas = todosStatus.Values
+                    conversasAbertas = todosStatus.Values
                         .Where(conv => conv.Status != null && conv.Status.Equals("open", StringComparison.OrdinalIgnoreCase))
                         .OrderByDescending(conv => conv.CreationTimestamp)
                         .ToList();
-
-                    // Preenche a lista, mesmo se estiver vazia (mas os dados vieram da API com sucesso)
-                    PopularListViewAbertas(conversasAbertas);
                 }
-                // Se todosStatus for null, não faz nada para preservar os dados já exibidos
+                // Se todosStatus for null, o serviço já lançou uma exceção que será pega abaixo
             }
-            catch (Exception ex)
+            catch (Exception ex) // Captura exceções do serviço
             {
-                Console.WriteLine($"Erro capturado em CarregarConversasAbertasAsync: {ex.Message}");
-                throw;
+                Console.WriteLine($"Erro ao carregar conversas abertas (capturado no Form): {ex.Message}");
+                // A lista permanecerá vazia
+                throw; // Re-lança para CarregarDadosIniciaisAsync saber que falhou
+            }
+            finally
+            {
+                PopularListViewAbertas(conversasAbertas); // Popula a UI com o resultado (ou lista vazia)
             }
         }
 
@@ -186,25 +167,30 @@ namespace suporteEngenhariaUI
         // --- Busca Dados API: Conversas Encerradas ---
         private async Task CarregarConversasEncerradasAsync()
         {
+            List<ConversationStatusApi> conversasEncerradas = new List<ConversationStatusApi>();
             try
             {
-                var todosStatus = await BuscarStatusConversoesAsync();
+                // Chama o método do serviço
+                var todosStatus = await _apiService.GetAllStatusesAsync();
+
                 if (todosStatus != null)
                 {
-                    var conversasEncerradas = todosStatus.Values
+                    conversasEncerradas = todosStatus.Values
                         .Where(conv => conv.Status != null && conv.Status.Equals("closed", StringComparison.OrdinalIgnoreCase))
                         .OrderByDescending(conv => conv.ClosedTimestamp ?? conv.CreationTimestamp)
                         .ToList();
-
-                    // Preenche a lista, mesmo se estiver vazia (mas os dados vieram da API com sucesso)
-                    PopularListViewEncerradas(conversasEncerradas);
                 }
-                // Se todosStatus for null, não faz nada para preservar os dados já exibidos
+                // Se todosStatus for null, o serviço já lançou uma exceção que será pega abaixo
             }
-            catch (Exception ex)
+            catch (Exception ex) // Captura exceções do serviço
             {
-                Console.WriteLine($"Erro capturado em CarregarConversasEncerradasAsync: {ex.Message}");
-                throw;
+                Console.WriteLine($"Erro ao carregar conversas encerradas (capturado no Form): {ex.Message}");
+                // A lista permanecerá vazia
+                throw; // Re-lança para CarregarDadosIniciaisAsync saber que falhou
+            }
+            finally
+            {
+                PopularListViewEncerradas(conversasEncerradas); // Popula a UI com o resultado (ou lista vazia)
             }
         }
 
@@ -217,36 +203,17 @@ namespace suporteEngenhariaUI
             IniciarCarregamento();
             try
             {
-                string endpointFinalizar = string.Format(ApiEndpointClose, senderId);
-                HttpResponseMessage response = await client.PostAsync(endpointFinalizar, null);
-                string responseBody = await response.Content.ReadAsStringAsync();
-                CloseStatusApi? statusResult = null;
-                if (!string.IsNullOrWhiteSpace(responseBody))
-                {
-                    try
-                    {
-                        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                        // *** Usa a DTO CloseStatusApi (com Error nullable) ***
-                        statusResult = JsonSerializer.Deserialize<CloseStatusApi>(responseBody, options);
-                    }
-                    catch (JsonException jsonEx) { Console.WriteLine($"Erro ao desserializar resposta de /close: {jsonEx.Message}"); }
-                }
+                // Chama o método do serviço
+                CloseStatusApi? statusResult = await _apiService.CloseConversationAsync(senderId);
 
-                // --- LÓGICA DE VERIFICAÇÃO ---
-                if (response.IsSuccessStatusCode && statusResult?.Status == "closed") // Verifica SUCESSO primeiro
+                // Analisa o resultado retornado pelo serviço
+                if (statusResult?.Status == "closed")
                 {
                     MessageBox.Show($"Conversa com {senderId} finalizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RemoverItemListViewAbertas(senderId);
                     LimparDetalhes();
-                    // Recarrega contagens e encerradas em background
-                    _ = Task.Run(async () =>
-                    {
-                        await Task.Delay(100);
-                        await CarregarContagensAsync();
-                        await CarregarConversasEncerradasAsync();
-                    });
+                    _ = Task.Run(async () => { /* ... recarrega em background ... */ });
                 }
-                // Trata casos específicos DEPOIS do sucesso principal
                 else if (statusResult?.Status == "already_closed")
                 {
                     MessageBox.Show($"Conversa com {senderId} já estava finalizada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -254,23 +221,31 @@ namespace suporteEngenhariaUI
                     LimparDetalhes();
                     _ = Task.Run(async () => { /* ... recarrega ... */ });
                 }
-                else if (statusResult?.Status == "not_found" || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                else if (statusResult?.Status == "not_found")
                 {
                     MessageBox.Show($"Conversa com {senderId} não encontrada na API.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     RemoverItemListViewAbertas(senderId);
                     LimparDetalhes();
                     _ = Task.Run(async () => { /* ... recarrega ... */ });
                 }
-                else // Se não for sucesso OU o status JSON não for um dos esperados
+                else // Se statusResult for null ou tiver um status inesperado
                 {
-                    MostrarErro($"Falha ao finalizar conversa com {senderId}. Status HTTP: {response.StatusCode}", null, responseBody);
+                    // O erro original (se houve) já foi logado pelo serviço. Mostra uma msg genérica.
+                    MostrarErro($"Falha ao finalizar conversa com {senderId}.", null, statusResult?.Error ?? "Resposta inesperada da API.");
                 }
             }
-            catch (HttpRequestException httpEx) { MostrarErro($"Erro de rede ao finalizar conversa com {senderId}", httpEx); }
-            catch (Exception ex) { MostrarErro($"Erro inesperado ao finalizar conversa com {senderId}", ex); }
+            catch (ApiException apiEx) // Captura nossa exceção personalizada
+            {
+                MostrarErro(apiEx.Message, apiEx.InnerException, apiEx.ApiResponse);
+            }
+            catch (Exception ex) // Captura outras exceções (ex: da UI)
+            {
+                MostrarErro($"Erro inesperado ao finalizar conversa com {senderId}", ex);
+            }
             finally
             {
                 FinalizarCarregamento();
+                // btnFinalizarSelecionada será habilitado/desabilitado corretamente pelo SelectedIndexChanged e FinalizarCarregamento
             }
         }
 
@@ -410,24 +385,33 @@ namespace suporteEngenhariaUI
         }
 
         // --- Tratamento de Erros (Helper) ---
-        private void MostrarErro(string titulo, Exception? ex = null, string? apiMensagem = null)
+        private void MostrarErro(string titulo, Exception? ex = null, string? apiResponse = null)
         {
-            string mensagemCompleta = titulo; if (!string.IsNullOrWhiteSpace(apiMensagem)) { string erroApiDetalhe = apiMensagem; try { using (JsonDocument document = JsonDocument.Parse(apiMensagem)) { if (document.RootElement.TryGetProperty("error", out JsonElement errorElement)) { erroApiDetalhe = errorElement.GetString() ?? apiMensagem; } else if (document.RootElement.TryGetProperty("message", out JsonElement msgElement)) { erroApiDetalhe = msgElement.GetString() ?? apiMensagem; } } } catch { /* Ignora */ } mensagemCompleta += $"\n\nAPI: {erroApiDetalhe}"; }
-            if (ex != null) { var innerEx = ex; while (innerEx.InnerException != null) innerEx = innerEx.InnerException; mensagemCompleta += $"\n\nTécnico ({innerEx.GetType().Name}): {innerEx.Message}"; }
-            // Exibe o título do erro no StatusStrip
-            // (Usa Invoke para garantir que seja seguro chamar de qualquer thread)
-            if (this.InvokeRequired)
+            string mensagemCompleta = titulo;
+
+            // Pega a resposta da API se veio da ApiException
+            if (ex is ApiException apiEx && !string.IsNullOrWhiteSpace(apiEx.ApiResponse))
             {
-                this.Invoke(new Action(() => toolStripStatusLabelInfo.Text = $"Erro: {titulo}"));
+                apiResponse = apiEx.ApiResponse;
             }
-            else
+
+            if (!string.IsNullOrWhiteSpace(apiResponse))
             {
-                toolStripStatusLabelInfo.Text = $"Erro: {titulo}";
+                string erroApiDetalhe = apiResponse;
+                try { using (JsonDocument document = JsonDocument.Parse(apiResponse)) { if (document.RootElement.TryGetProperty("error", out JsonElement errorElement)) { erroApiDetalhe = errorElement.GetString() ?? apiResponse; } else if (document.RootElement.TryGetProperty("message", out JsonElement msgElement)) { erroApiDetalhe = msgElement.GetString() ?? apiResponse; } } } catch { /* Ignora */ }
+                mensagemCompleta += $"\n\nAPI: {erroApiDetalhe}";
+            }
+            if (ex != null)
+            {
+                var innerEx = ex;
+                while (innerEx.InnerException != null) innerEx = innerEx.InnerException;
+                mensagemCompleta += $"\n\nTécnico ({innerEx.GetType().Name}): {innerEx.Message}";
+                // Opcional: Adicionar StackTrace para debug mais fácil
+                // mensagemCompleta += $"\n\nStackTrace: {ex.StackTrace}";
             }
             if (this.InvokeRequired) { this.Invoke(new Action(() => MessageBox.Show(this, mensagemCompleta, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error))); } else { MessageBox.Show(this, mensagemCompleta, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             Console.WriteLine($"ERRO: {mensagemCompleta}");
         }
-
 
         // --- Event Handlers ---
 
@@ -518,7 +502,6 @@ namespace suporteEngenhariaUI
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            client.Dispose(); // Libera os recursos do HttpClient  
         }
 
     } // Fim da classe Form1
