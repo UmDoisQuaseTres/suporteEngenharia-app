@@ -43,6 +43,7 @@
             listViewAbertasParaFinalizar = new ListView();
             colLastUpdate = new ColumnHeader();
             colStatus = new ColumnHeader();
+            btnAtualizarAbertas = new Button();
             btnFinalizarSelecionada = new Button();
             grpDetalhesMensagem = new GroupBox();
             tableLayoutPanelDetalhes = new TableLayoutPanel();
@@ -60,8 +61,8 @@
             colEncSenderId = new ColumnHeader();
             colEncLastUpdate = new ColumnHeader();
             colEncStatus = new ColumnHeader();
-            colEncAberto = new ColumnHeader();
-            btnAtualizarAbertas = new Button();
+            colEncTempoAberto = new ColumnHeader();
+            colTempoDecorrido = new ColumnHeader();
             colSenderId = new ColumnHeader();
             tabControlEngenharia.SuspendLayout();
             tabPageVisaoGeral.SuspendLayout();
@@ -236,6 +237,17 @@
             colStatus.Text = "Status";
             colStatus.Width = 100;
             // 
+            // btnAtualizarAbertas
+            // 
+            btnAtualizarAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAtualizarAbertas.Location = new Point(20, 244);
+            btnAtualizarAbertas.Name = "btnAtualizarAbertas";
+            btnAtualizarAbertas.Size = new Size(136, 34);
+            btnAtualizarAbertas.TabIndex = 2;
+            btnAtualizarAbertas.Text = "Atualizar Abertas";
+            btnAtualizarAbertas.UseVisualStyleBackColor = true;
+            btnAtualizarAbertas.Click += btnAtualizarAbertas_Click;
+            // 
             // btnFinalizarSelecionada
             // 
             btnFinalizarSelecionada.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -291,6 +303,7 @@
             lblValorTempoAberto.Size = new Size(143, 14);
             lblValorTempoAberto.TabIndex = 8;
             lblValorTempoAberto.TextAlign = ContentAlignment.MiddleLeft;
+            lblValorTempoAberto.Click += lblValorTempoAberto_Click;
             // 
             // label1
             // 
@@ -382,13 +395,13 @@
             btnAtualizarEncerradas.Name = "btnAtualizarEncerradas";
             btnAtualizarEncerradas.Size = new Size(157, 30);
             btnAtualizarEncerradas.TabIndex = 1;
-            btnAtualizarEncerradas.Text = "Atualizar Lista Encerradas";
+            btnAtualizarEncerradas.Text = "Atualizar lista encerradas";
             btnAtualizarEncerradas.UseVisualStyleBackColor = true;
             btnAtualizarEncerradas.Click += btnAtualizarEncerradas_Click;
             // 
             // listViewEncerradas
             // 
-            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus, colEncAberto });
+            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus, colEncTempoAberto, colTempoDecorrido });
             listViewEncerradas.Dock = DockStyle.Fill;
             listViewEncerradas.FullRowSelect = true;
             listViewEncerradas.GridLines = true;
@@ -402,36 +415,32 @@
             // colEncSenderId
             // 
             colEncSenderId.Tag = "ID Remetente";
-            colEncSenderId.Text = "ID Remetente";
-            colEncSenderId.Width = 120;
+            colEncSenderId.Text = "Nº Cliente";
+            colEncSenderId.Width = 110;
             // 
             // colEncLastUpdate
             // 
             colEncLastUpdate.Tag = "Última Atualização";
-            colEncLastUpdate.Text = "Última Atualização";
+            colEncLastUpdate.Text = "Aberto em:";
             colEncLastUpdate.Width = 120;
             // 
             // colEncStatus
             // 
             colEncStatus.Tag = "Status";
             colEncStatus.Text = "Status";
-            colEncStatus.Width = 120;
+            colEncStatus.Width = 90;
             // 
-            // colEncAberto
+            // colEncTempoAberto
             // 
-            colEncAberto.Tag = "colEncAberto";
-            colEncAberto.Text = "Tempo em aberto";
+            colEncTempoAberto.Tag = "colEncTempoAberto";
+            colEncTempoAberto.Text = "Data fechamento";
+            colEncTempoAberto.Width = 110;
             // 
-            // btnAtualizarAbertas
+            // colTempoDecorrido
             // 
-            btnAtualizarAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnAtualizarAbertas.Location = new Point(20, 244);
-            btnAtualizarAbertas.Name = "btnAtualizarAbertas";
-            btnAtualizarAbertas.Size = new Size(136, 34);
-            btnAtualizarAbertas.TabIndex = 2;
-            btnAtualizarAbertas.Text = "Atualizar Abertas";
-            btnAtualizarAbertas.UseVisualStyleBackColor = true;
-            btnAtualizarAbertas.Click += btnAtualizarAbertas_Click;
+            colTempoDecorrido.Tag = "colTempoDecorrido";
+            colTempoDecorrido.Text = "Tempo em aberto";
+            colTempoDecorrido.Width = 110;
             // 
             // Form1
             // 
@@ -499,7 +508,8 @@
         private Button btnAtualizarEncerradas;
         private Label label1;
         private Label lblValorTempoAberto;
-        private ColumnHeader colEncAberto;
         private Button btnAtualizarAbertas;
+        private ColumnHeader colEncTempoAberto;
+        private ColumnHeader colTempoDecorrido;
     }
 }

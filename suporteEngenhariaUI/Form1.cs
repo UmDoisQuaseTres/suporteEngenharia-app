@@ -4,20 +4,20 @@ using System.Text; // Necessário para StringBuilder
 using System.Text.Json;
 
 
-namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
+namespace suporteEngenhariaUI
 {
-    public partial class Form1 : Form // Sua classe de formulário (PRIMEIRA classe no arquivo)
+    public partial class Form1 : Form
     {
         // --- HttpClient Configuração ---
         private static readonly HttpClient client = new HttpClient();
-        // !! AJUSTE A URL BASE SE NECESSÁRIO !!
         private const string ApiBaseUrl = "http://127.0.0.1:5000/";
+
         // --- ENDPOINTS DA API PYTHON ---
         private const string ApiEndpointContagens = "count"; // GET
         private const string ApiEndpointStatuses = "status"; // GET
         private const string ApiEndpointClose = "close/{0}"; // POST (com sender_id)
 
-        // --- Construtor ---
+        // --- Construtor --- //
         public Form1()
         {
             InitializeComponent();
@@ -34,12 +34,12 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
                 MessageBox.Show($"URL base da API inválida ('{ApiBaseUrl}'): {ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
+        // --- Fim do Construtor --- //
 
         // --- Evento Load ---
         private async void Form1_Load(object sender, EventArgs e)
         {
             LimparDetalhes();
-            // Não precisa desabilitar btnFinalizar aqui, LimparDetalhes já faz isso.
             await CarregarDadosIniciaisAsync();
         }
 
@@ -47,7 +47,6 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
         private async Task CarregarDadosIniciaisAsync()
         {
             IniciarCarregamento(); // Centraliza a lógica de início
-
             try
             {
                 await Task.WhenAll(
@@ -68,31 +67,36 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
         }
 
         // --- Métodos Auxiliares de Carregamento UI ---
+
+        //Inicia o carregamento de dados
+
         private void IniciarCarregamento()
         {
+            //Verifica qual thread esta rodando a UI
             if (this.InvokeRequired) { this.Invoke(new Action(IniciarCarregamento)); return; }
 
+            //Cursor de carregamento
             this.Cursor = Cursors.WaitCursor;
+
             // Desabilita botões de ação/atualização
             btnFinalizarSelecionada.Enabled = false;
             btnAtualizarEncerradas.Enabled = false;
             button1.Enabled = false;
 
-            // Limpa listas e detalhes
-            //listViewAbertasParaFinalizar.Items.Clear();
-            //listViewEncerradas.Items.Clear();
-            LimparDetalhes(); // Limpa painel de detalhes
+            // Limpa painel de detalhes
+            LimparDetalhes();
         }
 
+        //Finaliza carregamento de dados
         private void FinalizarCarregamento()
         {
+            //Verifica qual thread esta rodando a UI
             if (this.InvokeRequired) { this.Invoke(new Action(FinalizarCarregamento)); return; }
 
             this.Cursor = Cursors.Default;
             // Reabilita botões de atualização
             btnAtualizarEncerradas.Enabled = true;
             button1.Enabled = true;
-            // Botão Finalizar será reabilitado pelo SelectedIndexChanged se necessário
         }
 
         // --- Busca Dados API: Contagens ---
@@ -657,7 +661,7 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
             public required string Status { get; set; }
 
             [System.Text.Json.Serialization.JsonPropertyName("error")]
-            public required string Error { get; set; }
+            public string Error { get; set; }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -695,6 +699,11 @@ namespace suporteEngenhariaUI // Certifique-se que este é o namespace correto
                 if (botaoClicado != null) botaoClicado.Enabled = true;
                 // O botão Finalizar continuará desabilitado até uma nova seleção
             }
+        }
+
+        private void lblValorTempoAberto_Click(object sender, EventArgs e)
+        {
+
         }
     }
 } // Fim do namespace
