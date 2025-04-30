@@ -107,6 +107,8 @@ namespace suporteEngenhariaUI
             button1.Enabled = false;
             btnAtualizarAbertas.Enabled = false;
             LimparDetalhes(); // Limpa SÓ os detalhes
+            toolStripStatusLabelInfo.Text = "Carregando dados...";
+            toolStripProgressBar.Visible = true; // Mostra a barra de progresso
         }
 
         private void FinalizarCarregamento()
@@ -118,6 +120,8 @@ namespace suporteEngenhariaUI
             btnAtualizarAbertas.Enabled = true;
             // Habilita finalizar APENAS se algo estiver selecionado na lista de ABERTAS
             btnFinalizarSelecionada.Enabled = listViewAbertasParaFinalizar.SelectedItems.Count > 0;
+            toolStripStatusLabelInfo.Text = $"Pronto. Dados atualizados às {DateTime.Now:HH:mm:ss}";
+            toolStripProgressBar.Visible = false; // Esconde a barra de progresso
         }
 
         // --- Busca Dados API: Contagens ---
@@ -235,7 +239,8 @@ namespace suporteEngenhariaUI
                     RemoverItemListViewAbertas(senderId);
                     LimparDetalhes();
                     // Recarrega contagens e encerradas em background
-                    _ = Task.Run(async () => {
+                    _ = Task.Run(async () =>
+                    {
                         await Task.Delay(100);
                         await CarregarContagensAsync();
                         await CarregarConversasEncerradasAsync();
@@ -409,6 +414,16 @@ namespace suporteEngenhariaUI
         {
             string mensagemCompleta = titulo; if (!string.IsNullOrWhiteSpace(apiMensagem)) { string erroApiDetalhe = apiMensagem; try { using (JsonDocument document = JsonDocument.Parse(apiMensagem)) { if (document.RootElement.TryGetProperty("error", out JsonElement errorElement)) { erroApiDetalhe = errorElement.GetString() ?? apiMensagem; } else if (document.RootElement.TryGetProperty("message", out JsonElement msgElement)) { erroApiDetalhe = msgElement.GetString() ?? apiMensagem; } } } catch { /* Ignora */ } mensagemCompleta += $"\n\nAPI: {erroApiDetalhe}"; }
             if (ex != null) { var innerEx = ex; while (innerEx.InnerException != null) innerEx = innerEx.InnerException; mensagemCompleta += $"\n\nTécnico ({innerEx.GetType().Name}): {innerEx.Message}"; }
+            // Exibe o título do erro no StatusStrip
+            // (Usa Invoke para garantir que seja seguro chamar de qualquer thread)
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => toolStripStatusLabelInfo.Text = $"Erro: {titulo}"));
+            }
+            else
+            {
+                toolStripStatusLabelInfo.Text = $"Erro: {titulo}";
+            }
             if (this.InvokeRequired) { this.Invoke(new Action(() => MessageBox.Show(this, mensagemCompleta, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error))); } else { MessageBox.Show(this, mensagemCompleta, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             Console.WriteLine($"ERRO: {mensagemCompleta}");
         }
@@ -505,7 +520,6 @@ namespace suporteEngenhariaUI
             base.OnFormClosing(e);
             client.Dispose(); // Libera os recursos do HttpClient  
         }
-
 
     } // Fim da classe Form1
 

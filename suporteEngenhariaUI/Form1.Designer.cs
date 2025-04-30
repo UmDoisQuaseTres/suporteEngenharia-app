@@ -30,16 +30,6 @@
         {
             ColumnHeader colSenderId;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            tabControlEngenharia = new TabControl();
-            tabPageVisaoGeral = new TabPage();
-            button1 = new Button();
-            grpResumoEncerradas = new GroupBox();
-            lblContagemEncerradas = new Label();
-            grpResumoAbertas = new GroupBox();
-            lblContagemAbertas = new Label();
-            grpResumoNovas = new GroupBox();
-            lblContagemNovas = new Label();
-            tabPageFinalizar = new TabPage();
             splitContainerFinalizar = new SplitContainer();
             listViewAbertasParaFinalizar = new ListView();
             colLastUpdate = new ColumnHeader();
@@ -56,6 +46,16 @@
             lblDescStatus = new Label();
             lblDescLastUpdate = new Label();
             lblValorSenderId = new Label();
+            tabControlEngenharia = new TabControl();
+            tabPageVisaoGeral = new TabPage();
+            button1 = new Button();
+            grpResumoEncerradas = new GroupBox();
+            lblContagemEncerradas = new Label();
+            grpResumoAbertas = new GroupBox();
+            lblContagemAbertas = new Label();
+            grpResumoNovas = new GroupBox();
+            lblContagemNovas = new Label();
+            tabPageFinalizar = new TabPage();
             tabPageEncerradas = new TabPage();
             btnAtualizarEncerradas = new Button();
             listViewEncerradas = new ListView();
@@ -64,95 +64,30 @@
             colEncStatus = new ColumnHeader();
             colEncTempoAberto = new ColumnHeader();
             colTempoDecorrido = new ColumnHeader();
+            statusStrip1 = new StatusStrip();
+            toolStripStatusLabelInfo = new ToolStripStatusLabel();
+            toolStripProgressBar = new ToolStripProgressBar();
             colSenderId = new ColumnHeader();
-            tabControlEngenharia.SuspendLayout();
-            tabPageVisaoGeral.SuspendLayout();
-            grpResumoEncerradas.SuspendLayout();
-            grpResumoAbertas.SuspendLayout();
-            grpResumoNovas.SuspendLayout();
-            tabPageFinalizar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainerFinalizar).BeginInit();
             splitContainerFinalizar.Panel1.SuspendLayout();
             splitContainerFinalizar.Panel2.SuspendLayout();
             splitContainerFinalizar.SuspendLayout();
             grpDetalhesMensagem.SuspendLayout();
             tableLayoutPanelDetalhes.SuspendLayout();
+            tabControlEngenharia.SuspendLayout();
+            tabPageVisaoGeral.SuspendLayout();
+            grpResumoEncerradas.SuspendLayout();
+            grpResumoAbertas.SuspendLayout();
+            grpResumoNovas.SuspendLayout();
+            tabPageFinalizar.SuspendLayout();
             tabPageEncerradas.SuspendLayout();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // colSenderId
             // 
             colSenderId.Tag = "ID Remetente";
             resources.ApplyResources(colSenderId, "colSenderId");
-            // 
-            // tabControlEngenharia
-            // 
-            tabControlEngenharia.Controls.Add(tabPageVisaoGeral);
-            tabControlEngenharia.Controls.Add(tabPageFinalizar);
-            tabControlEngenharia.Controls.Add(tabPageEncerradas);
-            resources.ApplyResources(tabControlEngenharia, "tabControlEngenharia");
-            tabControlEngenharia.Name = "tabControlEngenharia";
-            tabControlEngenharia.SelectedIndex = 0;
-            // 
-            // tabPageVisaoGeral
-            // 
-            tabPageVisaoGeral.Controls.Add(button1);
-            tabPageVisaoGeral.Controls.Add(grpResumoEncerradas);
-            tabPageVisaoGeral.Controls.Add(grpResumoAbertas);
-            tabPageVisaoGeral.Controls.Add(grpResumoNovas);
-            resources.ApplyResources(tabPageVisaoGeral, "tabPageVisaoGeral");
-            tabPageVisaoGeral.Name = "tabPageVisaoGeral";
-            tabPageVisaoGeral.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            resources.ApplyResources(button1, "button1");
-            button1.Name = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // grpResumoEncerradas
-            // 
-            grpResumoEncerradas.Controls.Add(lblContagemEncerradas);
-            resources.ApplyResources(grpResumoEncerradas, "grpResumoEncerradas");
-            grpResumoEncerradas.Name = "grpResumoEncerradas";
-            grpResumoEncerradas.TabStop = false;
-            // 
-            // lblContagemEncerradas
-            // 
-            resources.ApplyResources(lblContagemEncerradas, "lblContagemEncerradas");
-            lblContagemEncerradas.Name = "lblContagemEncerradas";
-            // 
-            // grpResumoAbertas
-            // 
-            resources.ApplyResources(grpResumoAbertas, "grpResumoAbertas");
-            grpResumoAbertas.Controls.Add(lblContagemAbertas);
-            grpResumoAbertas.Name = "grpResumoAbertas";
-            grpResumoAbertas.TabStop = false;
-            // 
-            // lblContagemAbertas
-            // 
-            resources.ApplyResources(lblContagemAbertas, "lblContagemAbertas");
-            lblContagemAbertas.Name = "lblContagemAbertas";
-            // 
-            // grpResumoNovas
-            // 
-            grpResumoNovas.Controls.Add(lblContagemNovas);
-            resources.ApplyResources(grpResumoNovas, "grpResumoNovas");
-            grpResumoNovas.Name = "grpResumoNovas";
-            grpResumoNovas.TabStop = false;
-            // 
-            // lblContagemNovas
-            // 
-            resources.ApplyResources(lblContagemNovas, "lblContagemNovas");
-            lblContagemNovas.Name = "lblContagemNovas";
-            // 
-            // tabPageFinalizar
-            // 
-            tabPageFinalizar.Controls.Add(splitContainerFinalizar);
-            resources.ApplyResources(tabPageFinalizar, "tabPageFinalizar");
-            tabPageFinalizar.Name = "tabPageFinalizar";
-            tabPageFinalizar.UseVisualStyleBackColor = true;
             // 
             // splitContainerFinalizar
             // 
@@ -161,18 +96,20 @@
             // 
             // splitContainerFinalizar.Panel1
             // 
+            resources.ApplyResources(splitContainerFinalizar.Panel1, "splitContainerFinalizar.Panel1");
             splitContainerFinalizar.Panel1.Controls.Add(listViewAbertasParaFinalizar);
             // 
             // splitContainerFinalizar.Panel2
             // 
+            resources.ApplyResources(splitContainerFinalizar.Panel2, "splitContainerFinalizar.Panel2");
             splitContainerFinalizar.Panel2.Controls.Add(btnAtualizarAbertas);
             splitContainerFinalizar.Panel2.Controls.Add(btnFinalizarSelecionada);
             splitContainerFinalizar.Panel2.Controls.Add(grpDetalhesMensagem);
             // 
             // listViewAbertasParaFinalizar
             // 
-            listViewAbertasParaFinalizar.Columns.AddRange(new ColumnHeader[] { colSenderId, colLastUpdate, colStatus });
             resources.ApplyResources(listViewAbertasParaFinalizar, "listViewAbertasParaFinalizar");
+            listViewAbertasParaFinalizar.Columns.AddRange(new ColumnHeader[] { colSenderId, colLastUpdate, colStatus });
             listViewAbertasParaFinalizar.FullRowSelect = true;
             listViewAbertasParaFinalizar.GridLines = true;
             listViewAbertasParaFinalizar.Name = "listViewAbertasParaFinalizar";
@@ -206,8 +143,8 @@
             // 
             // grpDetalhesMensagem
             // 
-            grpDetalhesMensagem.Controls.Add(tableLayoutPanelDetalhes);
             resources.ApplyResources(grpDetalhesMensagem, "grpDetalhesMensagem");
+            grpDetalhesMensagem.Controls.Add(tableLayoutPanelDetalhes);
             grpDetalhesMensagem.Name = "grpDetalhesMensagem";
             grpDetalhesMensagem.TabStop = false;
             // 
@@ -264,11 +201,80 @@
             resources.ApplyResources(lblValorSenderId, "lblValorSenderId");
             lblValorSenderId.Name = "lblValorSenderId";
             // 
+            // tabControlEngenharia
+            // 
+            resources.ApplyResources(tabControlEngenharia, "tabControlEngenharia");
+            tabControlEngenharia.Controls.Add(tabPageVisaoGeral);
+            tabControlEngenharia.Controls.Add(tabPageFinalizar);
+            tabControlEngenharia.Controls.Add(tabPageEncerradas);
+            tabControlEngenharia.Name = "tabControlEngenharia";
+            tabControlEngenharia.SelectedIndex = 0;
+            // 
+            // tabPageVisaoGeral
+            // 
+            resources.ApplyResources(tabPageVisaoGeral, "tabPageVisaoGeral");
+            tabPageVisaoGeral.Controls.Add(button1);
+            tabPageVisaoGeral.Controls.Add(grpResumoEncerradas);
+            tabPageVisaoGeral.Controls.Add(grpResumoAbertas);
+            tabPageVisaoGeral.Controls.Add(grpResumoNovas);
+            tabPageVisaoGeral.Name = "tabPageVisaoGeral";
+            tabPageVisaoGeral.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(button1, "button1");
+            button1.Name = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // grpResumoEncerradas
+            // 
+            resources.ApplyResources(grpResumoEncerradas, "grpResumoEncerradas");
+            grpResumoEncerradas.Controls.Add(lblContagemEncerradas);
+            grpResumoEncerradas.Name = "grpResumoEncerradas";
+            grpResumoEncerradas.TabStop = false;
+            // 
+            // lblContagemEncerradas
+            // 
+            resources.ApplyResources(lblContagemEncerradas, "lblContagemEncerradas");
+            lblContagemEncerradas.Name = "lblContagemEncerradas";
+            // 
+            // grpResumoAbertas
+            // 
+            resources.ApplyResources(grpResumoAbertas, "grpResumoAbertas");
+            grpResumoAbertas.Controls.Add(lblContagemAbertas);
+            grpResumoAbertas.Name = "grpResumoAbertas";
+            grpResumoAbertas.TabStop = false;
+            // 
+            // lblContagemAbertas
+            // 
+            resources.ApplyResources(lblContagemAbertas, "lblContagemAbertas");
+            lblContagemAbertas.Name = "lblContagemAbertas";
+            // 
+            // grpResumoNovas
+            // 
+            resources.ApplyResources(grpResumoNovas, "grpResumoNovas");
+            grpResumoNovas.Controls.Add(lblContagemNovas);
+            grpResumoNovas.Name = "grpResumoNovas";
+            grpResumoNovas.TabStop = false;
+            // 
+            // lblContagemNovas
+            // 
+            resources.ApplyResources(lblContagemNovas, "lblContagemNovas");
+            lblContagemNovas.Name = "lblContagemNovas";
+            // 
+            // tabPageFinalizar
+            // 
+            resources.ApplyResources(tabPageFinalizar, "tabPageFinalizar");
+            tabPageFinalizar.Controls.Add(splitContainerFinalizar);
+            tabPageFinalizar.Name = "tabPageFinalizar";
+            tabPageFinalizar.UseVisualStyleBackColor = true;
+            // 
             // tabPageEncerradas
             // 
+            resources.ApplyResources(tabPageEncerradas, "tabPageEncerradas");
             tabPageEncerradas.Controls.Add(btnAtualizarEncerradas);
             tabPageEncerradas.Controls.Add(listViewEncerradas);
-            resources.ApplyResources(tabPageEncerradas, "tabPageEncerradas");
             tabPageEncerradas.Name = "tabPageEncerradas";
             tabPageEncerradas.UseVisualStyleBackColor = true;
             // 
@@ -281,8 +287,8 @@
             // 
             // listViewEncerradas
             // 
-            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus, colEncTempoAberto, colTempoDecorrido });
             resources.ApplyResources(listViewEncerradas, "listViewEncerradas");
+            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus, colEncTempoAberto, colTempoDecorrido });
             listViewEncerradas.FullRowSelect = true;
             listViewEncerradas.GridLines = true;
             listViewEncerradas.Name = "listViewEncerradas";
@@ -314,15 +320,42 @@
             colTempoDecorrido.Tag = "colTempoDecorrido";
             resources.ApplyResources(colTempoDecorrido, "colTempoDecorrido");
             // 
+            // statusStrip1
+            // 
+            resources.ApplyResources(statusStrip1, "statusStrip1");
+            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelInfo, toolStripProgressBar });
+            statusStrip1.Name = "statusStrip1";
+            // 
+            // toolStripStatusLabelInfo
+            // 
+            resources.ApplyResources(toolStripStatusLabelInfo, "toolStripStatusLabelInfo");
+            toolStripStatusLabelInfo.Name = "toolStripStatusLabelInfo";
+            toolStripStatusLabelInfo.Spring = true;
+            // 
+            // toolStripProgressBar
+            // 
+            resources.ApplyResources(toolStripProgressBar, "toolStripProgressBar");
+            toolStripProgressBar.Alignment = ToolStripItemAlignment.Right;
+            toolStripProgressBar.Name = "toolStripProgressBar";
+            toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(statusStrip1);
             Controls.Add(tabControlEngenharia);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
             Load += Form1_Load;
+            splitContainerFinalizar.Panel1.ResumeLayout(false);
+            splitContainerFinalizar.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerFinalizar).EndInit();
+            splitContainerFinalizar.ResumeLayout(false);
+            grpDetalhesMensagem.ResumeLayout(false);
+            tableLayoutPanelDetalhes.ResumeLayout(false);
+            tableLayoutPanelDetalhes.PerformLayout();
             tabControlEngenharia.ResumeLayout(false);
             tabPageVisaoGeral.ResumeLayout(false);
             grpResumoEncerradas.ResumeLayout(false);
@@ -332,15 +365,11 @@
             grpResumoNovas.ResumeLayout(false);
             grpResumoNovas.PerformLayout();
             tabPageFinalizar.ResumeLayout(false);
-            splitContainerFinalizar.Panel1.ResumeLayout(false);
-            splitContainerFinalizar.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainerFinalizar).EndInit();
-            splitContainerFinalizar.ResumeLayout(false);
-            grpDetalhesMensagem.ResumeLayout(false);
-            tableLayoutPanelDetalhes.ResumeLayout(false);
-            tableLayoutPanelDetalhes.PerformLayout();
             tabPageEncerradas.ResumeLayout(false);
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -380,5 +409,8 @@
         private Button btnAtualizarAbertas;
         private ColumnHeader colEncTempoAberto;
         private ColumnHeader colTempoDecorrido;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel toolStripStatusLabelInfo;
+        private ToolStripProgressBar toolStripProgressBar;
     }
 }
