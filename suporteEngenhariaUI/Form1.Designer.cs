@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             ColumnHeader colSenderId;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tabControlEngenharia = new TabControl();
             tabPageVisaoGeral = new TabPage();
             button1 = new Button();
@@ -82,20 +83,16 @@
             // colSenderId
             // 
             colSenderId.Tag = "ID Remetente";
-            colSenderId.Text = "Cliente";
-            colSenderId.Width = 100;
+            resources.ApplyResources(colSenderId, "colSenderId");
             // 
             // tabControlEngenharia
             // 
             tabControlEngenharia.Controls.Add(tabPageVisaoGeral);
             tabControlEngenharia.Controls.Add(tabPageFinalizar);
             tabControlEngenharia.Controls.Add(tabPageEncerradas);
-            tabControlEngenharia.Dock = DockStyle.Fill;
-            tabControlEngenharia.Location = new Point(0, 0);
+            resources.ApplyResources(tabControlEngenharia, "tabControlEngenharia");
             tabControlEngenharia.Name = "tabControlEngenharia";
             tabControlEngenharia.SelectedIndex = 0;
-            tabControlEngenharia.Size = new Size(697, 388);
-            tabControlEngenharia.TabIndex = 0;
             // 
             // tabPageVisaoGeral
             // 
@@ -103,102 +100,63 @@
             tabPageVisaoGeral.Controls.Add(grpResumoEncerradas);
             tabPageVisaoGeral.Controls.Add(grpResumoAbertas);
             tabPageVisaoGeral.Controls.Add(grpResumoNovas);
-            tabPageVisaoGeral.Location = new Point(4, 24);
+            resources.ApplyResources(tabPageVisaoGeral, "tabPageVisaoGeral");
             tabPageVisaoGeral.Name = "tabPageVisaoGeral";
-            tabPageVisaoGeral.Padding = new Padding(3);
-            tabPageVisaoGeral.Size = new Size(689, 360);
-            tabPageVisaoGeral.TabIndex = 0;
-            tabPageVisaoGeral.Text = "Visão geral";
             tabPageVisaoGeral.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button1.Location = new Point(281, 264);
+            resources.ApplyResources(button1, "button1");
             button1.Name = "button1";
-            button1.Size = new Size(119, 40);
-            button1.TabIndex = 3;
-            button1.Text = "Atualizar";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // grpResumoEncerradas
             // 
             grpResumoEncerradas.Controls.Add(lblContagemEncerradas);
-            grpResumoEncerradas.Location = new Point(433, 6);
+            resources.ApplyResources(grpResumoEncerradas, "grpResumoEncerradas");
             grpResumoEncerradas.Name = "grpResumoEncerradas";
-            grpResumoEncerradas.Size = new Size(248, 100);
-            grpResumoEncerradas.TabIndex = 2;
             grpResumoEncerradas.TabStop = false;
-            grpResumoEncerradas.Text = "Mensagens encerradas";
             // 
             // lblContagemEncerradas
             // 
-            lblContagemEncerradas.AutoSize = true;
-            lblContagemEncerradas.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblContagemEncerradas.Location = new Point(79, 41);
+            resources.ApplyResources(lblContagemEncerradas, "lblContagemEncerradas");
             lblContagemEncerradas.Name = "lblContagemEncerradas";
-            lblContagemEncerradas.Size = new Size(110, 21);
-            lblContagemEncerradas.TabIndex = 1;
-            lblContagemEncerradas.Text = "Encerradas: 0";
             // 
             // grpResumoAbertas
             // 
-            grpResumoAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(grpResumoAbertas, "grpResumoAbertas");
             grpResumoAbertas.Controls.Add(lblContagemAbertas);
-            grpResumoAbertas.Location = new Point(224, 158);
             grpResumoAbertas.Name = "grpResumoAbertas";
-            grpResumoAbertas.Size = new Size(248, 100);
-            grpResumoAbertas.TabIndex = 1;
             grpResumoAbertas.TabStop = false;
-            grpResumoAbertas.Text = "Mensagens em aberto";
             // 
             // lblContagemAbertas
             // 
-            lblContagemAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lblContagemAbertas.AutoSize = true;
-            lblContagemAbertas.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblContagemAbertas.Location = new Point(71, 42);
+            resources.ApplyResources(lblContagemAbertas, "lblContagemAbertas");
             lblContagemAbertas.Name = "lblContagemAbertas";
-            lblContagemAbertas.Size = new Size(105, 21);
-            lblContagemAbertas.TabIndex = 1;
-            lblContagemAbertas.Text = "Em aberto: 0";
             // 
             // grpResumoNovas
             // 
             grpResumoNovas.Controls.Add(lblContagemNovas);
-            grpResumoNovas.Location = new Point(8, 6);
+            resources.ApplyResources(grpResumoNovas, "grpResumoNovas");
             grpResumoNovas.Name = "grpResumoNovas";
-            grpResumoNovas.Size = new Size(248, 100);
-            grpResumoNovas.TabIndex = 0;
             grpResumoNovas.TabStop = false;
-            grpResumoNovas.Text = "Novas mensagens";
             // 
             // lblContagemNovas
             // 
-            lblContagemNovas.AutoSize = true;
-            lblContagemNovas.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblContagemNovas.Location = new Point(78, 41);
+            resources.ApplyResources(lblContagemNovas, "lblContagemNovas");
             lblContagemNovas.Name = "lblContagemNovas";
-            lblContagemNovas.Size = new Size(75, 21);
-            lblContagemNovas.TabIndex = 0;
-            lblContagemNovas.Text = "Novas: 0";
             // 
             // tabPageFinalizar
             // 
             tabPageFinalizar.Controls.Add(splitContainerFinalizar);
-            tabPageFinalizar.Location = new Point(4, 24);
+            resources.ApplyResources(tabPageFinalizar, "tabPageFinalizar");
             tabPageFinalizar.Name = "tabPageFinalizar";
-            tabPageFinalizar.Padding = new Padding(3);
-            tabPageFinalizar.Size = new Size(689, 360);
-            tabPageFinalizar.TabIndex = 1;
-            tabPageFinalizar.Text = "Conversas abertas";
             tabPageFinalizar.UseVisualStyleBackColor = true;
             // 
             // splitContainerFinalizar
             // 
-            splitContainerFinalizar.Dock = DockStyle.Fill;
-            splitContainerFinalizar.Location = new Point(3, 3);
+            resources.ApplyResources(splitContainerFinalizar, "splitContainerFinalizar");
             splitContainerFinalizar.Name = "splitContainerFinalizar";
             // 
             // splitContainerFinalizar.Panel1
@@ -210,20 +168,14 @@
             splitContainerFinalizar.Panel2.Controls.Add(btnAtualizarAbertas);
             splitContainerFinalizar.Panel2.Controls.Add(btnFinalizarSelecionada);
             splitContainerFinalizar.Panel2.Controls.Add(grpDetalhesMensagem);
-            splitContainerFinalizar.Size = new Size(683, 354);
-            splitContainerFinalizar.SplitterDistance = 322;
-            splitContainerFinalizar.TabIndex = 0;
             // 
             // listViewAbertasParaFinalizar
             // 
             listViewAbertasParaFinalizar.Columns.AddRange(new ColumnHeader[] { colSenderId, colLastUpdate, colStatus });
-            listViewAbertasParaFinalizar.Dock = DockStyle.Fill;
+            resources.ApplyResources(listViewAbertasParaFinalizar, "listViewAbertasParaFinalizar");
             listViewAbertasParaFinalizar.FullRowSelect = true;
             listViewAbertasParaFinalizar.GridLines = true;
-            listViewAbertasParaFinalizar.Location = new Point(0, 0);
             listViewAbertasParaFinalizar.Name = "listViewAbertasParaFinalizar";
-            listViewAbertasParaFinalizar.Size = new Size(322, 354);
-            listViewAbertasParaFinalizar.TabIndex = 0;
             listViewAbertasParaFinalizar.UseCompatibleStateImageBehavior = false;
             listViewAbertasParaFinalizar.View = View.Details;
             listViewAbertasParaFinalizar.SelectedIndexChanged += listViewAbertasParaFinalizar_SelectedIndexChanged;
@@ -231,54 +183,37 @@
             // colLastUpdate
             // 
             colLastUpdate.Tag = "Data de inicio";
-            colLastUpdate.Text = "Data de inicio";
-            colLastUpdate.Width = 100;
+            resources.ApplyResources(colLastUpdate, "colLastUpdate");
             // 
             // colStatus
             // 
             colStatus.Tag = "Status";
-            colStatus.Text = "Status";
-            colStatus.Width = 100;
+            resources.ApplyResources(colStatus, "colStatus");
             // 
             // btnAtualizarAbertas
             // 
-            btnAtualizarAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnAtualizarAbertas.Location = new Point(20, 315);
+            resources.ApplyResources(btnAtualizarAbertas, "btnAtualizarAbertas");
             btnAtualizarAbertas.Name = "btnAtualizarAbertas";
-            btnAtualizarAbertas.Size = new Size(136, 34);
-            btnAtualizarAbertas.TabIndex = 2;
-            btnAtualizarAbertas.Text = "Atualizar abertas";
             btnAtualizarAbertas.UseVisualStyleBackColor = true;
             btnAtualizarAbertas.Click += btnAtualizarAbertas_Click;
             // 
             // btnFinalizarSelecionada
             // 
-            btnFinalizarSelecionada.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnFinalizarSelecionada.Enabled = false;
-            btnFinalizarSelecionada.Location = new Point(215, 315);
+            resources.ApplyResources(btnFinalizarSelecionada, "btnFinalizarSelecionada");
             btnFinalizarSelecionada.Name = "btnFinalizarSelecionada";
-            btnFinalizarSelecionada.Size = new Size(137, 34);
-            btnFinalizarSelecionada.TabIndex = 1;
-            btnFinalizarSelecionada.Text = "Finalizar selecionada(s)";
             btnFinalizarSelecionada.UseVisualStyleBackColor = true;
             btnFinalizarSelecionada.Click += btnFinalizarSelecionada_Click;
             // 
             // grpDetalhesMensagem
             // 
             grpDetalhesMensagem.Controls.Add(tableLayoutPanelDetalhes);
-            grpDetalhesMensagem.Dock = DockStyle.Top;
-            grpDetalhesMensagem.Location = new Point(0, 0);
+            resources.ApplyResources(grpDetalhesMensagem, "grpDetalhesMensagem");
             grpDetalhesMensagem.Name = "grpDetalhesMensagem";
-            grpDetalhesMensagem.Size = new Size(357, 112);
-            grpDetalhesMensagem.TabIndex = 0;
             grpDetalhesMensagem.TabStop = false;
-            grpDetalhesMensagem.Text = "Detalhes da mensagem selecionada";
             // 
             // tableLayoutPanelDetalhes
             // 
-            tableLayoutPanelDetalhes.ColumnCount = 2;
-            tableLayoutPanelDetalhes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelDetalhes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            resources.ApplyResources(tableLayoutPanelDetalhes, "tableLayoutPanelDetalhes");
             tableLayoutPanelDetalhes.Controls.Add(lblValorTempoAberto, 1, 3);
             tableLayoutPanelDetalhes.Controls.Add(label1, 0, 3);
             tableLayoutPanelDetalhes.Controls.Add(lblValorLastUpdate, 1, 2);
@@ -287,175 +222,106 @@
             tableLayoutPanelDetalhes.Controls.Add(lblDescStatus, 0, 1);
             tableLayoutPanelDetalhes.Controls.Add(lblDescLastUpdate, 0, 2);
             tableLayoutPanelDetalhes.Controls.Add(lblValorSenderId, 1, 0);
-            tableLayoutPanelDetalhes.Dock = DockStyle.Fill;
-            tableLayoutPanelDetalhes.Location = new Point(3, 19);
             tableLayoutPanelDetalhes.Name = "tableLayoutPanelDetalhes";
-            tableLayoutPanelDetalhes.RowCount = 4;
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006218F));
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006275F));
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006256F));
-            tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 24.9981251F));
-            tableLayoutPanelDetalhes.Size = new Size(351, 90);
-            tableLayoutPanelDetalhes.TabIndex = 0;
             // 
             // lblValorTempoAberto
             // 
-            lblValorTempoAberto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorTempoAberto.Location = new Point(178, 71);
+            resources.ApplyResources(lblValorTempoAberto, "lblValorTempoAberto");
             lblValorTempoAberto.Name = "lblValorTempoAberto";
-            lblValorTempoAberto.Size = new Size(170, 14);
-            lblValorTempoAberto.TabIndex = 8;
-            lblValorTempoAberto.TextAlign = ContentAlignment.MiddleLeft;
-            lblValorTempoAberto.Click += lblValorTempoAberto_Click;
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Location = new Point(3, 70);
+            resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Size = new Size(104, 15);
-            label1.TabIndex = 7;
-            label1.Text = "Tempo em aberto:";
-            label1.TextAlign = ContentAlignment.MiddleLeft;
-            label1.Click += label1_Click;
             // 
             // lblValorLastUpdate
             // 
-            lblValorLastUpdate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorLastUpdate.Location = new Point(178, 48);
+            resources.ApplyResources(lblValorLastUpdate, "lblValorLastUpdate");
             lblValorLastUpdate.Name = "lblValorLastUpdate";
-            lblValorLastUpdate.Size = new Size(170, 14);
-            lblValorLastUpdate.TabIndex = 6;
-            lblValorLastUpdate.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblValorStatus
             // 
-            lblValorStatus.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorStatus.Location = new Point(178, 26);
+            resources.ApplyResources(lblValorStatus, "lblValorStatus");
             lblValorStatus.Name = "lblValorStatus";
-            lblValorStatus.Size = new Size(170, 14);
-            lblValorStatus.TabIndex = 5;
-            lblValorStatus.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblDescSenderId
             // 
-            lblDescSenderId.Anchor = AnchorStyles.Left;
-            lblDescSenderId.AutoSize = true;
-            lblDescSenderId.Location = new Point(3, 3);
+            resources.ApplyResources(lblDescSenderId, "lblDescSenderId");
             lblDescSenderId.Name = "lblDescSenderId";
-            lblDescSenderId.Size = new Size(81, 15);
-            lblDescSenderId.TabIndex = 0;
-            lblDescSenderId.Text = "Remetente ID:";
-            lblDescSenderId.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblDescStatus
             // 
-            lblDescStatus.Anchor = AnchorStyles.Left;
-            lblDescStatus.AutoSize = true;
-            lblDescStatus.Location = new Point(3, 25);
+            resources.ApplyResources(lblDescStatus, "lblDescStatus");
             lblDescStatus.Name = "lblDescStatus";
-            lblDescStatus.Size = new Size(42, 15);
-            lblDescStatus.TabIndex = 1;
-            lblDescStatus.Text = "Status:";
-            lblDescStatus.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblDescLastUpdate
             // 
-            lblDescLastUpdate.Anchor = AnchorStyles.Left;
-            lblDescLastUpdate.AutoSize = true;
-            lblDescLastUpdate.Location = new Point(3, 47);
+            resources.ApplyResources(lblDescLastUpdate, "lblDescLastUpdate");
             lblDescLastUpdate.Name = "lblDescLastUpdate";
-            lblDescLastUpdate.Size = new Size(81, 15);
-            lblDescLastUpdate.TabIndex = 2;
-            lblDescLastUpdate.Text = "Data abertura:";
-            lblDescLastUpdate.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblValorSenderId
             // 
-            lblValorSenderId.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorSenderId.Location = new Point(178, 4);
+            resources.ApplyResources(lblValorSenderId, "lblValorSenderId");
             lblValorSenderId.Name = "lblValorSenderId";
-            lblValorSenderId.Size = new Size(170, 14);
-            lblValorSenderId.TabIndex = 4;
-            lblValorSenderId.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tabPageEncerradas
             // 
             tabPageEncerradas.Controls.Add(btnAtualizarEncerradas);
             tabPageEncerradas.Controls.Add(listViewEncerradas);
-            tabPageEncerradas.Location = new Point(4, 24);
+            resources.ApplyResources(tabPageEncerradas, "tabPageEncerradas");
             tabPageEncerradas.Name = "tabPageEncerradas";
-            tabPageEncerradas.Size = new Size(689, 360);
-            tabPageEncerradas.TabIndex = 2;
-            tabPageEncerradas.Text = "Conversas finalizadas";
             tabPageEncerradas.UseVisualStyleBackColor = true;
             // 
             // btnAtualizarEncerradas
             // 
-            btnAtualizarEncerradas.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnAtualizarEncerradas.Location = new Point(524, 322);
+            resources.ApplyResources(btnAtualizarEncerradas, "btnAtualizarEncerradas");
             btnAtualizarEncerradas.Name = "btnAtualizarEncerradas";
-            btnAtualizarEncerradas.Size = new Size(157, 30);
-            btnAtualizarEncerradas.TabIndex = 1;
-            btnAtualizarEncerradas.Text = "Atualizar lista encerradas";
             btnAtualizarEncerradas.UseVisualStyleBackColor = true;
             btnAtualizarEncerradas.Click += btnAtualizarEncerradas_Click;
             // 
             // listViewEncerradas
             // 
             listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus, colEncTempoAberto, colTempoDecorrido });
-            listViewEncerradas.Dock = DockStyle.Fill;
+            resources.ApplyResources(listViewEncerradas, "listViewEncerradas");
             listViewEncerradas.FullRowSelect = true;
             listViewEncerradas.GridLines = true;
-            listViewEncerradas.Location = new Point(0, 0);
             listViewEncerradas.Name = "listViewEncerradas";
-            listViewEncerradas.Size = new Size(689, 360);
-            listViewEncerradas.TabIndex = 0;
             listViewEncerradas.UseCompatibleStateImageBehavior = false;
             listViewEncerradas.View = View.Details;
             // 
             // colEncSenderId
             // 
             colEncSenderId.Tag = "ID Remetente";
-            colEncSenderId.Text = "Nº Cliente";
-            colEncSenderId.Width = 110;
+            resources.ApplyResources(colEncSenderId, "colEncSenderId");
             // 
             // colEncLastUpdate
             // 
             colEncLastUpdate.Tag = "Última Atualização";
-            colEncLastUpdate.Text = "Aberto em";
-            colEncLastUpdate.Width = 120;
+            resources.ApplyResources(colEncLastUpdate, "colEncLastUpdate");
             // 
             // colEncStatus
             // 
             colEncStatus.Tag = "Status";
-            colEncStatus.Text = "Status";
-            colEncStatus.Width = 90;
+            resources.ApplyResources(colEncStatus, "colEncStatus");
             // 
             // colEncTempoAberto
             // 
             colEncTempoAberto.Tag = "colEncTempoAberto";
-            colEncTempoAberto.Text = "Data fechamento";
-            colEncTempoAberto.Width = 110;
+            resources.ApplyResources(colEncTempoAberto, "colEncTempoAberto");
             // 
             // colTempoDecorrido
             // 
             colTempoDecorrido.Tag = "colTempoDecorrido";
-            colTempoDecorrido.Text = "Tempo em aberto";
-            colTempoDecorrido.Width = 110;
+            resources.ApplyResources(colTempoDecorrido, "colTempoDecorrido");
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(697, 388);
             Controls.Add(tabControlEngenharia);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Suporte engenharia - Controle";
             Load += Form1_Load;
             tabControlEngenharia.ResumeLayout(false);
             tabPageVisaoGeral.ResumeLayout(false);
