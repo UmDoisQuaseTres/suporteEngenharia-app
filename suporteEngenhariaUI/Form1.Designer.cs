@@ -82,7 +82,7 @@
             // colSenderId
             // 
             colSenderId.Tag = "ID Remetente";
-            colSenderId.Text = "Nº Remetente";
+            colSenderId.Text = "Cliente";
             colSenderId.Width = 100;
             // 
             // tabControlEngenharia
@@ -94,7 +94,7 @@
             tabControlEngenharia.Location = new Point(0, 0);
             tabControlEngenharia.Name = "tabControlEngenharia";
             tabControlEngenharia.SelectedIndex = 0;
-            tabControlEngenharia.Size = new Size(597, 317);
+            tabControlEngenharia.Size = new Size(697, 388);
             tabControlEngenharia.TabIndex = 0;
             // 
             // tabPageVisaoGeral
@@ -106,14 +106,15 @@
             tabPageVisaoGeral.Location = new Point(4, 24);
             tabPageVisaoGeral.Name = "tabPageVisaoGeral";
             tabPageVisaoGeral.Padding = new Padding(3);
-            tabPageVisaoGeral.Size = new Size(589, 289);
+            tabPageVisaoGeral.Size = new Size(689, 360);
             tabPageVisaoGeral.TabIndex = 0;
             tabPageVisaoGeral.Text = "Visão geral";
             tabPageVisaoGeral.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            button1.Location = new Point(391, 231);
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            button1.Location = new Point(281, 264);
             button1.Name = "button1";
             button1.Size = new Size(119, 40);
             button1.TabIndex = 3;
@@ -124,7 +125,7 @@
             // grpResumoEncerradas
             // 
             grpResumoEncerradas.Controls.Add(lblContagemEncerradas);
-            grpResumoEncerradas.Location = new Point(333, 71);
+            grpResumoEncerradas.Location = new Point(433, 6);
             grpResumoEncerradas.Name = "grpResumoEncerradas";
             grpResumoEncerradas.Size = new Size(248, 100);
             grpResumoEncerradas.TabIndex = 2;
@@ -135,7 +136,7 @@
             // 
             lblContagemEncerradas.AutoSize = true;
             lblContagemEncerradas.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblContagemEncerradas.Location = new Point(6, 19);
+            lblContagemEncerradas.Location = new Point(79, 41);
             lblContagemEncerradas.Name = "lblContagemEncerradas";
             lblContagemEncerradas.Size = new Size(110, 21);
             lblContagemEncerradas.TabIndex = 1;
@@ -143,8 +144,9 @@
             // 
             // grpResumoAbertas
             // 
+            grpResumoAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grpResumoAbertas.Controls.Add(lblContagemAbertas);
-            grpResumoAbertas.Location = new Point(8, 112);
+            grpResumoAbertas.Location = new Point(224, 158);
             grpResumoAbertas.Name = "grpResumoAbertas";
             grpResumoAbertas.Size = new Size(248, 100);
             grpResumoAbertas.TabIndex = 1;
@@ -153,9 +155,10 @@
             // 
             // lblContagemAbertas
             // 
+            lblContagemAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblContagemAbertas.AutoSize = true;
             lblContagemAbertas.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblContagemAbertas.Location = new Point(6, 19);
+            lblContagemAbertas.Location = new Point(71, 42);
             lblContagemAbertas.Name = "lblContagemAbertas";
             lblContagemAbertas.Size = new Size(105, 21);
             lblContagemAbertas.TabIndex = 1;
@@ -175,7 +178,7 @@
             // 
             lblContagemNovas.AutoSize = true;
             lblContagemNovas.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblContagemNovas.Location = new Point(10, 21);
+            lblContagemNovas.Location = new Point(78, 41);
             lblContagemNovas.Name = "lblContagemNovas";
             lblContagemNovas.Size = new Size(75, 21);
             lblContagemNovas.TabIndex = 0;
@@ -187,7 +190,7 @@
             tabPageFinalizar.Location = new Point(4, 24);
             tabPageFinalizar.Name = "tabPageFinalizar";
             tabPageFinalizar.Padding = new Padding(3);
-            tabPageFinalizar.Size = new Size(589, 289);
+            tabPageFinalizar.Size = new Size(689, 360);
             tabPageFinalizar.TabIndex = 1;
             tabPageFinalizar.Text = "Conversas abertas";
             tabPageFinalizar.UseVisualStyleBackColor = true;
@@ -207,8 +210,8 @@
             splitContainerFinalizar.Panel2.Controls.Add(btnAtualizarAbertas);
             splitContainerFinalizar.Panel2.Controls.Add(btnFinalizarSelecionada);
             splitContainerFinalizar.Panel2.Controls.Add(grpDetalhesMensagem);
-            splitContainerFinalizar.Size = new Size(583, 283);
-            splitContainerFinalizar.SplitterDistance = 275;
+            splitContainerFinalizar.Size = new Size(683, 354);
+            splitContainerFinalizar.SplitterDistance = 322;
             splitContainerFinalizar.TabIndex = 0;
             // 
             // listViewAbertasParaFinalizar
@@ -219,7 +222,7 @@
             listViewAbertasParaFinalizar.GridLines = true;
             listViewAbertasParaFinalizar.Location = new Point(0, 0);
             listViewAbertasParaFinalizar.Name = "listViewAbertasParaFinalizar";
-            listViewAbertasParaFinalizar.Size = new Size(275, 283);
+            listViewAbertasParaFinalizar.Size = new Size(322, 354);
             listViewAbertasParaFinalizar.TabIndex = 0;
             listViewAbertasParaFinalizar.UseCompatibleStateImageBehavior = false;
             listViewAbertasParaFinalizar.View = View.Details;
@@ -240,11 +243,11 @@
             // btnAtualizarAbertas
             // 
             btnAtualizarAbertas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnAtualizarAbertas.Location = new Point(20, 244);
+            btnAtualizarAbertas.Location = new Point(20, 315);
             btnAtualizarAbertas.Name = "btnAtualizarAbertas";
             btnAtualizarAbertas.Size = new Size(136, 34);
             btnAtualizarAbertas.TabIndex = 2;
-            btnAtualizarAbertas.Text = "Atualizar Abertas";
+            btnAtualizarAbertas.Text = "Atualizar abertas";
             btnAtualizarAbertas.UseVisualStyleBackColor = true;
             btnAtualizarAbertas.Click += btnAtualizarAbertas_Click;
             // 
@@ -252,7 +255,7 @@
             // 
             btnFinalizarSelecionada.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnFinalizarSelecionada.Enabled = false;
-            btnFinalizarSelecionada.Location = new Point(162, 244);
+            btnFinalizarSelecionada.Location = new Point(215, 315);
             btnFinalizarSelecionada.Name = "btnFinalizarSelecionada";
             btnFinalizarSelecionada.Size = new Size(137, 34);
             btnFinalizarSelecionada.TabIndex = 1;
@@ -266,7 +269,7 @@
             grpDetalhesMensagem.Dock = DockStyle.Top;
             grpDetalhesMensagem.Location = new Point(0, 0);
             grpDetalhesMensagem.Name = "grpDetalhesMensagem";
-            grpDetalhesMensagem.Size = new Size(304, 112);
+            grpDetalhesMensagem.Size = new Size(357, 112);
             grpDetalhesMensagem.TabIndex = 0;
             grpDetalhesMensagem.TabStop = false;
             grpDetalhesMensagem.Text = "Detalhes da mensagem selecionada";
@@ -292,15 +295,15 @@
             tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006275F));
             tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 25.0006256F));
             tableLayoutPanelDetalhes.RowStyles.Add(new RowStyle(SizeType.Percent, 24.9981251F));
-            tableLayoutPanelDetalhes.Size = new Size(298, 90);
+            tableLayoutPanelDetalhes.Size = new Size(351, 90);
             tableLayoutPanelDetalhes.TabIndex = 0;
             // 
             // lblValorTempoAberto
             // 
             lblValorTempoAberto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorTempoAberto.Location = new Point(152, 71);
+            lblValorTempoAberto.Location = new Point(178, 71);
             lblValorTempoAberto.Name = "lblValorTempoAberto";
-            lblValorTempoAberto.Size = new Size(143, 14);
+            lblValorTempoAberto.Size = new Size(170, 14);
             lblValorTempoAberto.TabIndex = 8;
             lblValorTempoAberto.TextAlign = ContentAlignment.MiddleLeft;
             lblValorTempoAberto.Click += lblValorTempoAberto_Click;
@@ -320,18 +323,18 @@
             // lblValorLastUpdate
             // 
             lblValorLastUpdate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorLastUpdate.Location = new Point(152, 48);
+            lblValorLastUpdate.Location = new Point(178, 48);
             lblValorLastUpdate.Name = "lblValorLastUpdate";
-            lblValorLastUpdate.Size = new Size(143, 14);
+            lblValorLastUpdate.Size = new Size(170, 14);
             lblValorLastUpdate.TabIndex = 6;
             lblValorLastUpdate.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblValorStatus
             // 
             lblValorStatus.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorStatus.Location = new Point(152, 26);
+            lblValorStatus.Location = new Point(178, 26);
             lblValorStatus.Name = "lblValorStatus";
-            lblValorStatus.Size = new Size(143, 14);
+            lblValorStatus.Size = new Size(170, 14);
             lblValorStatus.TabIndex = 5;
             lblValorStatus.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -371,9 +374,9 @@
             // lblValorSenderId
             // 
             lblValorSenderId.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblValorSenderId.Location = new Point(152, 4);
+            lblValorSenderId.Location = new Point(178, 4);
             lblValorSenderId.Name = "lblValorSenderId";
-            lblValorSenderId.Size = new Size(143, 14);
+            lblValorSenderId.Size = new Size(170, 14);
             lblValorSenderId.TabIndex = 4;
             lblValorSenderId.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -383,7 +386,7 @@
             tabPageEncerradas.Controls.Add(listViewEncerradas);
             tabPageEncerradas.Location = new Point(4, 24);
             tabPageEncerradas.Name = "tabPageEncerradas";
-            tabPageEncerradas.Size = new Size(589, 289);
+            tabPageEncerradas.Size = new Size(689, 360);
             tabPageEncerradas.TabIndex = 2;
             tabPageEncerradas.Text = "Conversas finalizadas";
             tabPageEncerradas.UseVisualStyleBackColor = true;
@@ -391,7 +394,7 @@
             // btnAtualizarEncerradas
             // 
             btnAtualizarEncerradas.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnAtualizarEncerradas.Location = new Point(424, 251);
+            btnAtualizarEncerradas.Location = new Point(524, 322);
             btnAtualizarEncerradas.Name = "btnAtualizarEncerradas";
             btnAtualizarEncerradas.Size = new Size(157, 30);
             btnAtualizarEncerradas.TabIndex = 1;
@@ -407,7 +410,7 @@
             listViewEncerradas.GridLines = true;
             listViewEncerradas.Location = new Point(0, 0);
             listViewEncerradas.Name = "listViewEncerradas";
-            listViewEncerradas.Size = new Size(589, 289);
+            listViewEncerradas.Size = new Size(689, 360);
             listViewEncerradas.TabIndex = 0;
             listViewEncerradas.UseCompatibleStateImageBehavior = false;
             listViewEncerradas.View = View.Details;
@@ -421,7 +424,7 @@
             // colEncLastUpdate
             // 
             colEncLastUpdate.Tag = "Última Atualização";
-            colEncLastUpdate.Text = "Aberto em:";
+            colEncLastUpdate.Text = "Aberto em";
             colEncLastUpdate.Width = 120;
             // 
             // colEncStatus
@@ -446,7 +449,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(597, 317);
+            ClientSize = new Size(697, 388);
             Controls.Add(tabControlEngenharia);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;

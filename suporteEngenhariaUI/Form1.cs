@@ -1,15 +1,15 @@
-﻿
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text; // Necessário para StringBuilder
 using System.Text.Json;
 
-
-namespace suporteEngenhariaUI
+namespace suporteEngenhariaUI 
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form 
     {
         // --- HttpClient Configuração ---
         private static readonly HttpClient client = new HttpClient();
+
+        // !! AJUSTE A URL BASE SE NECESSÁRIO !!
         private const string ApiBaseUrl = "http://127.0.0.1:5000/";
 
         // --- ENDPOINTS DA API PYTHON ---
@@ -17,7 +17,7 @@ namespace suporteEngenhariaUI
         private const string ApiEndpointStatuses = "status"; // GET
         private const string ApiEndpointClose = "close/{0}"; // POST (com sender_id)
 
-        // --- Construtor --- //
+        // --- Construtor ---
         public Form1()
         {
             InitializeComponent();
@@ -33,13 +33,22 @@ namespace suporteEngenhariaUI
             {
                 MessageBox.Show($"URL base da API inválida ('{ApiBaseUrl}'): {ex.Message}", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
+            // Conexões de Eventos (Melhor feitas pelo Designer)
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.listViewAbertasParaFinalizar.SelectedIndexChanged += new System.EventHandler(this.listViewAbertasParaFinalizar_SelectedIndexChanged);
+            this.listViewEncerradas.SelectedIndexChanged += new System.EventHandler(this.listViewEncerradas_SelectedIndexChanged); // Adicionado
+            this.btnFinalizarSelecionada.Click += new System.EventHandler(this.btnFinalizarSelecionada_Click);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAtualizarEncerradas.Click += new System.EventHandler(this.btnAtualizarEncerradas_Click);
+            this.btnAtualizarAbertas.Click += new System.EventHandler(this.btnAtualizarAbertas_Click); // Conecta botão Atualizar Abertas
         }
-        // --- Fim do Construtor --- //
 
         // --- Evento Load ---
-        private async void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object? sender, EventArgs e)
         {
             LimparDetalhes();
+            // btnFinalizarSelecionada já é desabilitado por LimparDetalhes
             await CarregarDadosIniciaisAsync();
         }
 
@@ -47,6 +56,7 @@ namespace suporteEngenhariaUI
         private async Task CarregarDadosIniciaisAsync()
         {
             IniciarCarregamento(); // Centraliza a lógica de início
+
             try
             {
                 await Task.WhenAll(
@@ -67,36 +77,31 @@ namespace suporteEngenhariaUI
         }
 
         // --- Métodos Auxiliares de Carregamento UI ---
-
-        //Inicia o carregamento de dados
-
         private void IniciarCarregamento()
         {
-            //Verifica qual thread esta rodando a UI
             if (this.InvokeRequired) { this.Invoke(new Action(IniciarCarregamento)); return; }
 
-            //Cursor de carregamento
             this.Cursor = Cursors.WaitCursor;
-
             // Desabilita botões de ação/atualização
             btnFinalizarSelecionada.Enabled = false;
             btnAtualizarEncerradas.Enabled = false;
-            button1.Enabled = false;
+            button1.Enabled = false; // Botão de atualizar visão geral
+            btnAtualizarAbertas.Enabled = false; // Botão de atualizar abertas
 
-            // Limpa painel de detalhes
+            // Limpa painel de detalhes (Listas são limpas nos métodos de popular)
             LimparDetalhes();
         }
 
-        //Finaliza carregamento de dados
         private void FinalizarCarregamento()
         {
-            //Verifica qual thread esta rodando a UI
             if (this.InvokeRequired) { this.Invoke(new Action(FinalizarCarregamento)); return; }
 
             this.Cursor = Cursors.Default;
             // Reabilita botões de atualização
             btnAtualizarEncerradas.Enabled = true;
             button1.Enabled = true;
+            btnAtualizarAbertas.Enabled = true;
+            // Botão Finalizar será reabilitado pelo SelectedIndexChanged se necessário
         }
 
         // --- Busca Dados API: Contagens ---
@@ -138,7 +143,6 @@ namespace suporteEngenhariaUI
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    // Usa o helper MostrarErro que já trata UI thread
                     MostrarErro($"Erro HTTP {response.StatusCode} ao buscar status", null, await response.Content.ReadAsStringAsync());
                     return null;
                 }
@@ -147,76 +151,76 @@ namespace suporteEngenhariaUI
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 return JsonSerializer.Deserialize<Dictionary<string, ConversationStatusApi>>(jsonString, options);
             }
-            catch (JsonException jsonEx) // Erro específico de desserialização
+            catch (JsonException jsonEx)
             {
                 MostrarErro("Erro ao desserializar dados de status (JSON inválido?)", jsonEx);
                 return null;
             }
-            catch (HttpRequestException httpEx) // Erro específico de rede
+            catch (HttpRequestException httpEx)
             {
                 MostrarErro("Erro de rede ao buscar status", httpEx);
                 return null;
             }
-            catch (Exception ex) // Outros erros
+            catch (Exception ex)
             {
                 MostrarErro("Erro inesperado ao buscar status", ex);
-                throw; // Re-lança para indicar falha crítica na operação pai
+                throw;
             }
         }
 
         // --- Busca Dados API: Conversas Abertas ---
         private async Task CarregarConversasAbertasAsync()
         {
+            List<ConversationStatusApi> conversasAbertas = new List<ConversationStatusApi>(); // Inicializa vazia
             try
             {
                 var todosStatus = await BuscarStatusConversoesAsync();
                 if (todosStatus != null)
                 {
-                    List<ConversationStatusApi> conversasAbertas = todosStatus.Values
+                    conversasAbertas = todosStatus.Values
                         .Where(conv => conv.Status != null && conv.Status.Equals("open", StringComparison.OrdinalIgnoreCase))
                         .OrderByDescending(conv => conv.CreationTimestamp)
                         .ToList();
-                    PopularListViewAbertas(conversasAbertas); // Popula a UI
-                }
-                else
-                {
-                    PopularListViewAbertas(new List<ConversationStatusApi>()); // Limpa a lista se a busca falhou
                 }
             }
             catch (Exception ex)
             {
-                // O erro já foi mostrado por BuscarStatusConversoesAsync ou será pego por CarregarDadosIniciaisAsync
                 Console.WriteLine($"Erro capturado em CarregarConversasAbertasAsync: {ex.Message}");
-                PopularListViewAbertas(new List<ConversationStatusApi>()); // Garante que a lista seja limpa
-                throw; // Re-lança para CarregarDadosIniciaisAsync
+                // Não mostra erro aqui, pois BuscarStatusConversoesAsync ou CarregarDadosIniciaisAsync já mostraram
+                // A lista permanecerá vazia.
+                throw; // Re-lança para CarregarDadosIniciaisAsync saber que falhou
+            }
+            finally // Garante que a UI seja atualizada mesmo em caso de erro na busca/filtro
+            {
+                PopularListViewAbertas(conversasAbertas); // Popula com a lista (pode estar vazia)
             }
         }
 
         // --- Busca Dados API: Conversas Encerradas ---
         private async Task CarregarConversasEncerradasAsync()
         {
+            List<ConversationStatusApi> conversasEncerradas = new List<ConversationStatusApi>(); // Inicializa vazia
             try
             {
                 var todosStatus = await BuscarStatusConversoesAsync();
                 if (todosStatus != null)
                 {
-                    List<ConversationStatusApi> conversasEncerradas = todosStatus.Values
+                    conversasEncerradas = todosStatus.Values
                         .Where(conv => conv.Status != null && conv.Status.Equals("closed", StringComparison.OrdinalIgnoreCase))
-                        .OrderByDescending(conv => conv.ClosedTimestamp ?? conv.CreationTimestamp) // Ordena por fechamento ou criação
+                        .OrderByDescending(conv => conv.ClosedTimestamp ?? conv.CreationTimestamp)
                         .ToList();
-                    PopularListViewEncerradas(conversasEncerradas); // Popula a UI
-                }
-                else
-                {
-                    PopularListViewEncerradas(new List<ConversationStatusApi>()); // Limpa a lista se a busca falhou
                 }
             }
             catch (Exception ex)
             {
-                // O erro já foi mostrado por BuscarStatusConversoesAsync ou será pego por CarregarDadosIniciaisAsync
                 Console.WriteLine($"Erro capturado em CarregarConversasEncerradasAsync: {ex.Message}");
-                PopularListViewEncerradas(new List<ConversationStatusApi>()); // Garante que a lista seja limpa
-                throw; // Re-lança para CarregarDadosIniciaisAsync
+                // Não mostra erro aqui, pois BuscarStatusConversoesAsync ou CarregarDadosIniciaisAsync já mostraram
+                // A lista permanecerá vazia.
+                throw;
+            }
+            finally // Garante que a UI seja atualizada mesmo em caso de erro na busca/filtro
+            {
+                PopularListViewEncerradas(conversasEncerradas); // Popula com a lista (pode estar vazia)
             }
         }
 
@@ -225,42 +229,37 @@ namespace suporteEngenhariaUI
         {
             if (string.IsNullOrEmpty(senderId)) return;
 
-            IniciarCarregamento(); // Mostra feedback visual de ação
+            IniciarCarregamento();
 
             try
             {
                 string endpointFinalizar = string.Format(ApiEndpointClose, senderId);
                 HttpResponseMessage response = await client.PostAsync(endpointFinalizar, null);
-                string responseBody = await response.Content.ReadAsStringAsync(); // Lê o corpo SEMPRE
+                string responseBody = await response.Content.ReadAsStringAsync();
 
                 CloseStatusApi? statusResult = null;
-                if (!string.IsNullOrWhiteSpace(responseBody)) // Tenta desserializar apenas se houver corpo
+                if (!string.IsNullOrWhiteSpace(responseBody))
                 {
                     try
                     {
                         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        // *** Importante: Usa a DTO CORRIGIDA ***
                         statusResult = JsonSerializer.Deserialize<CloseStatusApi>(responseBody, options);
                     }
-                    catch (JsonException jsonEx)
-                    {
-                        Console.WriteLine($"Erro ao desserializar resposta de /close: {jsonEx.Message}");
-                        // Continua, pois o status HTTP pode ser suficiente
-                    }
+                    catch (JsonException jsonEx) { Console.WriteLine($"Erro ao desserializar resposta de /close: {jsonEx.Message}"); }
                 }
 
                 // Verifica o resultado da operação
                 if (response.IsSuccessStatusCode && statusResult?.Status == "closed")
                 {
                     MessageBox.Show($"Conversa com {senderId} finalizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // Atualiza UI localmente primeiro para resposta rápida
-                    RemoverItemListViewAbertas(senderId);
+                    RemoverItemListViewAbertas(senderId); // Atualiza UI local
                     LimparDetalhes();
-                    // Recarrega dados em segundo plano para garantir consistência
-                    _ = Task.Run(async () =>
-                    { // Roda em background para não bloquear UI
+                    // Recarrega listas e contagens em background
+                    _ = Task.Run(async () => {
                         await Task.Delay(100); // Pequeno delay opcional
                         await CarregarContagensAsync();
-                        await CarregarConversasEncerradasAsync();
+                        await CarregarConversasEncerradasAsync(); // Recarrega encerradas para incluir a nova
                     });
                 }
                 else if (statusResult?.Status == "already_closed")
@@ -268,8 +267,7 @@ namespace suporteEngenhariaUI
                     MessageBox.Show($"Conversa com {senderId} já estava finalizada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RemoverItemListViewAbertas(senderId);
                     LimparDetalhes();
-                    _ = Task.Run(async () =>
-                    {
+                    _ = Task.Run(async () => {
                         await Task.Delay(100);
                         await CarregarContagensAsync();
                         await CarregarConversasEncerradasAsync();
@@ -280,30 +278,22 @@ namespace suporteEngenhariaUI
                     MessageBox.Show($"Conversa com {senderId} não encontrada na API.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     RemoverItemListViewAbertas(senderId);
                     LimparDetalhes();
-                    _ = Task.Run(async () =>
-                    {
+                    _ = Task.Run(async () => {
                         await Task.Delay(100);
                         await CarregarContagensAsync();
                         await CarregarConversasEncerradasAsync();
                     });
                 }
-                else
+                else // Se chegou aqui, algo deu errado (status HTTP não OK ou status JSON inesperado)
                 {
                     MostrarErro($"Falha ao finalizar conversa com {senderId}. Status HTTP: {response.StatusCode}", null, responseBody);
                 }
             }
-            catch (HttpRequestException httpEx) // Erro específico de rede
-            {
-                MostrarErro($"Erro de rede ao finalizar conversa com {senderId}", httpEx);
-            }
-            catch (Exception ex) // Outros erros inesperados
-            {
-                MostrarErro($"Erro inesperado ao finalizar conversa com {senderId}", ex);
-            }
+            catch (HttpRequestException httpEx) { MostrarErro($"Erro de rede ao finalizar conversa com {senderId}", httpEx); }
+            catch (Exception ex) { MostrarErro($"Erro inesperado ao finalizar conversa com {senderId}", ex); }
             finally
             {
                 FinalizarCarregamento();
-                // Restaura botão de finalizar APENAS se uma linha AINDA estiver selecionada na lista de abertas
                 btnFinalizarSelecionada.Enabled = listViewAbertasParaFinalizar.SelectedItems.Count > 0;
             }
         }
@@ -323,40 +313,55 @@ namespace suporteEngenhariaUI
         {
             if (this.InvokeRequired) { this.Invoke(new Action(() => PopularListViewAbertas(conversas))); return; }
 
+            // Salva a seleção atual, se houver
+            string? selectedSenderId = null;
+            if (listViewAbertasParaFinalizar.SelectedItems.Count > 0 && listViewAbertasParaFinalizar.SelectedItems[0].Tag is ConversationStatusApi selectedConv)
+            {
+                selectedSenderId = selectedConv.SenderId;
+            }
+
             listViewAbertasParaFinalizar.BeginUpdate();
-            listViewAbertasParaFinalizar.Items.Clear(); // Limpa sempre antes de popular
+            listViewAbertasParaFinalizar.Items.Clear();
 
             if (conversas != null)
             {
                 DateTime agora = DateTime.Now;
                 foreach (var conv in conversas)
                 {
-                    // Coluna 1: Nome ou ID
                     string displayIdentifier = !string.IsNullOrWhiteSpace(conv.ContactName) ? conv.ContactName : conv.SenderId;
                     ListViewItem item = new ListViewItem(displayIdentifier);
-                    // Coluna 2: Data Criação
                     item.SubItems.Add(conv.CreationDateTime.ToString("dd/MM/yy HH:mm:ss"));
-                    // Coluna 3: Status
                     item.SubItems.Add(conv.Status ?? "");
-                    // Coluna 4: Tempo Aberto (Calculado)
                     TimeSpan duracaoAberta = agora - conv.CreationDateTime;
                     item.SubItems.Add(FormatarTempoDecorrido(duracaoAberta));
-
-                    item.Tag = conv; // Armazena DTO completo
+                    item.Tag = conv;
                     listViewAbertasParaFinalizar.Items.Add(item);
+
+                    // Restaura a seleção se o item ainda existir
+                    if (conv.SenderId == selectedSenderId)
+                    {
+                        item.Selected = true;
+                        item.Focused = true; // Garante visibilidade
+                    }
                 }
             }
 
-            // Ajusta colunas (Tente ColumnContent primeiro)
-            try { listViewAbertasParaFinalizar.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent); }
-            catch { listViewAbertasParaFinalizar.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); } // Fallback
-
-            // Ajuste fino opcional se necessário (exemplo: garantir largura mínima)
-            // foreach(ColumnHeader col in listViewAbertasParaFinalizar.Columns) {
-            //     if (col.Width < 80) col.Width = 80;
-            // }
+            //try { listViewAbertasParaFinalizar.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent); }
+           // catch { listViewAbertasParaFinalizar.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); }
 
             listViewAbertasParaFinalizar.EndUpdate();
+
+            // Garante que o painel de detalhes reflita a seleção (ou falta dela) após a atualização
+            if (listViewAbertasParaFinalizar.SelectedItems.Count == 0)
+            {
+                LimparDetalhes();
+            }
+            else if (selectedSenderId != null && listViewAbertasParaFinalizar.SelectedItems.Count > 0)
+            {
+                // Se a seleção foi restaurada, força a atualização dos detalhes
+                MostrarDetalhesConversaSelecionada((ConversationStatusApi)listViewAbertasParaFinalizar.SelectedItems[0].Tag);
+                btnFinalizarSelecionada.Enabled = true;
+            }
         }
 
         // Popula ListView de Encerradas
@@ -364,67 +369,71 @@ namespace suporteEngenhariaUI
         {
             if (this.InvokeRequired) { this.Invoke(new Action(() => PopularListViewEncerradas(conversas))); return; }
 
+            // Salva a seleção atual, se houver
+            string? selectedSenderId = null;
+            if (listViewEncerradas.SelectedItems.Count > 0 && listViewEncerradas.SelectedItems[0].Tag is ConversationStatusApi selectedConv)
+            {
+                selectedSenderId = selectedConv.SenderId;
+            }
+
+
             listViewEncerradas.BeginUpdate();
-            listViewEncerradas.Items.Clear(); // Limpa sempre
+            listViewEncerradas.Items.Clear();
 
             if (conversas != null)
             {
                 foreach (var conv in conversas)
                 {
-                    // Coluna 1: Nome ou ID
                     string displayIdentifier = !string.IsNullOrWhiteSpace(conv.ContactName) ? conv.ContactName : conv.SenderId;
                     ListViewItem item = new ListViewItem(displayIdentifier);
-                    // Coluna 2: Data Criação
                     item.SubItems.Add(conv.CreationDateTime.ToString("dd/MM/yy HH:mm:ss"));
-                    // Coluna 3: Status ("closed")
                     item.SubItems.Add(conv.Status ?? "");
-                    // Coluna 4: Data Fechamento
                     item.SubItems.Add(conv.ClosedDateTime?.ToString("dd/MM/yy HH:mm:ss") ?? "N/A");
-                    // Coluna 5: Tempo Aberto (Calculado)
-                    TimeSpan duracaoTotal = conv.ClosedDateTime.HasValue
-                                            ? (conv.ClosedDateTime.Value - conv.CreationDateTime)
-                                            : TimeSpan.Zero;
+                    TimeSpan duracaoTotal = conv.ClosedDateTime.HasValue ? (conv.ClosedDateTime.Value - conv.CreationDateTime) : TimeSpan.Zero;
                     item.SubItems.Add(FormatarTempoDecorrido(duracaoTotal));
-
-                    item.Tag = conv; // Armazena DTO completo
+                    item.Tag = conv;
                     listViewEncerradas.Items.Add(item);
+
+                    // Restaura a seleção se o item ainda existir
+                    if (conv.SenderId == selectedSenderId)
+                    {
+                        item.Selected = true;
+                        item.Focused = true;
+                    }
                 }
             }
 
-            // Ajusta colunas (Tente ColumnContent primeiro)
-            try { listViewEncerradas.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent); }
-            catch { listViewEncerradas.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); } // Fallback
-
-            // Ajuste fino opcional se necessário
+            //try { listViewEncerradas.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent); }
+            //catch { listViewEncerradas.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); }
 
             listViewEncerradas.EndUpdate();
+
+            // Garante que o painel de detalhes reflita a seleção (ou falta dela) após a atualização
+            if (listViewEncerradas.SelectedItems.Count == 0 && listViewAbertasParaFinalizar.SelectedItems.Count == 0)
+            {
+                // Só limpa se a outra lista também não tiver seleção
+                LimparDetalhes();
+            }
+            else if (selectedSenderId != null && listViewEncerradas.SelectedItems.Count > 0)
+            {
+                // Se a seleção foi restaurada, força a atualização dos detalhes
+                MostrarDetalhesConversaSelecionada((ConversationStatusApi)listViewEncerradas.SelectedItems[0].Tag);
+                // Não habilita o botão finalizar para encerradas
+                btnFinalizarSelecionada.Enabled = false;
+            }
         }
 
         // Função auxiliar para formatar TimeSpan
         private string FormatarTempoDecorrido(TimeSpan duracao)
         {
-            // Se for zero ou negativo, retorna "Agora" ou "0s"
-            if (duracao.TotalSeconds <= 0) return "< 1m"; // Ou "Agora", ou "0s"
-
+            if (duracao.TotalSeconds <= 0) return "< 1m";
             var sb = new StringBuilder();
-            // Dias
             if (duracao.Days > 0) sb.Append($"{duracao.Days}d ");
-            // Horas (só se houver dias ou se for mais de 0 horas)
             if (duracao.Days > 0 || duracao.Hours > 0)
-                if (duracao.Hours > 0) sb.Append($"{duracao.Hours}h "); // Mostra 0h se houver dias
-            // Minutos (só se houver dias/horas ou se for mais de 0 minutos)
+                if (duracao.Hours > 0) sb.Append($"{duracao.Hours}h ");
             if (duracao.TotalHours > 0 || duracao.Minutes > 0)
                 if (duracao.Minutes > 0) sb.Append($"{duracao.Minutes}m");
-
-            // Se depois de tudo ainda estiver vazio (ex: 30 segundos), mostra minutos aproximados
-            if (sb.Length == 0)
-            {
-                // Mostra '< 1m' para durações curtas
-                return "< 1m";
-                // Alternativa: Mostrar segundos
-                // return $"{Math.Max(1, (int)duracao.TotalSeconds)}s";
-            }
-
+            if (sb.Length == 0) return "< 1m";
             return sb.ToString().Trim();
         }
 
@@ -434,9 +443,9 @@ namespace suporteEngenhariaUI
             if (this.InvokeRequired) { this.Invoke(new Action(LimparDetalhes)); return; }
             lblValorSenderId.Text = string.Empty;
             lblValorStatus.Text = string.Empty;
-            lblValorLastUpdate.Text = string.Empty; // Label usado para Data Criação
-            lblValorTempoAberto.Text = string.Empty; // Limpa label de tempo aberto
-            btnFinalizarSelecionada.Enabled = false; // Garante que botão está desabilitado
+            lblValorLastUpdate.Text = string.Empty;
+            lblValorTempoAberto.Text = string.Empty;
+            btnFinalizarSelecionada.Enabled = false;
         }
 
         // Mostra detalhes da conversa selecionada
@@ -445,34 +454,24 @@ namespace suporteEngenhariaUI
             if (this.InvokeRequired) { this.Invoke(new Action(() => MostrarDetalhesConversaSelecionada(conv))); return; }
             if (conv == null) { LimparDetalhes(); return; }
 
-            // Atualiza os labels existentes
             lblValorSenderId.Text = !string.IsNullOrWhiteSpace(conv.ContactName) ? $"{conv.ContactName} ({conv.SenderId})" : conv.SenderId;
             lblValorStatus.Text = conv.Status;
-            lblValorLastUpdate.Text = conv.CreationDateTime.ToString("dd/MM/yyyy HH:mm:ss"); // Mostra Data Criação
+            lblValorLastUpdate.Text = conv.CreationDateTime.ToString("dd/MM/yyyy HH:mm:ss");
 
-            // --- Calcular e exibir Tempo Aberto ---
-            TimeSpan duracao = TimeSpan.Zero; // Valor padrão
-            string tempoAbertoFormatado = "N/A"; // Valor padrão
-
+            TimeSpan duracao; string tempoAbertoFormatado;
             if (conv.Status != null && conv.Status.Equals("open", StringComparison.OrdinalIgnoreCase))
             {
-                // Para conversas abertas, calcula desde a criação até agora
                 duracao = DateTime.Now - conv.CreationDateTime;
                 tempoAbertoFormatado = FormatarTempoDecorrido(duracao);
             }
-            else if (conv.ClosedDateTime.HasValue) // Para conversas fechadas com data de fechamento
+            else if (conv.ClosedDateTime.HasValue)
             {
-                // Calcula desde a criação até o fechamento
                 duracao = conv.ClosedDateTime.Value - conv.CreationDateTime;
                 tempoAbertoFormatado = FormatarTempoDecorrido(duracao);
             }
-            // else: Mantém "N/A" se for fechada mas sem data de fechamento (improvável)
-
-            // Atualiza o novo label de tempo aberto
-            // Certifique-se que o controle lblValorTempoAberto existe no Designer.cs!
+            else { tempoAbertoFormatado = "N/A"; }
             lblValorTempoAberto.Text = tempoAbertoFormatado;
         }
-
 
         // Remove item da lista de Abertas pelo SenderId
         private void RemoverItemListViewAbertas(string senderId)
@@ -492,10 +491,10 @@ namespace suporteEngenhariaUI
         // --- Tratamento de Erros (Helper) ---
         private void MostrarErro(string titulo, Exception? ex = null, string? apiMensagem = null)
         {
+            // ... (código do MostrarErro inalterado) ...
             string mensagemCompleta = titulo;
             if (!string.IsNullOrWhiteSpace(apiMensagem))
             {
-                // Tenta extrair mensagem de erro do JSON, se possível
                 string erroApiDetalhe = apiMensagem;
                 try
                 {
@@ -511,7 +510,7 @@ namespace suporteEngenhariaUI
                         }
                     }
                 }
-                catch { /* Ignora se não for JSON válido */ }
+                catch { /* Ignora */ }
                 mensagemCompleta += $"\n\nAPI: {erroApiDetalhe}";
             }
             if (ex != null)
@@ -531,10 +530,11 @@ namespace suporteEngenhariaUI
             Console.WriteLine($"ERRO: {mensagemCompleta}");
         }
 
+
         // --- Event Handlers ---
 
         // Evento de seleção na lista de Abertas
-        private void listViewAbertasParaFinalizar_SelectedIndexChanged(object sender, EventArgs e)
+        private void listViewAbertasParaFinalizar_SelectedIndexChanged(object? sender, EventArgs e)
         {
             if (listViewAbertasParaFinalizar.SelectedItems.Count > 0)
             {
@@ -542,11 +542,11 @@ namespace suporteEngenhariaUI
                 if (selectedItem.Tag is ConversationStatusApi conv)
                 {
                     MostrarDetalhesConversaSelecionada(conv);
-                    btnFinalizarSelecionada.Enabled = true; // Habilita finalizar para abertas
+                    btnFinalizarSelecionada.Enabled = true;
                 }
                 else { LimparDetalhes(); Console.WriteLine("WARN: Tag inválido na seleção (Abertas)."); }
             }
-            else { LimparDetalhes(); } // LimparDetalhes já desabilita o botão
+            else { LimparDetalhes(); }
         }
 
         // Evento de seleção na lista de Encerradas
@@ -558,7 +558,7 @@ namespace suporteEngenhariaUI
                 if (selectedItem.Tag is ConversationStatusApi conv)
                 {
                     MostrarDetalhesConversaSelecionada(conv);
-                    // NÃO habilita o botão finalizar aqui
+                    // Não habilita botão finalizar
                 }
                 else { LimparDetalhes(); Console.WriteLine("WARN: Tag inválido na seleção (Encerradas)."); }
             }
@@ -574,10 +574,8 @@ namespace suporteEngenhariaUI
                 if (selectedItem.Tag is ConversationStatusApi convParaFinalizar)
                 {
                     DialogResult confirmacao = MessageBox.Show(
-                        $"Finalizar conversa com {(!string.IsNullOrWhiteSpace(convParaFinalizar.ContactName) ? convParaFinalizar.ContactName : convParaFinalizar.SenderId)}?", // Mostra nome ou ID
-                        "Confirmar Finalização",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question);
+                        $"Finalizar conversa com {(!string.IsNullOrWhiteSpace(convParaFinalizar.ContactName) ? convParaFinalizar.ContactName : convParaFinalizar.SenderId)}?",
+                        "Confirmar Finalização", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (confirmacao == DialogResult.Yes) { await FinalizarConversaApiAsync(convParaFinalizar.SenderId); }
                 }
@@ -604,109 +602,72 @@ namespace suporteEngenhariaUI
             finally { FinalizarCarregamento(); }
         }
 
-        // Método para liberar recursos ao fechar o formulário 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-
-        }
-
-        // ------ Classes DTO ------
-
-        // Para desserializar a resposta de GET /count
-        public class ContagemConversasApi
-        {
-            [System.Text.Json.Serialization.JsonPropertyName("new_conversation_count")]
-            public int ContagemNovas { get; set; }
-
-            [System.Text.Json.Serialization.JsonPropertyName("open_conversation_count")]
-            public int ContagemAbertas { get; set; }
-
-            [System.Text.Json.Serialization.JsonPropertyName("closed_conversation_count")]
-            public int ContagemEncerradas { get; set; }
-        }
-
-        // Para desserializar cada entrada na resposta de GET /status
-        public class ConversationStatusApi
-        {
-            [System.Text.Json.Serialization.JsonPropertyName("sender_id")]
-            public required string SenderId { get; set; }
-
-            [System.Text.Json.Serialization.JsonPropertyName("status")]
-            public required string Status { get; set; }
-
-            [System.Text.Json.Serialization.JsonPropertyName("contact_name")]
-            public string? ContactName { get; set; } // Nome pode ser nulo
-
-            [System.Text.Json.Serialization.JsonPropertyName("creation_timestamp")]
-            public long CreationTimestamp { get; set; } // Unix timestamp (long)
-
-            [System.Text.Json.Serialization.JsonPropertyName("closed_timestamp")]
-            public long? ClosedTimestamp { get; set; } // Unix timestamp (long), pode ser NULL
-
-            // --- Propriedades Auxiliares C# ---
-            [System.Text.Json.Serialization.JsonIgnore] // Não mapear do JSON
-            public DateTime CreationDateTime => DateTimeOffset.FromUnixTimeSeconds(CreationTimestamp).LocalDateTime;
-
-            [System.Text.Json.Serialization.JsonIgnore] // Não mapear do JSON
-            public DateTime? ClosedDateTime => ClosedTimestamp.HasValue
-                                                ? DateTimeOffset.FromUnixTimeSeconds(ClosedTimestamp.Value).LocalDateTime
-                                                : (DateTime?)null; // Retorna null se ClosedTimestamp for null
-        }
-
-        // Para desserializar a resposta de POST /close/{sender_id}
-        public class CloseStatusApi
-        {
-            [System.Text.Json.Serialization.JsonPropertyName("status")]
-            public required string Status { get; set; }
-
-            [System.Text.Json.Serialization.JsonPropertyName("error")]
-            public string Error { get; set; }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        // Evento de clique botão Atualizar SOMENTE Conversas Abertas
+        // Evento de clique botão Atualizar Abertas
         private async void btnAtualizarAbertas_Click(object sender, EventArgs e)
         {
-            // Feedback visual específico para esta ação
-            this.Cursor = Cursors.WaitCursor;
-            Button? botaoClicado = sender as Button; // Pega referência ao botão clicado
-            if (botaoClicado != null) botaoClicado.Enabled = false; // Desabilita o próprio botão
-            btnFinalizarSelecionada.Enabled = false; // Desabilita finalizar durante a carga
-            LimparDetalhes(); // Limpa o painel de detalhes
-
-            // IMPORTANTE: Não precisa limpar a lista aqui, CarregarConversasAbertasAsync já faz isso.
-
+            IniciarCarregamento(); // Usa o IniciarCarregamento geral
             try
             {
-                // Chama diretamente o método que carrega e popula a lista de abertas
-                // Este método já busca, filtra e chama PopularListViewAbertas (que limpa a lista)
                 await CarregarConversasAbertasAsync();
             }
             catch (Exception ex)
             {
-                // Mostra erro se falhar ao carregar/processar conversas abertas
                 MostrarErro("Erro ao atualizar lista de conversas abertas", ex);
             }
             finally
             {
-                // Restaura o cursor e o botão de atualizar abertas
-                this.Cursor = Cursors.Default;
-                if (botaoClicado != null) botaoClicado.Enabled = true;
-                // O botão Finalizar continuará desabilitado até uma nova seleção
+                FinalizarCarregamento(); // Usa o FinalizarCarregamento geral
             }
         }
 
-        private void lblValorTempoAberto_Click(object sender, EventArgs e)
+        // Método para liberar recursos ao fechar o formulário
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-
+            base.OnFormClosing(e);
+            // client.Dispose(); // Considerar para aplicações muito longas
         }
+
+        // --- Event Handlers Vazios Gerados pelo Designer (Remova se não conectados) ---
+        private void label1_Click(object sender, EventArgs e) { }
+        private void lblValorTempoAberto_Click(object sender, EventArgs e) { }
+
+
+    } // Fim da classe Form1
+
+    // ------ Classes DTO ------
+    // (Definições completas devem estar aqui ou em arquivos separados)
+    public class ContagemConversasApi
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("new_conversation_count")]
+        public int ContagemNovas { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("open_conversation_count")]
+        public int ContagemAbertas { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("closed_conversation_count")]
+        public int ContagemEncerradas { get; set; }
     }
+    public class ConversationStatusApi
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("sender_id")]
+        public required string SenderId { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("status")]
+        public required string Status { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("contact_name")]
+        public string? ContactName { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("creation_timestamp")]
+        public long CreationTimestamp { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("closed_timestamp")]
+        public long? ClosedTimestamp { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public DateTime CreationDateTime => DateTimeOffset.FromUnixTimeSeconds(CreationTimestamp).LocalDateTime;
+        [System.Text.Json.Serialization.JsonIgnore]
+        public DateTime? ClosedDateTime => ClosedTimestamp.HasValue ? DateTimeOffset.FromUnixTimeSeconds(ClosedTimestamp.Value).LocalDateTime : (DateTime?)null;
+    }
+    public class CloseStatusApi
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("status")]
+        public required string Status { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("error")]
+        public string? Error { get; set; } // Corrigido para ser nullable
+    }
+
 } // Fim do namespace
-
-
-
