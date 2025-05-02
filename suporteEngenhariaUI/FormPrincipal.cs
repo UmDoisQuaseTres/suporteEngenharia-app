@@ -5,13 +5,13 @@ using System.Text.Json.Serialization;
 
 namespace suporteEngenhariaUI
 {
-    public partial class Form1 : Form
+    public partial class FormPrincipal : Form
     {
         // --- Instância do Serviço da API ---
         private readonly WhatsAppApiService _apiService = new WhatsAppApiService(); // Cria uma instância
 
         // --- Construtor --- //
-        public Form1()
+        public FormPrincipal()
         {
             InitializeComponent();
         }
@@ -86,7 +86,7 @@ namespace suporteEngenhariaUI
             this.Cursor = Cursors.WaitCursor;
             btnFinalizarSelecionada.Enabled = false;
             btnAtualizarEncerradas.Enabled = false;
-            button1.Enabled = false;
+            btnAtualizar.Enabled = false;
             btnAtualizarAbertas.Enabled = false;
             LimparDetalhes(); // Limpa SÓ os detalhes
             toolStripStatusLabelInfo.Text = "Carregando dados...";
@@ -98,7 +98,7 @@ namespace suporteEngenhariaUI
             if (this.InvokeRequired) { this.Invoke(new Action(FinalizarCarregamento)); return; }
             this.Cursor = Cursors.Default;
             btnAtualizarEncerradas.Enabled = true;
-            button1.Enabled = true;
+            btnAtualizar.Enabled = true;
             btnAtualizarAbertas.Enabled = true;
             // Habilita finalizar APENAS se algo estiver selecionado na lista de ABERTAS
             btnFinalizarSelecionada.Enabled = listViewAbertasParaFinalizar.SelectedItems.Count > 0;
@@ -126,11 +126,11 @@ namespace suporteEngenhariaUI
                     AtualizarLabelsContagem(-1, -1, -1);
                 }
             }
-            catch (Exception ex) // Captura exceções lançadas pelo serviço
+            catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao carregar contagens (capturado no Form): {ex.Message}");
                 AtualizarLabelsContagem(-1, -1, -1);
-                throw; // Re-lança para o CarregarDadosIniciaisAsync saber que falhou
+                throw;
             }
         }
 
@@ -141,7 +141,6 @@ namespace suporteEngenhariaUI
             {
                 // Chama o método do serviço
                 var todosStatus = await _apiService.GetAllStatusesAsync();
-
                 if (todosStatus != null)
                 {
                     conversasAbertas = todosStatus.Values
@@ -149,13 +148,11 @@ namespace suporteEngenhariaUI
                         .OrderByDescending(conv => conv.CreationTimestamp)
                         .ToList();
                 }
-                // Se todosStatus for null, o serviço já lançou uma exceção que será pega abaixo
             }
-            catch (Exception ex) // Captura exceções do serviço
+            catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao carregar conversas abertas (capturado no Form): {ex.Message}");
-                // A lista permanecerá vazia
-                throw; // Re-lança para CarregarDadosIniciaisAsync saber que falhou
+                throw;
             }
             finally
             {
@@ -263,8 +260,6 @@ namespace suporteEngenhariaUI
             if (listViewAbertasParaFinalizar.SelectedItems.Count > 0 &&
                 listViewAbertasParaFinalizar.SelectedItems[0].Tag is ConversationStatusApi sc1)
                 selectedSenderId = sc1.SenderId;
-
-            // Só atualiza se recebemos uma lista válida da API (mesmo que vazia)
             if (conversas != null)
             {
                 listViewAbertasParaFinalizar.BeginUpdate();
@@ -299,14 +294,9 @@ namespace suporteEngenhariaUI
                 }
             }
         }
-
-
-        // O mesmo padrão para a lista de encerradas
         private void PopularListViewEncerradas(List<ConversationStatusApi> conversas)
         {
             if (this.InvokeRequired) { this.Invoke(new Action(() => PopularListViewEncerradas(conversas))); return; }
-
-            // Guarda o item selecionado para restaurá-lo depois
             string? selectedSenderId = null;
             if (listViewEncerradas.SelectedItems.Count > 0 &&
                 listViewEncerradas.SelectedItems[0].Tag is ConversationStatusApi sc2)
@@ -358,7 +348,7 @@ namespace suporteEngenhariaUI
         private void LimparDetalhes()
         {
             if (this.InvokeRequired) { this.Invoke(new Action(LimparDetalhes)); return; }
-            lblValorSenderId.Text = string.Empty; lblValorStatus.Text = string.Empty; lblValorLastUpdate.Text = string.Empty; lblValorTempoAberto.Text = string.Empty; btnFinalizarSelecionada.Enabled = false;
+            lblValorSenderId.Text = string.Empty; lblValorStatus.Text = string.Empty; lblValorOpedAt.Text = string.Empty; lblValorTempoAberto.Text = string.Empty; btnFinalizarSelecionada.Enabled = false;
         }
 
         // Mostra detalhes da conversa selecionada
@@ -366,7 +356,7 @@ namespace suporteEngenhariaUI
         {
             if (this.InvokeRequired) { this.Invoke(new Action(() => MostrarDetalhesConversaSelecionada(conv))); return; }
             if (conv == null) { LimparDetalhes(); return; }
-            lblValorSenderId.Text = !string.IsNullOrWhiteSpace(conv.ContactName) ? $"{conv.ContactName} ({conv.SenderId})" : conv.SenderId; lblValorStatus.Text = conv.Status; lblValorLastUpdate.Text = conv.CreationDateTime.ToString("dd/MM/yyyy HH:mm:ss");
+            lblValorSenderId.Text = !string.IsNullOrWhiteSpace(conv.ContactName) ? $"{conv.ContactName} ({conv.SenderId})" : conv.SenderId; lblValorStatus.Text = conv.Status; lblValorOpedAt.Text = conv.CreationDateTime.ToString("dd/MM/yyyy HH:mm:ss");
             TimeSpan duracao; string tempoAbertoFormatado; if (conv.Status != null && conv.Status.Equals("open", StringComparison.OrdinalIgnoreCase)) { duracao = DateTime.Now - conv.CreationDateTime; tempoAbertoFormatado = FormatarTempoDecorrido(duracao); } else if (conv.ClosedDateTime.HasValue) { duracao = conv.ClosedDateTime.Value - conv.CreationDateTime; tempoAbertoFormatado = FormatarTempoDecorrido(duracao); } else { tempoAbertoFormatado = "N/A"; }
             lblValorTempoAberto.Text = tempoAbertoFormatado;
         }
@@ -400,7 +390,6 @@ namespace suporteEngenhariaUI
                 var innerEx = ex;
                 while (innerEx.InnerException != null) innerEx = innerEx.InnerException;
                 mensagemCompleta += $"\n\nTécnico ({innerEx.GetType().Name}): {innerEx.Message}";
-                // Opcional: Adicionar StackTrace para debug mais fácil
                 // mensagemCompleta += $"\n\nStackTrace: {ex.StackTrace}";
             }
             if (this.InvokeRequired) { this.Invoke(new Action(() => MessageBox.Show(this, mensagemCompleta, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error))); } else { MessageBox.Show(this, mensagemCompleta, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -492,11 +481,6 @@ namespace suporteEngenhariaUI
             IniciarCarregamento(); try { await CarregarConversasAbertasAsync(); } catch (Exception ex) { MostrarErro("Erro ao atualizar lista de conversas abertas", ex); } finally { FinalizarCarregamento(); }
         }
 
-        // Método para liberar recursos ao fechar o formulário
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-        }
 
     } // Fim da classe Form1
 

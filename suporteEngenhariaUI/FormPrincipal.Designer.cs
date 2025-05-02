@@ -1,6 +1,6 @@
 ﻿namespace suporteEngenhariaUI
 {
-    partial class Form1
+    partial class FormPrincipal
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ColumnHeader colSenderId;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            ColumnHeader colClientName;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             splitContainerFinalizar = new SplitContainer();
             listViewAbertasParaFinalizar = new ListView();
-            colLastUpdate = new ColumnHeader();
+            colOpenAt = new ColumnHeader();
             colStatus = new ColumnHeader();
             btnAtualizarAbertas = new Button();
             btnFinalizarSelecionada = new Button();
             grpDetalhesMensagem = new GroupBox();
             tableLayoutPanelDetalhes = new TableLayoutPanel();
             lblValorTempoAberto = new Label();
-            label1 = new Label();
-            lblValorLastUpdate = new Label();
+            lblTimeOpened = new Label();
+            lblValorOpedAt = new Label();
             lblValorStatus = new Label();
             lblDescSenderId = new Label();
             lblDescStatus = new Label();
-            lblDescLastUpdate = new Label();
+            lblOpenedAt = new Label();
             lblValorSenderId = new Label();
             tabControlEngenharia = new TabControl();
             tabPageVisaoGeral = new TabPage();
-            button1 = new Button();
+            btnAtualizar = new Button();
             grpResumoEncerradas = new GroupBox();
             lblContagemEncerradas = new Label();
             grpResumoAbertas = new GroupBox();
@@ -59,15 +59,15 @@
             tabPageEncerradas = new TabPage();
             btnAtualizarEncerradas = new Button();
             listViewEncerradas = new ListView();
-            colEncSenderId = new ColumnHeader();
-            colEncLastUpdate = new ColumnHeader();
+            colClientId = new ColumnHeader();
+            colCreatedAt = new ColumnHeader();
             colEncStatus = new ColumnHeader();
-            colEncTempoAberto = new ColumnHeader();
+            colDataFechado = new ColumnHeader();
             colTempoDecorrido = new ColumnHeader();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabelInfo = new ToolStripStatusLabel();
             toolStripProgressBar = new ToolStripProgressBar();
-            colSenderId = new ColumnHeader();
+            colClientName = new ColumnHeader();
             ((System.ComponentModel.ISupportInitialize)splitContainerFinalizar).BeginInit();
             splitContainerFinalizar.Panel1.SuspendLayout();
             splitContainerFinalizar.Panel2.SuspendLayout();
@@ -84,10 +84,10 @@
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // colSenderId
+            // colClientName
             // 
-            colSenderId.Tag = "ID Remetente";
-            resources.ApplyResources(colSenderId, "colSenderId");
+            colClientName.Tag = "ID Remetente";
+            resources.ApplyResources(colClientName, "colClientName");
             // 
             // splitContainerFinalizar
             // 
@@ -109,7 +109,7 @@
             // listViewAbertasParaFinalizar
             // 
             resources.ApplyResources(listViewAbertasParaFinalizar, "listViewAbertasParaFinalizar");
-            listViewAbertasParaFinalizar.Columns.AddRange(new ColumnHeader[] { colSenderId, colLastUpdate, colStatus });
+            listViewAbertasParaFinalizar.Columns.AddRange(new ColumnHeader[] { colClientName, colOpenAt, colStatus });
             listViewAbertasParaFinalizar.FullRowSelect = true;
             listViewAbertasParaFinalizar.GridLines = true;
             listViewAbertasParaFinalizar.Name = "listViewAbertasParaFinalizar";
@@ -117,10 +117,10 @@
             listViewAbertasParaFinalizar.View = View.Details;
             listViewAbertasParaFinalizar.SelectedIndexChanged += listViewAbertasParaFinalizar_SelectedIndexChanged;
             // 
-            // colLastUpdate
+            // colOpenAt
             // 
-            colLastUpdate.Tag = "Data de inicio";
-            resources.ApplyResources(colLastUpdate, "colLastUpdate");
+            colOpenAt.Tag = "Data de inicio";
+            resources.ApplyResources(colOpenAt, "colOpenAt");
             // 
             // colStatus
             // 
@@ -152,12 +152,12 @@
             // 
             resources.ApplyResources(tableLayoutPanelDetalhes, "tableLayoutPanelDetalhes");
             tableLayoutPanelDetalhes.Controls.Add(lblValorTempoAberto, 1, 3);
-            tableLayoutPanelDetalhes.Controls.Add(label1, 0, 3);
-            tableLayoutPanelDetalhes.Controls.Add(lblValorLastUpdate, 1, 2);
+            tableLayoutPanelDetalhes.Controls.Add(lblTimeOpened, 0, 3);
+            tableLayoutPanelDetalhes.Controls.Add(lblValorOpedAt, 1, 2);
             tableLayoutPanelDetalhes.Controls.Add(lblValorStatus, 1, 1);
             tableLayoutPanelDetalhes.Controls.Add(lblDescSenderId, 0, 0);
             tableLayoutPanelDetalhes.Controls.Add(lblDescStatus, 0, 1);
-            tableLayoutPanelDetalhes.Controls.Add(lblDescLastUpdate, 0, 2);
+            tableLayoutPanelDetalhes.Controls.Add(lblOpenedAt, 0, 2);
             tableLayoutPanelDetalhes.Controls.Add(lblValorSenderId, 1, 0);
             tableLayoutPanelDetalhes.Name = "tableLayoutPanelDetalhes";
             // 
@@ -166,15 +166,15 @@
             resources.ApplyResources(lblValorTempoAberto, "lblValorTempoAberto");
             lblValorTempoAberto.Name = "lblValorTempoAberto";
             // 
-            // label1
+            // lblTimeOpened
             // 
-            resources.ApplyResources(label1, "label1");
-            label1.Name = "label1";
+            resources.ApplyResources(lblTimeOpened, "lblTimeOpened");
+            lblTimeOpened.Name = "lblTimeOpened";
             // 
-            // lblValorLastUpdate
+            // lblValorOpedAt
             // 
-            resources.ApplyResources(lblValorLastUpdate, "lblValorLastUpdate");
-            lblValorLastUpdate.Name = "lblValorLastUpdate";
+            resources.ApplyResources(lblValorOpedAt, "lblValorOpedAt");
+            lblValorOpedAt.Name = "lblValorOpedAt";
             // 
             // lblValorStatus
             // 
@@ -191,10 +191,10 @@
             resources.ApplyResources(lblDescStatus, "lblDescStatus");
             lblDescStatus.Name = "lblDescStatus";
             // 
-            // lblDescLastUpdate
+            // lblOpenedAt
             // 
-            resources.ApplyResources(lblDescLastUpdate, "lblDescLastUpdate");
-            lblDescLastUpdate.Name = "lblDescLastUpdate";
+            resources.ApplyResources(lblOpenedAt, "lblOpenedAt");
+            lblOpenedAt.Name = "lblOpenedAt";
             // 
             // lblValorSenderId
             // 
@@ -213,19 +213,19 @@
             // tabPageVisaoGeral
             // 
             resources.ApplyResources(tabPageVisaoGeral, "tabPageVisaoGeral");
-            tabPageVisaoGeral.Controls.Add(button1);
+            tabPageVisaoGeral.Controls.Add(btnAtualizar);
             tabPageVisaoGeral.Controls.Add(grpResumoEncerradas);
             tabPageVisaoGeral.Controls.Add(grpResumoAbertas);
             tabPageVisaoGeral.Controls.Add(grpResumoNovas);
             tabPageVisaoGeral.Name = "tabPageVisaoGeral";
             tabPageVisaoGeral.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnAtualizar
             // 
-            resources.ApplyResources(button1, "button1");
-            button1.Name = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            resources.ApplyResources(btnAtualizar, "btnAtualizar");
+            btnAtualizar.Name = "btnAtualizar";
+            btnAtualizar.UseVisualStyleBackColor = true;
+            btnAtualizar.Click += button1_Click;
             // 
             // grpResumoEncerradas
             // 
@@ -288,32 +288,32 @@
             // listViewEncerradas
             // 
             resources.ApplyResources(listViewEncerradas, "listViewEncerradas");
-            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colEncSenderId, colEncLastUpdate, colEncStatus, colEncTempoAberto, colTempoDecorrido });
+            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colClientId, colCreatedAt, colEncStatus, colDataFechado, colTempoDecorrido });
             listViewEncerradas.FullRowSelect = true;
             listViewEncerradas.GridLines = true;
             listViewEncerradas.Name = "listViewEncerradas";
             listViewEncerradas.UseCompatibleStateImageBehavior = false;
             listViewEncerradas.View = View.Details;
             // 
-            // colEncSenderId
+            // colClientId
             // 
-            colEncSenderId.Tag = "ID Remetente";
-            resources.ApplyResources(colEncSenderId, "colEncSenderId");
+            colClientId.Tag = "ID cliente";
+            resources.ApplyResources(colClientId, "colClientId");
             // 
-            // colEncLastUpdate
+            // colCreatedAt
             // 
-            colEncLastUpdate.Tag = "Última Atualização";
-            resources.ApplyResources(colEncLastUpdate, "colEncLastUpdate");
+            colCreatedAt.Tag = "Abertura";
+            resources.ApplyResources(colCreatedAt, "colCreatedAt");
             // 
             // colEncStatus
             // 
             colEncStatus.Tag = "Status";
             resources.ApplyResources(colEncStatus, "colEncStatus");
             // 
-            // colEncTempoAberto
+            // colDataFechado
             // 
-            colEncTempoAberto.Tag = "colEncTempoAberto";
-            resources.ApplyResources(colEncTempoAberto, "colEncTempoAberto");
+            colDataFechado.Tag = "colDataFechado";
+            resources.ApplyResources(colDataFechado, "colDataFechado");
             // 
             // colTempoDecorrido
             // 
@@ -384,31 +384,31 @@
         private Label lblContagemNovas;
         private Label lblContagemAbertas;
         private Label lblContagemEncerradas;
-        private Button button1;
+        private Button btnAtualizar;
         private SplitContainer splitContainerFinalizar;
         private ListView listViewAbertasParaFinalizar;
-        private ColumnHeader colSenderId;
-        private ColumnHeader colLastUpdate;
+        private ColumnHeader colClientName;
+        private ColumnHeader colOpenAt;
         private GroupBox grpDetalhesMensagem;
         private Button btnFinalizarSelecionada;
         private TableLayoutPanel tableLayoutPanelDetalhes;
         private Label lblDescSenderId;
         private Label lblDescStatus;
-        private Label lblDescLastUpdate;
+        private Label lblOpenedAt;
         private Label lblValorSenderId;
-        private Label lblValorLastUpdate;
+        private Label lblValorOpedAt;
         private Label lblValorStatus;
         private ColumnHeader colStatus;
         private TabPage tabPageEncerradas;
         private ListView listViewEncerradas;
-        private ColumnHeader colEncSenderId;
-        private ColumnHeader colEncLastUpdate;
+        private ColumnHeader colClientId;
+        private ColumnHeader colCreatedAt;
         private ColumnHeader colEncStatus;
         private Button btnAtualizarEncerradas;
-        private Label label1;
+        private Label lblTimeOpened;
         private Label lblValorTempoAberto;
         private Button btnAtualizarAbertas;
-        private ColumnHeader colEncTempoAberto;
+        private ColumnHeader colDataFechado;
         private ColumnHeader colTempoDecorrido;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabelInfo;
