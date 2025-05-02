@@ -180,21 +180,18 @@ namespace suporteEngenhariaUI
                         .OrderByDescending(conv => conv.ClosedTimestamp ?? conv.CreationTimestamp)
                         .ToList();
                 }
-                // Se todosStatus for null, o serviço já lançou uma exceção que será pega abaixo
             }
             catch (Exception ex) // Captura exceções do serviço
             {
                 Console.WriteLine($"Erro ao carregar conversas encerradas (capturado no Form): {ex.Message}");
                 // A lista permanecerá vazia
-                throw; // Re-lança para CarregarDadosIniciaisAsync saber que falhou
+                throw; 
             }
             finally
             {
                 PopularListViewEncerradas(conversasEncerradas); // Popula a UI com o resultado (ou lista vazia)
             }
         }
-
-
 
         // --- Ação API: Finalizar Conversa ---
         private async Task FinalizarConversaApiAsync(string senderId)
@@ -228,9 +225,8 @@ namespace suporteEngenhariaUI
                     LimparDetalhes();
                     _ = Task.Run(async () => { /* ... recarrega ... */ });
                 }
-                else // Se statusResult for null ou tiver um status inesperado
+                else 
                 {
-                    // O erro original (se houve) já foi logado pelo serviço. Mostra uma msg genérica.
                     MostrarErro($"Falha ao finalizar conversa com {senderId}.", null, statusResult?.Error ?? "Resposta inesperada da API.");
                 }
             }
@@ -244,9 +240,7 @@ namespace suporteEngenhariaUI
             }
             finally
             {
-                FinalizarCarregamento();
-                // btnFinalizarSelecionada será habilitado/desabilitado corretamente pelo SelectedIndexChanged e FinalizarCarregamento
-            }
+                FinalizarCarregamento();            }
         }
 
         // --- Métodos de Atualização da UI ---
@@ -505,28 +499,5 @@ namespace suporteEngenhariaUI
         }
 
     } // Fim da classe Form1
-
-    // ------ Classes DTO ------
-    public class ContagemConversasApi
-    {
-        [JsonPropertyName("new_conversation_count")] public int ContagemNovas { get; set; }
-        [JsonPropertyName("open_conversation_count")] public int ContagemAbertas { get; set; }
-        [JsonPropertyName("closed_conversation_count")] public int ContagemEncerradas { get; set; }
-    }
-    public class ConversationStatusApi
-    {
-        [JsonPropertyName("sender_id")] public required string SenderId { get; set; }
-        [JsonPropertyName("status")] public required string Status { get; set; }
-        [JsonPropertyName("contact_name")] public string? ContactName { get; set; }
-        [JsonPropertyName("creation_timestamp")] public long CreationTimestamp { get; set; }
-        [JsonPropertyName("closed_timestamp")] public long? ClosedTimestamp { get; set; }
-        [JsonIgnore] public DateTime CreationDateTime => DateTimeOffset.FromUnixTimeSeconds(CreationTimestamp).LocalDateTime;
-        [JsonIgnore] public DateTime? ClosedDateTime => ClosedTimestamp.HasValue ? DateTimeOffset.FromUnixTimeSeconds(ClosedTimestamp.Value).LocalDateTime : (DateTime?)null;
-    }
-    public class CloseStatusApi
-    {
-        [JsonPropertyName("status")] public required string Status { get; set; } 
-        [JsonPropertyName("error")] public string? Error { get; set; } 
-    }
 
 } // Fim do namespace

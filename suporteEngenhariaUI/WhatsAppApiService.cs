@@ -131,15 +131,5 @@ namespace suporteEngenhariaUI
     }
 
     // (Opcional) Classe de Exceção Personalizada para Erros da API
-    public class ApiException : Exception
-    {
-        public string? ApiResponse { get; }
-
-        public ApiException(string message) : base(message) { }
-        public ApiException(string message, Exception innerException) : base(message, innerException) { }
-        public ApiException(string message, Exception? innerException = null, string? apiResponse = null) : base(message, innerException)
-        {
-            ApiResponse = apiResponse;
-        }
-    }
+ 
 }
