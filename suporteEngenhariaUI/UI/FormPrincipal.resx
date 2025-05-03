@@ -1,0 +1,1378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnAtualizarAbertas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 34</value>
+  </data>
+  <data name="colLastUpdate.Text" xml:space="preserve">
+    <value>Data de inicio</value>
+  </data>
+  <data name="&gt;&gt;btnFinalizarSelecionada.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDescLastUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblContagemNovas.Parent" xml:space="preserve">
+    <value>grpResumoNovas</value>
+  </data>
+  <data name="&gt;&gt;listViewAbertasParaFinalizar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colDataFechado.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblValorTempoAberto.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="colTempoDecorrido.Text" xml:space="preserve">
+    <value>Tempo em aberto</value>
+  </data>
+  <data name="grpResumoNovas.Text" xml:space="preserve">
+    <value>Novas mensagens</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblDescStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;grpDetalhesMensagem.Parent" xml:space="preserve">
+    <value>splitContainerFinalizar.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel1.Parent" xml:space="preserve">
+    <value>splitContainerFinalizar</value>
+  </data>
+  <data name="tableLayoutPanelDetalhes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 90</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lblContagemAbertas.Parent" xml:space="preserve">
+    <value>grpResumoAbertas</value>
+  </data>
+  <data name="colAbertasInicio.Width" type="System.Int32, mscorlib">
+    <value>104</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 40</value>
+  </data>
+  <data name="lblValorStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 14</value>
+  </data>
+  <data name="lblDescStatus.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>tabPageVisaoGeral</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelInfo.Name" xml:space="preserve">
+    <value>toolStripStatusLabelInfo</value>
+  </data>
+  <data name="&gt;&gt;colAbertasStatus.Name" xml:space="preserve">
+    <value>colAbertasStatus</value>
+  </data>
+  <data name="lblContagemNovas.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt, style=Bold</value>
+  </data>
+  <data name="colEncerradasFim.HeaderText" xml:space="preserve">
+    <value>Data fechamento</value>
+  </data>
+  <data name="dgvAbertas.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpDetalhesMensagem.Text" xml:space="preserve">
+    <value>Detalhes da mensagem selecionada</value>
+  </data>
+  <data name="lblOpenedAt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 47</value>
+  </data>
+  <data name="&gt;&gt;tabControlEngenharia.Name" xml:space="preserve">
+    <value>tabControlEngenharia</value>
+  </data>
+  <data name="&gt;&gt;tabControlEngenharia.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblValorSenderId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblOpenedAt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblValorTempoAberto.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="grpResumoAbertas.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lblContagemAbertas.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt, style=Bold</value>
+  </data>
+  <data name="colEncerradasStatus.Width" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="lblDescSenderId.Text" xml:space="preserve">
+    <value>Remetente ID:</value>
+  </data>
+  <data name="&gt;&gt;lblDescSenderId.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tableLayoutPanelDetalhes.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblValorTempoAberto" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblTimeOpened" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblValorOpedAt" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblValorStatus" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblDescSenderId" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblDescStatus" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblOpenedAt" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblValorSenderId" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,25,000622,Percent,25,000628,Percent,25,000626,Percent,24,998125" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="lblDescLastUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 15</value>
+  </data>
+  <data name="&gt;&gt;colCreatedAt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblValorLastUpdate.Name" xml:space="preserve">
+    <value>lblValorLastUpdate</value>
+  </data>
+  <data name="colAbertasCliente.Width" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="tableLayoutPanelDetalhes.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarEncerradas.Name" xml:space="preserve">
+    <value>btnAtualizarEncerradas</value>
+  </data>
+  <data name="splitContainerFinalizar.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDetalhes.Name" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncerradas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageVisaoGeral.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnFinalizarSelecionada.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lblContagemEncerradas.Name" xml:space="preserve">
+    <value>lblContagemEncerradas</value>
+  </data>
+  <data name="&gt;&gt;colEncSenderId.Name" xml:space="preserve">
+    <value>colEncSenderId</value>
+  </data>
+  <data name="lblDescLastUpdate.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasCliente.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblDescLastUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 47</value>
+  </data>
+  <data name="lblDescLastUpdate.Text" xml:space="preserve">
+    <value>Data abertura:</value>
+  </data>
+  <data name="btnAtualizar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>281, 269</value>
+  </data>
+  <data name="&gt;&gt;listViewAbertasParaFinalizar.Parent" xml:space="preserve">
+    <value>splitContainerFinalizar.Panel1</value>
+  </data>
+  <data name="grpResumoAbertas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 100</value>
+  </data>
+  <data name="&gt;&gt;lblDescStatus.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblDescLastUpdate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="listViewEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageEncerradas.Text" xml:space="preserve">
+    <value>Conversas finalizadas</value>
+  </data>
+  <data name="&gt;&gt;grpResumoNovas.Name" xml:space="preserve">
+    <value>grpResumoNovas</value>
+  </data>
+  <data name="lblContagemAbertas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>71, 42</value>
+  </data>
+  <data name="lblValorLastUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;tabPageFinalizar.Name" xml:space="preserve">
+    <value>tabPageFinalizar</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Parent" xml:space="preserve">
+    <value>tabPageFinalizar</value>
+  </data>
+  <data name="&gt;&gt;lblDescLastUpdate.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="lblValorLastUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 14</value>
+  </data>
+  <data name="btnFinalizarSelecionada.Location" type="System.Drawing.Point, System.Drawing">
+    <value>215, 290</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="grpResumoNovas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 100</value>
+  </data>
+  <data name="&gt;&gt;listViewAbertasParaFinalizar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="dgvEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;grpDetalhesMensagem.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDetalhes.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPageFinalizar.Text" xml:space="preserve">
+    <value>Conversas abertas</value>
+  </data>
+  <data name="&gt;&gt;colAbertasInicio.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblValorStatus.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="&gt;&gt;lblContagemEncerradas.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lblContagemAbertas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colOpenAt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colEncLastUpdate.Name" xml:space="preserve">
+    <value>colEncLastUpdate</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="&gt;&gt;colAbertasStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblContagemEncerradas.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;lblDescSenderId.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="&gt;&gt;lblOpenedAt.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tabControlEngenharia.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="colAbertasStatus.Width" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;colEncTempoAberto.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="colEncerradasInicio.Width" type="System.Int32, mscorlib">
+    <value>88</value>
+  </data>
+  <data name="tabPageVisaoGeral.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="colAbertasCliente.HeaderText" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="grpResumoNovas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 6</value>
+  </data>
+  <data name="&gt;&gt;tabPageVisaoGeral.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;listViewEncerradas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblContagemEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lblTimeOpened.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;colEncLastUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnFinalizarSelecionada.Name" xml:space="preserve">
+    <value>btnFinalizarSelecionada</value>
+  </data>
+  <data name="&gt;&gt;grpResumoNovas.Parent" xml:space="preserve">
+    <value>tabPageVisaoGeral</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Name" xml:space="preserve">
+    <value>splitContainerFinalizar</value>
+  </data>
+  <data name="&gt;&gt;colEncStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnFinalizarSelecionada.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblValorStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="lblDescStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 25</value>
+  </data>
+  <data name="&gt;&gt;lblValorTempoAberto.Name" xml:space="preserve">
+    <value>lblValorTempoAberto</value>
+  </data>
+  <data name="&gt;&gt;lblValorSenderId.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="tabPageVisaoGeral.Text" xml:space="preserve">
+    <value>Visão geral</value>
+  </data>
+  <data name="lblContagemAbertas.Text" xml:space="preserve">
+    <value>Em aberto: 0</value>
+  </data>
+  <data name="lblDescSenderId.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="splitContainerFinalizar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>683, 329</value>
+  </data>
+  <data name="lblDescStatus.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>281, 266</value>
+  </data>
+  <data name="tableLayoutPanelDetalhes.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btnFinalizarSelecionada.Text" xml:space="preserve">
+    <value>Finalizar selecionada(s)</value>
+  </data>
+  <data name="lblContagemNovas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>78, 41</value>
+  </data>
+  <data name="tabPageEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblContagemNovas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 21</value>
+  </data>
+  <data name="&gt;&gt;lblValorOpedAt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblContagemEncerradas.Text" xml:space="preserve">
+    <value>Encerradas: 0</value>
+  </data>
+  <data name="colEncStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="grpDetalhesMensagem.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lblValorLastUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 48</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 15</value>
+  </data>
+  <data name="tableLayoutPanelDetalhes.RowCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Atualizar</value>
+  </data>
+  <data name="colEncerradasCliente.Width" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="&gt;&gt;grpResumoAbertas.Parent" xml:space="preserve">
+    <value>tabPageVisaoGeral</value>
+  </data>
+  <data name="&gt;&gt;btnFinalizarSelecionada.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblValorLastUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="CreationDateTime.Width" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasDuracao.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CreationDateTime.HeaderText" xml:space="preserve">
+    <value>Tempo em aberto</value>
+  </data>
+  <data name="lblContagemNovas.Text" xml:space="preserve">
+    <value>Novas: 0</value>
+  </data>
+  <data name="dgvEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;grpResumoNovas.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="colEncLastUpdate.Text" xml:space="preserve">
+    <value>Aberto em</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 70</value>
+  </data>
+  <data name="dgvAbertas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasFim.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblTimeOpened.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 70</value>
+  </data>
+  <data name="&gt;&gt;colEncTempoAberto.Name" xml:space="preserve">
+    <value>colEncTempoAberto</value>
+  </data>
+  <data name="&gt;&gt;grpResumoEncerradas.Name" xml:space="preserve">
+    <value>grpResumoEncerradas</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarEncerradas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripProgressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 16</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasFim.Name" xml:space="preserve">
+    <value>colEncerradasFim</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblContagemAbertas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;lblValorSenderId.Name" xml:space="preserve">
+    <value>lblValorSenderId</value>
+  </data>
+  <data name="&gt;&gt;colDataFechado.Name" xml:space="preserve">
+    <value>colDataFechado</value>
+  </data>
+  <data name="statusStrip1.Text" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listViewEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="grpResumoEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 100</value>
+  </data>
+  <data name="&gt;&gt;grpResumoEncerradas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listViewEncerradas.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;grpResumoEncerradas.Parent" xml:space="preserve">
+    <value>tabPageVisaoGeral</value>
+  </data>
+  <data name="tabPageFinalizar.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;listViewEncerradas.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;grpResumoAbertas.Name" xml:space="preserve">
+    <value>grpResumoAbertas</value>
+  </data>
+  <data name="grpResumoAbertas.Text" xml:space="preserve">
+    <value>Mensagens em aberto</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizar.Parent" xml:space="preserve">
+    <value>tabPageVisaoGeral</value>
+  </data>
+  <data name="&gt;&gt;lblOpenedAt.Name" xml:space="preserve">
+    <value>lblOpenedAt</value>
+  </data>
+  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;colStatus.Name" xml:space="preserve">
+    <value>colStatus</value>
+  </data>
+  <data name="&gt;&gt;tabPageFinalizar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Name" xml:space="preserve">
+    <value>dataGridView1</value>
+  </data>
+  <data name="&gt;&gt;colClientId.Name" xml:space="preserve">
+    <value>colClientId</value>
+  </data>
+  <data name="lblContagemAbertas.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;colClientId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblValorOpedAt.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 366</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;lblDescSenderId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDescSenderId.Name" xml:space="preserve">
+    <value>lblDescSenderId</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormPrincipal</value>
+  </data>
+  <data name="colStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="&gt;&gt;lblValorLastUpdate.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lblOpenedAt.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="&gt;&gt;lblValorSenderId.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDetalhes.Parent" xml:space="preserve">
+    <value>grpDetalhesMensagem</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;tabControlEngenharia.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="colLastUpdate.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="colEncerradasFim.Width" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="tabPageEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 335</value>
+  </data>
+  <data name="lblValorStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;lblValorStatus.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="&gt;&gt;lblContagemEncerradas.Parent" xml:space="preserve">
+    <value>grpResumoEncerradas</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnAtualizarAbertas.Text" xml:space="preserve">
+    <value>Atualizar abertas</value>
+  </data>
+  <data name="&gt;&gt;tabPageFinalizar.Parent" xml:space="preserve">
+    <value>tabControlEngenharia</value>
+  </data>
+  <data name="btnFinalizarSelecionada.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="lblValorSenderId.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;colAbertasInicio.Name" xml:space="preserve">
+    <value>colAbertasInicio</value>
+  </data>
+  <data name="grpDetalhesMensagem.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="colEncSenderId.Text" xml:space="preserve">
+    <value>Nº Cliente</value>
+  </data>
+  <data name="grpResumoNovas.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPageVisaoGeral.Parent" xml:space="preserve">
+    <value>tabControlEngenharia</value>
+  </data>
+  <data name="&gt;&gt;lblDescLastUpdate.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;tabPageVisaoGeral.Name" xml:space="preserve">
+    <value>tabPageVisaoGeral</value>
+  </data>
+  <data name="btnAtualizarAbertas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 290</value>
+  </data>
+  <data name="lblDescStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 15</value>
+  </data>
+  <data name="&gt;&gt;dgvEncerradas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPageEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="&gt;&gt;lblValorStatus.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblDescLastUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="&gt;&gt;tabPageFinalizar.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;toolStripProgressBar1.Name" xml:space="preserve">
+    <value>toolStripProgressBar1</value>
+  </data>
+  <data name="&gt;&gt;colSenderId.Name" xml:space="preserve">
+    <value>colSenderId</value>
+  </data>
+  <data name="&gt;&gt;lblTimeOpened.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="btnAtualizarAbertas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;dgvEncerradas.Parent" xml:space="preserve">
+    <value>tabPageEncerradas</value>
+  </data>
+  <data name="&gt;&gt;colAbertasCliente.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripProgressBar.Name" xml:space="preserve">
+    <value>toolStripProgressBar</value>
+  </data>
+  <data name="&gt;&gt;lblContagemAbertas.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblContagemEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 21</value>
+  </data>
+  <data name="toolStripProgressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 16</value>
+  </data>
+  <data name="&gt;&gt;lblContagemAbertas.Name" xml:space="preserve">
+    <value>lblContagemAbertas</value>
+  </data>
+  <data name="&gt;&gt;lblValorLastUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="grpResumoEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>433, 6</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasInicio.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="grpResumoAbertas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 133</value>
+  </data>
+  <data name="lblDescLastUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lblValorTempoAberto.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblValorSenderId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 14</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDescLastUpdate.Name" xml:space="preserve">
+    <value>lblDescLastUpdate</value>
+  </data>
+  <data name="&gt;&gt;lblContagemEncerradas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colClientName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colTempoDecorrido.Name" xml:space="preserve">
+    <value>colTempoDecorrido</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listViewAbertasParaFinalizar.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelDetalhes.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="lblDescSenderId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="grpResumoAbertas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;colOpenAt.Name" xml:space="preserve">
+    <value>colOpenAt</value>
+  </data>
+  <data name="btnAtualizarEncerradas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="listViewEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 335</value>
+  </data>
+  <data name="colStatus.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="&gt;&gt;lblContagemNovas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="splitContainerFinalizar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;dgvAbertas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpDetalhesMensagem.Name" xml:space="preserve">
+    <value>grpDetalhesMensagem</value>
+  </data>
+  <data name="tabControlEngenharia.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="dataGridView1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lblValorOpedAt.Name" xml:space="preserve">
+    <value>lblValorOpedAt</value>
+  </data>
+  <data name="&gt;&gt;toolStripProgressBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colSenderId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblValorStatus.Name" xml:space="preserve">
+    <value>lblValorStatus</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel1.Name" xml:space="preserve">
+    <value>splitContainerFinalizar.Panel1</value>
+  </data>
+  <data name="&gt;&gt;dgvAbertas.Parent" xml:space="preserve">
+    <value>splitContainerFinalizar.Panel1</value>
+  </data>
+  <data name="colEncerradasInicio.HeaderText" xml:space="preserve">
+    <value>Aberto em</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasDuracao.Name" xml:space="preserve">
+    <value>colEncerradasDuracao</value>
+  </data>
+  <data name="&gt;&gt;CreationDateTime.Name" xml:space="preserve">
+    <value>CreationDateTime</value>
+  </data>
+  <data name="lblValorTempoAberto.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 71</value>
+  </data>
+  <data name="&gt;&gt;colTempoDecorrido.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblDescStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblDescStatus.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblValorSenderId.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarEncerradas.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizar.Name" xml:space="preserve">
+    <value>btnAtualizar</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarAbertas.Name" xml:space="preserve">
+    <value>btnAtualizarAbertas</value>
+  </data>
+  <data name="&gt;&gt;lblValorLastUpdate.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="&gt;&gt;tabControlEngenharia.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvAbertas.Name" xml:space="preserve">
+    <value>dgvAbertas</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listViewAbertasParaFinalizar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblValorOpedAt.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;toolStripProgressBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblContagemNovas.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dgvEncerradas.Name" xml:space="preserve">
+    <value>dgvEncerradas</value>
+  </data>
+  <data name="colEncLastUpdate.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="&gt;&gt;colEncSenderId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblContagemAbertas.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnFinalizarSelecionada.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 34</value>
+  </data>
+  <data name="lblDescSenderId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;listViewEncerradas.Name" xml:space="preserve">
+    <value>listViewEncerradas</value>
+  </data>
+  <data name="btnAtualizarEncerradas.Text" xml:space="preserve">
+    <value>Atualizar lista encerradas</value>
+  </data>
+  <data name="tableLayoutPanelDetalhes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 19</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel2.Name" xml:space="preserve">
+    <value>splitContainerFinalizar.Panel2</value>
+  </data>
+  <data name="tabControlEngenharia.Size" type="System.Drawing.Size, System.Drawing">
+    <value>697, 363</value>
+  </data>
+  <data name="tabPageVisaoGeral.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="colAbertasStatus.HeaderText" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="lblDescSenderId.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;btnFinalizarSelecionada.Parent" xml:space="preserve">
+    <value>splitContainerFinalizar.Panel2</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Tempo em aberto:</value>
+  </data>
+  <data name="&gt;&gt;grpDetalhesMensagem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpResumoNovas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasStatus.Name" xml:space="preserve">
+    <value>colEncerradasStatus</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDetalhes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblValorLastUpdate.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="listViewAbertasParaFinalizar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>322, 329</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabPageVisaoGeral.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;colStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripStatusLabelInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 17</value>
+  </data>
+  <data name="btnAtualizarEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="grpResumoEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;colAbertasCliente.Name" xml:space="preserve">
+    <value>colAbertasCliente</value>
+  </data>
+  <data name="btnAtualizar.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lblContagemNovas.Name" xml:space="preserve">
+    <value>lblContagemNovas</value>
+  </data>
+  <data name="colEncTempoAberto.Text" xml:space="preserve">
+    <value>Data fechamento</value>
+  </data>
+  <data name="lblOpenedAt.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblContagemAbertas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 21</value>
+  </data>
+  <data name="&gt;&gt;CreationDateTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listViewAbertasParaFinalizar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;dgvAbertas.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpDetalhesMensagem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>357, 112</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>697, 388</value>
+  </data>
+  <data name="&gt;&gt;lblTimeOpened.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lblValorTempoAberto.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="lblValorStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 26</value>
+  </data>
+  <data name="lblValorSenderId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 4</value>
+  </data>
+  <data name="lblContagemNovas.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblDescSenderId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 15</value>
+  </data>
+  <data name="&gt;&gt;lblDescStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblValorSenderId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarAbertas.Parent" xml:space="preserve">
+    <value>splitContainerFinalizar.Panel2</value>
+  </data>
+  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>697, 22</value>
+  </data>
+  <data name="&gt;&gt;colLastUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabControlEngenharia.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;colClientName.Name" xml:space="preserve">
+    <value>colClientName</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncerradas.Name" xml:space="preserve">
+    <value>tabPageEncerradas</value>
+  </data>
+  <data name="lblContagemEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>79, 41</value>
+  </data>
+  <data name="&gt;&gt;lblValorStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarEncerradas.Parent" xml:space="preserve">
+    <value>tabPageEncerradas</value>
+  </data>
+  <data name="lblValorOpedAt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 48</value>
+  </data>
+  <data name="lblDescSenderId.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tabPageFinalizar.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="grpResumoEncerradas.Text" xml:space="preserve">
+    <value>Mensagens encerradas</value>
+  </data>
+  <data name="colAbertasInicio.HeaderText" xml:space="preserve">
+    <value>Data de inicio</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Panel2.Parent" xml:space="preserve">
+    <value>splitContainerFinalizar</value>
+  </data>
+  <data name="colTempoDecorrido.Width" type="System.Int32, mscorlib">
+    <value>110</value>
+  </data>
+  <data name="&gt;&gt;grpResumoAbertas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPageVisaoGeral.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 335</value>
+  </data>
+  <data name="tabPageFinalizar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="lblValorTempoAberto.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;listViewEncerradas.Parent" xml:space="preserve">
+    <value>tabPageEncerradas</value>
+  </data>
+  <data name="colEncerradasDuracao.HeaderText" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="splitContainerFinalizar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="btnAtualizarAbertas.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="colEncerradasCliente.HeaderText" xml:space="preserve">
+    <value>Nº Cliente</value>
+  </data>
+  <data name="&gt;&gt;lblValorOpedAt.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDetalhes</value>
+  </data>
+  <data name="colSenderId.Text" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="grpDetalhesMensagem.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;listViewAbertasParaFinalizar.Name" xml:space="preserve">
+    <value>listViewAbertasParaFinalizar</value>
+  </data>
+  <data name="lblContagemEncerradas.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblValorTempoAberto.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lblContagemNovas.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnAtualizarEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>524, 297</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;splitContainerFinalizar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDescStatus.Name" xml:space="preserve">
+    <value>lblDescStatus</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarAbertas.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lblTimeOpened.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTimeOpened.Name" xml:space="preserve">
+    <value>lblTimeOpened</value>
+  </data>
+  <data name="&gt;&gt;dgvEncerradas.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="splitContainerFinalizar.SplitterDistance" type="System.Int32, mscorlib">
+    <value>322</value>
+  </data>
+  <data name="colEncerradasDuracao.Width" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="&gt;&gt;colEncStatus.Name" xml:space="preserve">
+    <value>colEncStatus</value>
+  </data>
+  <data name="btnAtualizarEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 30</value>
+  </data>
+  <data name="&gt;&gt;grpResumoEncerradas.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;colCreatedAt.Name" xml:space="preserve">
+    <value>colCreatedAt</value>
+  </data>
+  <data name="&gt;&gt;grpResumoAbertas.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncerradas.Parent" xml:space="preserve">
+    <value>tabControlEngenharia</value>
+  </data>
+  <data name="tabPageFinalizar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 335</value>
+  </data>
+  <data name="lblValorTempoAberto.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 14</value>
+  </data>
+  <data name="&gt;&gt;colLastUpdate.Name" xml:space="preserve">
+    <value>colLastUpdate</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Parent" xml:space="preserve">
+    <value>tabPageEncerradas</value>
+  </data>
+  <data name="colEncTempoAberto.Width" type="System.Int32, mscorlib">
+    <value>110</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Suporte engenharia - Controle</value>
+  </data>
+  <data name="colEncerradasStatus.HeaderText" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="colSenderId.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasInicio.Name" xml:space="preserve">
+    <value>colEncerradasInicio</value>
+  </data>
+  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;tabPageEncerradas.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;colEncerradasCliente.Name" xml:space="preserve">
+    <value>colEncerradasCliente</value>
+  </data>
+  <data name="&gt;&gt;btnAtualizarAbertas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="colEncSenderId.Width" type="System.Int32, mscorlib">
+    <value>110</value>
+  </data>
+  <data name="lblDescStatus.Text" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="colEncStatus.Width" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <metadata name="colEncerradasStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>26</value>
+  </metadata>
+  <metadata name="colAbertasInicio.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colEncerradasDuracao.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="colSenderId.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="colAbertasStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colEncerradasFim.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CreationDateTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>pt</value>
+  </metadata>
+  <metadata name="colAbertasCliente.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colEncerradasCliente.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colEncerradasInicio.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colClientName.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+</root>
