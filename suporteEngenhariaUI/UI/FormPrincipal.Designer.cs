@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ColumnHeader colClientName;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             splitContainerFinalizar = new SplitContainer();
-            listViewAbertasParaFinalizar = new ListView();
-            colOpenAt = new ColumnHeader();
-            colStatus = new ColumnHeader();
+            dgvAbertas = new DataGridView();
+            colAbertasCliente = new DataGridViewTextBoxColumn();
+            colAbertasInicio = new DataGridViewTextBoxColumn();
+            colAbertasStatus = new DataGridViewTextBoxColumn();
+            CreationDateTime = new DataGridViewTextBoxColumn();
             btnAtualizarAbertas = new Button();
             btnFinalizarSelecionada = new Button();
             grpDetalhesMensagem = new GroupBox();
@@ -57,21 +61,21 @@
             lblContagemNovas = new Label();
             tabPageFinalizar = new TabPage();
             tabPageEncerradas = new TabPage();
+            dgvEncerradas = new DataGridView();
+            colEncerradasCliente = new DataGridViewTextBoxColumn();
+            colEncerradasInicio = new DataGridViewTextBoxColumn();
+            colEncerradasStatus = new DataGridViewTextBoxColumn();
+            colEncerradasFim = new DataGridViewTextBoxColumn();
+            colEncerradasDuracao = new DataGridViewTextBoxColumn();
             btnAtualizarEncerradas = new Button();
-            listViewEncerradas = new ListView();
-            colClientId = new ColumnHeader();
-            colCreatedAt = new ColumnHeader();
-            colEncStatus = new ColumnHeader();
-            colDataFechado = new ColumnHeader();
-            colTempoDecorrido = new ColumnHeader();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabelInfo = new ToolStripStatusLabel();
             toolStripProgressBar = new ToolStripProgressBar();
-            colClientName = new ColumnHeader();
             ((System.ComponentModel.ISupportInitialize)splitContainerFinalizar).BeginInit();
             splitContainerFinalizar.Panel1.SuspendLayout();
             splitContainerFinalizar.Panel2.SuspendLayout();
             splitContainerFinalizar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvAbertas).BeginInit();
             grpDetalhesMensagem.SuspendLayout();
             tableLayoutPanelDetalhes.SuspendLayout();
             tabControlEngenharia.SuspendLayout();
@@ -81,13 +85,9 @@
             grpResumoNovas.SuspendLayout();
             tabPageFinalizar.SuspendLayout();
             tabPageEncerradas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEncerradas).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
-            // 
-            // colClientName
-            // 
-            colClientName.Tag = "ID Remetente";
-            resources.ApplyResources(colClientName, "colClientName");
             // 
             // splitContainerFinalizar
             // 
@@ -97,7 +97,7 @@
             // splitContainerFinalizar.Panel1
             // 
             resources.ApplyResources(splitContainerFinalizar.Panel1, "splitContainerFinalizar.Panel1");
-            splitContainerFinalizar.Panel1.Controls.Add(listViewAbertasParaFinalizar);
+            splitContainerFinalizar.Panel1.Controls.Add(dgvAbertas);
             // 
             // splitContainerFinalizar.Panel2
             // 
@@ -106,26 +106,50 @@
             splitContainerFinalizar.Panel2.Controls.Add(btnFinalizarSelecionada);
             splitContainerFinalizar.Panel2.Controls.Add(grpDetalhesMensagem);
             // 
-            // listViewAbertasParaFinalizar
+            // dgvAbertas
             // 
-            resources.ApplyResources(listViewAbertasParaFinalizar, "listViewAbertasParaFinalizar");
-            listViewAbertasParaFinalizar.Columns.AddRange(new ColumnHeader[] { colClientName, colOpenAt, colStatus });
-            listViewAbertasParaFinalizar.FullRowSelect = true;
-            listViewAbertasParaFinalizar.GridLines = true;
-            listViewAbertasParaFinalizar.Name = "listViewAbertasParaFinalizar";
-            listViewAbertasParaFinalizar.UseCompatibleStateImageBehavior = false;
-            listViewAbertasParaFinalizar.View = View.Details;
-            listViewAbertasParaFinalizar.SelectedIndexChanged += listViewAbertasParaFinalizar_SelectedIndexChanged;
+            resources.ApplyResources(dgvAbertas, "dgvAbertas");
+            dgvAbertas.AllowUserToAddRows = false;
+            dgvAbertas.AllowUserToDeleteRows = false;
+            dgvAbertas.AllowUserToResizeColumns = false;
+            dgvAbertas.AllowUserToResizeRows = false;
+            dgvAbertas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAbertas.Columns.AddRange(new DataGridViewColumn[] { colAbertasCliente, colAbertasInicio, colAbertasStatus, CreationDateTime });
+            dgvAbertas.MultiSelect = false;
+            dgvAbertas.Name = "dgvAbertas";
+            dgvAbertas.ReadOnly = true;
+            dgvAbertas.RowHeadersVisible = false;
+            dgvAbertas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
-            // colOpenAt
+            // colAbertasCliente
             // 
-            colOpenAt.Tag = "Data de inicio";
-            resources.ApplyResources(colOpenAt, "colOpenAt");
+            colAbertasCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colAbertasCliente, "colAbertasCliente");
+            colAbertasCliente.Name = "colAbertasCliente";
+            colAbertasCliente.ReadOnly = true;
             // 
-            // colStatus
+            // colAbertasInicio
             // 
-            colStatus.Tag = "Status";
-            resources.ApplyResources(colStatus, "colStatus");
+            colAbertasInicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.Format = "dd/MM/yy HH:mm";
+            colAbertasInicio.DefaultCellStyle = dataGridViewCellStyle4;
+            resources.ApplyResources(colAbertasInicio, "colAbertasInicio");
+            colAbertasInicio.Name = "colAbertasInicio";
+            colAbertasInicio.ReadOnly = true;
+            // 
+            // colAbertasStatus
+            // 
+            colAbertasStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colAbertasStatus, "colAbertasStatus");
+            colAbertasStatus.Name = "colAbertasStatus";
+            colAbertasStatus.ReadOnly = true;
+            // 
+            // CreationDateTime
+            // 
+            CreationDateTime.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(CreationDateTime, "CreationDateTime");
+            CreationDateTime.Name = "CreationDateTime";
+            CreationDateTime.ReadOnly = true;
             // 
             // btnAtualizarAbertas
             // 
@@ -225,7 +249,7 @@
             resources.ApplyResources(btnAtualizar, "btnAtualizar");
             btnAtualizar.Name = "btnAtualizar";
             btnAtualizar.UseVisualStyleBackColor = true;
-            btnAtualizar.Click += button1_Click;
+            btnAtualizar.Click += btnAtualizarTudo_Click;
             // 
             // grpResumoEncerradas
             // 
@@ -273,10 +297,59 @@
             // tabPageEncerradas
             // 
             resources.ApplyResources(tabPageEncerradas, "tabPageEncerradas");
+            tabPageEncerradas.Controls.Add(dgvEncerradas);
             tabPageEncerradas.Controls.Add(btnAtualizarEncerradas);
-            tabPageEncerradas.Controls.Add(listViewEncerradas);
             tabPageEncerradas.Name = "tabPageEncerradas";
             tabPageEncerradas.UseVisualStyleBackColor = true;
+            // 
+            // dgvEncerradas
+            // 
+            resources.ApplyResources(dgvEncerradas, "dgvEncerradas");
+            dgvEncerradas.AllowUserToAddRows = false;
+            dgvEncerradas.AllowUserToDeleteRows = false;
+            dgvEncerradas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEncerradas.Columns.AddRange(new DataGridViewColumn[] { colEncerradasCliente, colEncerradasInicio, colEncerradasStatus, colEncerradasFim, colEncerradasDuracao });
+            dgvEncerradas.Name = "dgvEncerradas";
+            dgvEncerradas.ReadOnly = true;
+            // 
+            // colEncerradasCliente
+            // 
+            colEncerradasCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colEncerradasCliente, "colEncerradasCliente");
+            colEncerradasCliente.Name = "colEncerradasCliente";
+            colEncerradasCliente.ReadOnly = true;
+            // 
+            // colEncerradasInicio
+            // 
+            colEncerradasInicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.Format = "dd/MM/yy HH:mm";
+            colEncerradasInicio.DefaultCellStyle = dataGridViewCellStyle5;
+            resources.ApplyResources(colEncerradasInicio, "colEncerradasInicio");
+            colEncerradasInicio.Name = "colEncerradasInicio";
+            colEncerradasInicio.ReadOnly = true;
+            // 
+            // colEncerradasStatus
+            // 
+            colEncerradasStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colEncerradasStatus, "colEncerradasStatus");
+            colEncerradasStatus.Name = "colEncerradasStatus";
+            colEncerradasStatus.ReadOnly = true;
+            // 
+            // colEncerradasFim
+            // 
+            colEncerradasFim.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Format = "dd/MM/yy HH:mm";
+            colEncerradasFim.DefaultCellStyle = dataGridViewCellStyle6;
+            resources.ApplyResources(colEncerradasFim, "colEncerradasFim");
+            colEncerradasFim.Name = "colEncerradasFim";
+            colEncerradasFim.ReadOnly = true;
+            // 
+            // colEncerradasDuracao
+            // 
+            colEncerradasDuracao.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colEncerradasDuracao, "colEncerradasDuracao");
+            colEncerradasDuracao.Name = "colEncerradasDuracao";
+            colEncerradasDuracao.ReadOnly = true;
             // 
             // btnAtualizarEncerradas
             // 
@@ -284,41 +357,6 @@
             btnAtualizarEncerradas.Name = "btnAtualizarEncerradas";
             btnAtualizarEncerradas.UseVisualStyleBackColor = true;
             btnAtualizarEncerradas.Click += btnAtualizarEncerradas_Click;
-            // 
-            // listViewEncerradas
-            // 
-            resources.ApplyResources(listViewEncerradas, "listViewEncerradas");
-            listViewEncerradas.Columns.AddRange(new ColumnHeader[] { colClientId, colCreatedAt, colEncStatus, colDataFechado, colTempoDecorrido });
-            listViewEncerradas.FullRowSelect = true;
-            listViewEncerradas.GridLines = true;
-            listViewEncerradas.Name = "listViewEncerradas";
-            listViewEncerradas.UseCompatibleStateImageBehavior = false;
-            listViewEncerradas.View = View.Details;
-            // 
-            // colClientId
-            // 
-            colClientId.Tag = "ID cliente";
-            resources.ApplyResources(colClientId, "colClientId");
-            // 
-            // colCreatedAt
-            // 
-            colCreatedAt.Tag = "Abertura";
-            resources.ApplyResources(colCreatedAt, "colCreatedAt");
-            // 
-            // colEncStatus
-            // 
-            colEncStatus.Tag = "Status";
-            resources.ApplyResources(colEncStatus, "colEncStatus");
-            // 
-            // colDataFechado
-            // 
-            colDataFechado.Tag = "colDataFechado";
-            resources.ApplyResources(colDataFechado, "colDataFechado");
-            // 
-            // colTempoDecorrido
-            // 
-            colTempoDecorrido.Tag = "colTempoDecorrido";
-            resources.ApplyResources(colTempoDecorrido, "colTempoDecorrido");
             // 
             // statusStrip1
             // 
@@ -340,7 +378,7 @@
             toolStripProgressBar.Name = "toolStripProgressBar";
             toolStripProgressBar.Style = ProgressBarStyle.Marquee;
             // 
-            // Form1
+            // FormPrincipal
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
@@ -348,12 +386,13 @@
             Controls.Add(statusStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            Name = "Form1";
-            Load += Form1_Load;
+            Name = "FormPrincipal";
+            Load += FormPrincipal_Load;
             splitContainerFinalizar.Panel1.ResumeLayout(false);
             splitContainerFinalizar.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainerFinalizar).EndInit();
             splitContainerFinalizar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvAbertas).EndInit();
             grpDetalhesMensagem.ResumeLayout(false);
             tableLayoutPanelDetalhes.ResumeLayout(false);
             tableLayoutPanelDetalhes.PerformLayout();
@@ -367,6 +406,7 @@
             grpResumoNovas.PerformLayout();
             tabPageFinalizar.ResumeLayout(false);
             tabPageEncerradas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvEncerradas).EndInit();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ResumeLayout(false);
@@ -386,9 +426,6 @@
         private Label lblContagemEncerradas;
         private Button btnAtualizar;
         private SplitContainer splitContainerFinalizar;
-        private ListView listViewAbertasParaFinalizar;
-        private ColumnHeader colClientName;
-        private ColumnHeader colOpenAt;
         private GroupBox grpDetalhesMensagem;
         private Button btnFinalizarSelecionada;
         private TableLayoutPanel tableLayoutPanelDetalhes;
@@ -398,20 +435,24 @@
         private Label lblValorSenderId;
         private Label lblValorOpedAt;
         private Label lblValorStatus;
-        private ColumnHeader colStatus;
         private TabPage tabPageEncerradas;
-        private ListView listViewEncerradas;
-        private ColumnHeader colClientId;
-        private ColumnHeader colCreatedAt;
-        private ColumnHeader colEncStatus;
         private Button btnAtualizarEncerradas;
         private Label lblTimeOpened;
         private Label lblValorTempoAberto;
         private Button btnAtualizarAbertas;
-        private ColumnHeader colDataFechado;
-        private ColumnHeader colTempoDecorrido;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabelInfo;
         private ToolStripProgressBar toolStripProgressBar;
+        private DataGridView dgvAbertas;
+        private DataGridViewTextBoxColumn colAbertasCliente;
+        private DataGridViewTextBoxColumn colAbertasInicio;
+        private DataGridViewTextBoxColumn colAbertasStatus;
+        private DataGridViewTextBoxColumn CreationDateTime;
+        private DataGridView dgvEncerradas;
+        private DataGridViewTextBoxColumn colEncerradasCliente;
+        private DataGridViewTextBoxColumn colEncerradasInicio;
+        private DataGridViewTextBoxColumn colEncerradasStatus;
+        private DataGridViewTextBoxColumn colEncerradasFim;
+        private DataGridViewTextBoxColumn colEncerradasDuracao;
     }
 }

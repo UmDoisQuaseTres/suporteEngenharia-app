@@ -117,15 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="colClientName.Text" xml:space="preserve">
-    <value>Cliente</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="colClientName.Width" type="System.Int32, mscorlib">
-    <value>100</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dgvAbertas.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="listViewAbertasParaFinalizar.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="dgvAbertas.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 332</value>
   </data>
   <data name="btnAtualizarAbertas.Location" type="System.Drawing.Point, System.Drawing">
@@ -137,27 +134,18 @@
   <data name="splitContainerFinalizar.Size" type="System.Drawing.Size, System.Drawing">
     <value>683, 332</value>
   </data>
-  <data name="colOpenAt.Text" xml:space="preserve">
-    <value>Data de inicio</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="colAbertasInicio.Width" type="System.Int32, mscorlib">
+    <value>96</value>
   </data>
-  <data name="colOpenAt.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lblTimeOpened.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
   <data name="lblTimeOpened.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lblTimeOpened.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 70</value>
-  </data>
   <data name="lblTimeOpened.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 15</value>
-  </data>
-  <data name="lblTimeOpened.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="lblTimeOpened.Text" xml:space="preserve">
     <value>Tempo em aberto:</value>
@@ -168,14 +156,8 @@
   <data name="lblValorOpedAt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
-  <data name="lblValorOpedAt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 48</value>
-  </data>
   <data name="lblValorOpedAt.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 14</value>
-  </data>
-  <data name="lblValorOpedAt.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
   </data>
   <data name="lblValorOpedAt.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -186,14 +168,8 @@
   <data name="lblOpenedAt.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lblOpenedAt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 47</value>
-  </data>
   <data name="lblOpenedAt.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 15</value>
-  </data>
-  <data name="lblOpenedAt.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="lblOpenedAt.Text" xml:space="preserve">
     <value>Data abertura:</value>
@@ -213,14 +189,8 @@
   <data name="btnAtualizar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="btnAtualizar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>281, 269</value>
-  </data>
   <data name="btnAtualizar.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 40</value>
-  </data>
-  <data name="btnAtualizar.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
   </data>
   <data name="btnAtualizar.Text" xml:space="preserve">
     <value>Atualizar</value>
@@ -234,29 +204,26 @@
   <data name="tabPageEncerradas.Size" type="System.Drawing.Size, System.Drawing">
     <value>689, 338</value>
   </data>
-  <data name="btnAtualizarEncerradas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>524, 300</value>
+  <data name="dgvEncerradas.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="listViewEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="dgvEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvEncerradas.Size" type="System.Drawing.Size, System.Drawing">
     <value>689, 338</value>
   </data>
-  <data name="colClientId.Text" xml:space="preserve">
-    <value>Nº Cliente</value>
+  <data name="dgvEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="colClientId.Width" type="System.Int32, mscorlib">
-    <value>110</value>
+  <data name="colEncerradasCliente.Width" type="System.Int32, mscorlib">
+    <value>79</value>
   </data>
-  <data name="colCreatedAt.Text" xml:space="preserve">
-    <value>Aberto em</value>
+  <data name="colEncerradasInicio.Width" type="System.Int32, mscorlib">
+    <value>81</value>
   </data>
-  <data name="colCreatedAt.Width" type="System.Int32, mscorlib">
-    <value>120</value>
-  </data>
-  <data name="colDataFechado.Text" xml:space="preserve">
-    <value>Data fechamento</value>
-  </data>
-  <data name="colDataFechado.Width" type="System.Int32, mscorlib">
-    <value>110</value>
+  <data name="btnAtualizarEncerradas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>524, 300</value>
   </data>
   <data name="toolStripStatusLabelInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>682, 17</value>
