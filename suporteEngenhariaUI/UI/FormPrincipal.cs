@@ -1,20 +1,18 @@
-﻿using System.Net.Http.Headers;
-using System.Text; // Necessário para StringBuilder
+﻿using System.Text; // Necessário para StringBuilder
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using suporteEngenhariaUI.Exceptions;
+using suporteEngenhariaUI.Models;
+using suporteEngenhariaUI.Services;
 
 namespace suporteEngenhariaUI
 {
     public partial class FormPrincipal : Form
     {
         // --- Instância do Serviço da API ---
-        private readonly WhatsAppApiService _apiService = new WhatsAppApiService(); // Cria uma instância
+        private readonly WhatsAppApiService _apiService; // Cria uma instância
 
         // --- Construtor --- //
-        public FormPrincipal()
-        {
-            InitializeComponent();
-        }
+        public FormPrincipal() => InitializeComponent();
         // --- Fim do Construtor --- //
 
         // --- Evento Load ---
@@ -480,8 +478,5 @@ namespace suporteEngenhariaUI
         {
             IniciarCarregamento(); try { await CarregarConversasAbertasAsync(); } catch (Exception ex) { MostrarErro("Erro ao atualizar lista de conversas abertas", ex); } finally { FinalizarCarregamento(); }
         }
-
-
     } // Fim da classe Form1
-
 } // Fim do namespace

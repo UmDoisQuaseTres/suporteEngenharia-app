@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace suporteEngenhariaUI
+namespace suporteEngenhariaUI.Models
 {
     public class CloseStatusApi
     {

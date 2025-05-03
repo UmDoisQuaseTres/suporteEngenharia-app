@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace suporteEngenhariaUI
+namespace suporteEngenhariaUI.Exceptions
 {
     public class ApiException : Exception
     {
