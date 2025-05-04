@@ -1,90 +1,128 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using suporteEngenhariaUI.Exceptions;
+using suporteEngenhariaUI.Interfaces;
+using suporteEngenhariaUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
-using suporteEngenhariaUI.Exceptions;
-using suporteEngenhariaUI.Models;
-using suporteEngenhariaUI.Interfaces; // Referencia a interface
 
-namespace suporteEngenhariaUI.Services // Namespace para serviços
+namespace suporteEngenhariaUI.Services
 {
-    public class WhatsAppApiService : IWhatsAppApiService // Implementa a interface
+    public class WhatsAppApiService : IWhatsAppApiService
     {
-        private readonly HttpClient _httpClient; // HttpClient será injetado
+        private readonly string _apiBaseUrl;
+        private readonly HttpClient _httpClient;
 
-        // Constantes para endpoints
-        private const string ApiEndpointContagens = "count";
-        private const string ApiEndpointStatuses = "status";
-        private const string ApiEndpointClose = "close/{0}";
+        // Definindo os endpoints conforme a API Flask
+        private const string EndpointCount = "count";
+        private const string EndpointStatus = "status";
+        private const string EndpointClose = "close";
+        private const string EndpointRecalculateCounters = "recalculate-counters";
 
-        // Construtor recebe o HttpClient da DI
-        public WhatsAppApiService(HttpClient httpClient)
+        public WhatsAppApiService(IConfiguration configuration)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            // Configuração (BaseAddress, Timeout, Headers) é feita no Program.cs
+            _apiBaseUrl = configuration["ApiSettings:WhatsAppApi:BaseUrl"];
+            if (string.IsNullOrEmpty(_apiBaseUrl))
+            {
+                throw new ArgumentException("A URL base da API não está configurada em appsettings.json");
+            }
+
+            _httpClient = new HttpClient();
+            // Garantir que a URL base termine com "/"
+            if (!_apiBaseUrl.EndsWith("/"))
+            {
+                _apiBaseUrl += "/";
+            }
         }
 
-        // --- Implementação dos Métodos (Usando seu código original adaptado) ---
-
-        public async Task<ContagemConversasApi?> GetCountsAsync()
+        public async Task<ContagemConversasApi> GetCountsAsync()
         {
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync(ApiEndpointContagens);
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_apiBaseUrl}{EndpointCount}");
                 response.EnsureSuccessStatusCode();
                 string jsonString = await response.Content.ReadAsStringAsync();
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                return JsonSerializer.Deserialize<ContagemConversasApi>(jsonString, options);
+                return JsonConvert.DeserializeObject<ContagemConversasApi>(jsonString);
             }
-            catch (HttpRequestException httpEx) { Console.WriteLine($"Erro HTTP GetCountsAsync: {httpEx.Message} ({httpEx.StatusCode})"); throw new ApiException($"Erro rede/HTTP contagens: {httpEx.Message}", httpEx); }
-            catch (JsonException jsonEx) { Console.WriteLine($"Erro JSON GetCountsAsync: {jsonEx.Message}"); throw new ApiException("Erro processar contagens (JSON?).", jsonEx); }
-            catch (Exception ex) { Console.WriteLine($"Erro Inesp. GetCountsAsync: {ex.Message}"); throw new ApiException("Erro inesperado buscar contagens.", ex); }
+            catch (HttpRequestException ex)
+            {
+                throw new ApiException($"Erro ao obter contagem de conversas: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new ApiException($"Erro inesperado ao obter contagem de conversas: {ex.Message}", ex);
+            }
         }
 
-        public async Task<Dictionary<string, ConversationStatusApi>?> GetAllStatusesAsync()
+        public async Task<Dictionary<string, ConversationStatusApi>> GetAllStatusesAsync()
         {
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync(ApiEndpointStatuses);
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_apiBaseUrl}{EndpointStatus}");
                 response.EnsureSuccessStatusCode();
                 string jsonString = await response.Content.ReadAsStringAsync();
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                return JsonSerializer.Deserialize<Dictionary<string, ConversationStatusApi>>(jsonString, options);
+                return JsonConvert.DeserializeObject<Dictionary<string, ConversationStatusApi>>(jsonString);
             }
-            catch (HttpRequestException httpEx) { Console.WriteLine($"Erro HTTP GetAllStatusesAsync: {httpEx.Message} ({httpEx.StatusCode})"); throw new ApiException($"Erro HTTP {(int?)httpEx.StatusCode ?? 0} status: {httpEx.Message}", httpEx); }
-            catch (JsonException jsonEx) { Console.WriteLine($"Erro JSON GetAllStatusesAsync: {jsonEx.Message}"); throw new ApiException("Erro processar status (JSON?).", jsonEx); }
-            catch (Exception ex) { Console.WriteLine($"Erro Inesp. GetAllStatusesAsync: {ex.Message}"); throw new ApiException("Erro inesperado buscar status.", ex); }
+            catch (HttpRequestException ex)
+            {
+                throw new ApiException($"Erro ao obter status das conversas: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new ApiException($"Erro inesperado ao obter status das conversas: {ex.Message}", ex);
+            }
         }
 
-        public async Task<CloseStatusApi?> CloseConversationAsync(string senderId)
+        public async Task<CloseStatusApi> CloseConversationAsync(string senderId)
         {
-            if (string.IsNullOrEmpty(senderId)) { throw new ArgumentNullException(nameof(senderId)); }
-
-            string endpointFinalizar = string.Format(ApiEndpointClose, senderId);
-            HttpResponseMessage? response = null; string responseBody = string.Empty;
+            if (string.IsNullOrEmpty(senderId))
+            {
+                throw new ArgumentException("O ID do remetente não pode ser nulo ou vazio");
+            }
 
             try
             {
-                response = await _httpClient.PostAsync(endpointFinalizar, null);
-                responseBody = await response.Content.ReadAsStringAsync();
-                CloseStatusApi? statusResult = null;
-                if (!string.IsNullOrWhiteSpace(responseBody))
-                {
-                    try
-                    {
-                        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                        statusResult = JsonSerializer.Deserialize<CloseStatusApi>(responseBody, options);
-                    }
-                    catch (JsonException jsonEx) { Console.WriteLine($"WARN: Erro JSON /close {senderId}: {jsonEx.Message} - Corpo: {responseBody}"); }
-                }
-                if (statusResult != null) { return statusResult; }
-                if (response.IsSuccessStatusCode && statusResult == null) { Console.WriteLine($"WARN: /close {senderId} OK mas sem corpo. Assumindo 'closed'."); return new CloseStatusApi { Status = "closed" }; }
-                throw new ApiException($"Falha finalizar. HTTP: {response.StatusCode}.", null, responseBody);
+                HttpResponseMessage response = await _httpClient.PostAsync(
+                    $"{_apiBaseUrl}{EndpointClose}/{senderId}",
+                    new StringContent("", Encoding.UTF8, "application/json"));
+
+                response.EnsureSuccessStatusCode();
+                string jsonString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<CloseStatusApi>(jsonString);
             }
-            catch (HttpRequestException httpEx) { Console.WriteLine($"Erro HTTP CloseConvAsync: {httpEx.Message} ({httpEx.StatusCode})"); throw new ApiException($"Erro rede finalizar {senderId}: {httpEx.Message}", httpEx, responseBody); }
-            catch (ApiException) { throw; } // Re-lança a ApiException criada acima
-            catch (Exception ex) { Console.WriteLine($"Erro Inesp. CloseConvAsync {senderId}: {ex.Message}"); throw new ApiException($"Erro inesperado finalizar {senderId}.", ex, responseBody); }
+            catch (HttpRequestException ex)
+            {
+                throw new ApiException($"Erro ao fechar conversa {senderId}: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new ApiException($"Erro inesperado ao fechar conversa {senderId}: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<ContagemConversasApi> RecalculateCountersAsync()
+        {
+            try
+            {
+                HttpResponseMessage response = await _httpClient.PostAsync(
+                    $"{_apiBaseUrl}{EndpointRecalculateCounters}",
+                    new StringContent("", Encoding.UTF8, "application/json"));
+
+                response.EnsureSuccessStatusCode();
+                string jsonString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ContagemConversasApi>(jsonString);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApiException($"Erro ao recalcular contadores: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new ApiException($"Erro inesperado ao recalcular contadores: {ex.Message}", ex);
+            }
         }
     }
 }

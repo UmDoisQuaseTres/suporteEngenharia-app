@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace suporteEngenhariaUI.Models
 {
     public class CloseStatusApi
     {
-        [JsonPropertyName("status")] public required string Status { get; set; }
-        [JsonPropertyName("error")] public string? Error { get; set; }
+        [JsonProperty("status")] // Mapeia o nome do JSON
+        public string? Status { get; set; }
+
+        [JsonProperty("error")] // Mapeia o nome do JSON ("error" minúsculo)
+        public string? Error { get; set; } // Propriedade para capturar a mensagem de erro da API
     }
 }

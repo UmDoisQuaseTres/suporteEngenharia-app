@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using suporteEngenhariaUI.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using suporteEngenhariaUI.Models;   // Referencia os modelos
 
-namespace suporteEngenhariaUI.Interfaces // Namespace para interfaces
+namespace suporteEngenhariaUI.Interfaces
 {
     public interface IWhatsAppApiService
     {
-        // As definições dos métodos GetCountsAsync, GetAllStatusesAsync, CloseConversationAsync
-        // permanecem como estavam na resposta anterior, sem implementação.
-        // Apenas garanta que os tipos (ContagemConversasApi, etc.) sejam encontrados via 'using'.
 
-        Task<ContagemConversasApi?> GetCountsAsync();
-        Task<Dictionary<string, ConversationStatusApi>?> GetAllStatusesAsync();
-        Task<CloseStatusApi?> CloseConversationAsync(string senderId);
+        Task<ContagemConversasApi> GetCountsAsync();
+
+        Task<Dictionary<string, ConversationStatusApi>> GetAllStatusesAsync();
+
+        Task<CloseStatusApi> CloseConversationAsync(string senderId);
+
+        Task<ContagemConversasApi> RecalculateCountersAsync();
     }
 }

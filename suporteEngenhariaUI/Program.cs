@@ -1,60 +1,61 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Configuration; // Para App.config
-using System.Net.Http.Headers;
-using System.Windows.Forms;
+using Microsoft.Extensions.Hosting;
 using suporteEngenhariaUI.Interfaces;
 using suporteEngenhariaUI.Services;
+using System;
+using System.IO;
+using System.Windows.Forms;
 
-namespace suporteEngenhariaUI // Namespace raiz ou da pasta onde Program.cs está
+namespace suporteEngenhariaUI
 {
     internal static class Program
     {
-        public static IServiceProvider? ServiceProvider { get; private set; }
-
+        /// <summary>
+        /// Ponto de entrada principal para o aplicativo.
+        /// </summary>
         [STAThread]
         static void Main()
         {
-            ConfigureServices(); // Configura DI PRIMEIRO
-            ApplicationConfiguration.Initialize(); // Config padrão depois
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-            if (ServiceProvider != null)
-            {
-                var mainForm = ServiceProvider.GetRequiredService<FormPrincipal>();
-                Application.Run(mainForm);
-            }
-            else { MessageBox.Show("Falha crítica ao configurar serviços.", "Erro Fatal", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
+            var host = CreateHostBuilder().Build();
+            ServiceProvider = host.Services;
+
+            Application.Run(ServiceProvider.GetRequiredService<FormPrincipal>());
         }
 
-        static void ConfigureServices()
+        public static IServiceProvider ServiceProvider { get; private set; }
+
+        static IHostBuilder CreateHostBuilder()
         {
-            var services = new ServiceCollection();
-            string baseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://INDEFINIDO/";
-            string timeoutSetting = ConfigurationManager.AppSettings["ApiTimeoutSeconds"] ?? "30";
-            if (!int.TryParse(timeoutSetting, out int timeoutSeconds)) timeoutSeconds = 30;
-
-            services.AddHttpClient<IWhatsAppApiService, WhatsAppApiService>(client =>
-            {
-                try
+            return Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((context, config) =>
                 {
-                    client.BaseAddress = new Uri(baseUrl);
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
-                    // Configurar Autenticação aqui se necessário
-                }
-                catch (Exception ex)
+                    config.SetBasePath(Directory.GetCurrentDirectory());
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                })
+                .ConfigureServices((context, services) =>
                 {
-                    MessageBox.Show($"Erro configurar HttpClient: {ex.Message}\nURL Base: '{baseUrl}'", "Erro Crítico", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    throw new InvalidOperationException($"Falha configurar HttpClient. URL: {baseUrl}", ex);
-                }
-            });
-            // .AddTransientHttpErrorPolicy(...) // Opcional: Polly
+                    // Configurar serviços
+                    ConfigureServices(services, context.Configuration);
+                });
+        }
 
-            services.AddTransient<FormPrincipal>(); // Registra o formulário
+        private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        {
+            // Registrar configuração
+            services.AddSingleton(configuration);
 
-            try { ServiceProvider = services.BuildServiceProvider(); }
-            catch (Exception ex) { MessageBox.Show($"Erro construir DI: {ex.Message}", "Erro Fatal DI", MessageBoxButtons.OK, MessageBoxIcon.Stop); ServiceProvider = null; }
+            // Registrar formulários
+            services.AddTransient<FormPrincipal>();
+
+            // Registrar serviços
+            services.AddTransient<IWhatsAppApiService, WhatsAppApiService>();
+
+            // Registrar outros serviços conforme necessário
+            // services.AddTransient<IOutroServiço, ImplementaçãoDoServiço>();
         }
     }
 }

@@ -4,13 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace suporteEngenhariaUI.Models
 {
     public class ContagemConversasApi
     {
-        [JsonPropertyName("new_conversation_count")] public int ContagemNovas { get; set; }
-        [JsonPropertyName("open_conversation_count")] public int ContagemAbertas { get; set; }
-        [JsonPropertyName("closed_conversation_count")] public int ContagemEncerradas { get; set; }
+        [JsonProperty("new_conversation_count")] // Mapeia o nome do JSON
+        public int ContagemNovas { get; set; } // Mantém o nome C# amigável
+
+        [JsonProperty("open_conversation_count")] // Mapeia o nome do JSON
+        public int ContagemAbertas { get; set; } // Mantém o nome C# amigável
+
+        [JsonProperty("closed_conversation_count")] // Mapeia o nome do JSON
+        public int ContagemEncerradas { get; set; } // Mantém o nome C# amigável
     }
 }
