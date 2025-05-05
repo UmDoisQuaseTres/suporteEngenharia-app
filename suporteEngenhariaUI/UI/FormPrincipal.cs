@@ -6,20 +6,16 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using suporteEngenhariaUI.Exceptions; // Namespace das Exceptions
-using suporteEngenhariaUI.Interfaces; // Namespace da Interface
-using suporteEngenhariaUI.Models;   // Namespace dos Models
+using suporteEngenhariaUI.Exceptions; 
+using suporteEngenhariaUI.Interfaces; 
+using suporteEngenhariaUI.Models;
 
-// Namespace deve corresponder à pasta onde este arquivo está (ex: UI)
+
 namespace suporteEngenhariaUI
 {
-    /// <summary>
-    /// Formulário principal para visualização e controle de conversas do WhatsApp via API.
-    /// Utiliza DataGridView para exibição e Injeção de Dependência para o serviço da API.
-    /// </summary>
+
     public partial class FormPrincipal : Form
     {
-        // --- Constantes (para clareza) ---
         private static class StatusConstants
         {
             public const string Open = "open";
@@ -54,32 +50,37 @@ namespace suporteEngenhariaUI
             // Configura os DataGridViews (DataSource, eventos, etc.)
             ConfigurarGrids();
         }
-
-        /// <summary>
-        /// Configura propriedades iniciais e DataSources para os DataGridViews.
-        /// </summary>
         private void ConfigurarGrids()
         {
             // Grid Abertas
-            dgvAbertas.AutoGenerateColumns = false; // Colunas definidas no Designer
-            dgvAbertas.DataSource = _conversasAbertasBindingList; // Vincula à lista
-            dgvAbertas.SelectionChanged += dgv_SelectionChanged; // Associa handler comum
-            dgvAbertas.CellFormatting += dgvAbertas_CellFormatting; // Formatação específica
-            dgvAbertas.GotFocus += dgv_GotFocus; // Rastreia foco
+            dgvAbertas.AutoGenerateColumns = false;
+            dgvAbertas.DataSource = _conversasAbertasBindingList;
+            dgvAbertas.SelectionChanged += dgv_SelectionChanged;
+            dgvAbertas.CellFormatting += dgvAbertas_CellFormatting;
+            dgvAbertas.GotFocus += dgv_GotFocus;
+            colAbertasCliente.DataPropertyName = "SenderId";
+            colAbertasInicio.DataPropertyName = "CreationTimestamp";
+            colAbertasStatus.DataPropertyName = "Status";
+
 
             // Grid Encerradas
-            dgvEncerradas.AutoGenerateColumns = false; // Colunas definidas no Designer
-            dgvEncerradas.DataSource = _conversasEncerradasBindingList; // Vincula à lista
-            dgvEncerradas.SelectionChanged += dgv_SelectionChanged; // Associa handler comum
-            dgvEncerradas.CellFormatting += dgvEncerradas_CellFormatting; // Formatação específica
-            dgvEncerradas.GotFocus += dgv_GotFocus; // Rastreia foco
+            // --- Grid Encerradas (Usando CellFormatting para Datas) ---
+            dgvEncerradas.AutoGenerateColumns = false;
+            dgvEncerradas.DataSource = _conversasEncerradasBindingList;
+            dgvEncerradas.SelectionChanged += dgv_SelectionChanged;
+            dgvEncerradas.CellFormatting += dgvEncerradas_CellFormatting;
+            dgvEncerradas.GotFocus += dgv_GotFocus;
+            colEncerradasCliente.DataPropertyName = "DisplayName";   
+            colEncerradasStatus.DataPropertyName = "Status";         
+            colEncerradasInicio.DataPropertyName = null;
+            colEncerradasFim.DataPropertyName = null;
+            colEncerradasDuracao.DataPropertyName = null;
         }
 
         // --- Evento Load do Formulário ---
         private async void FormPrincipal_Load(object sender, EventArgs e)
         {
-            LimparDetalhes(); // Limpa a área de detalhes inicialmente
-            // Inicia o carregamento de dados da API
+            LimparDetalhes(); 
             await AtualizarTodosOsDadosAsync();
         }
 
@@ -87,23 +88,18 @@ namespace suporteEngenhariaUI
         private async Task AtualizarTodosOsDadosAsync(bool mostrarErroGeral = true)
         {
             IniciarCarregamento();
-            // Não precisamos mais da lista de errosDetalhes aqui se falharmos no primeiro erro
             Dictionary<string, ConversationStatusApi>? todosStatus = null;
             string? idAbertasSelecionado = GetSelectedConversation(dgvAbertas)?.SenderId;
             string? idEncerradasSelecionado = GetSelectedConversation(dgvEncerradas)?.SenderId;
 
-            try // ÚNICO TRY EXTERNO
+            try
             {
-                // 1. Carregar Contagens (Sem try/catch interno)
                 ContagemConversasApi? contagens = await _apiService.GetCountsAsync();
                 if (contagens != null) { AtualizarLabelsContagem(contagens.ContagemNovas, contagens.ContagemAbertas, contagens.ContagemEncerradas); }
                 else { AtualizarLabelsContagem(-1, -1, -1); Console.WriteLine("WARN: API retornou contagens nulas."); /* Ou lançar exceção? */ }
-
-                // 2. Carregar TODOS os Status (Sem try/catch interno)
                 todosStatus = await _apiService.GetAllStatusesAsync();
                 if (todosStatus == null) { Console.WriteLine("WARN: API retornou status nulo."); /* Ou lançar exceção? */ }
 
-                // 3. Filtrar e Popular Grids (só executa se os de cima não falharam)
                 var conversasAbertas = todosStatus?.Values
                     .Where(conv => conv.Status != null && conv.Status.Equals(StatusConstants.Open, StringComparison.OrdinalIgnoreCase))
                     .OrderByDescending(conv => conv.CreationTimestamp)
@@ -116,11 +112,9 @@ namespace suporteEngenhariaUI
                     .ToList() ?? new List<ConversationStatusApi>();
                 PopularGrid(_conversasEncerradasBindingList, dgvEncerradas, conversasEncerradas, idEncerradasSelecionado);
 
-                // 4. Se chegou aqui sem exceção, não precisa mostrar erro agregado de carregamento parcial
             }
-            catch (Exception ex) // CAPTURA QUALQUER ERRO das chamadas API ou processamento
+            catch (Exception ex) 
             {
-                // Se qualquer chamada falhar (ex: conexão), cairá aqui diretamente.
                 if (mostrarErroGeral)
                 {
                     // Mostra o erro específico que ocorreu (ex: HttpRequestException)
@@ -145,14 +139,12 @@ namespace suporteEngenhariaUI
         {
             if (this.InvokeRequired) { this.Invoke(new Action(IniciarCarregamento)); return; }
             this.Cursor = Cursors.WaitCursor;
-            btnFinalizarSelecionada.Enabled = false;
-            btnAtualizarEncerradas.Enabled = false;
+
             // Tenta encontrar o botão de atualizar tudo pelo nome padrão ou fallback
             var btnAtualizarTudo = this.Controls.Find("btnAtualizarTudo", true).FirstOrDefault() ??
                                    this.Controls.Find("button1", true).FirstOrDefault();
             if (btnAtualizarTudo is Button btn) btn.Enabled = false;
 
-            btnAtualizarAbertas.Enabled = false;
             toolStripStatusLabelInfo.Text = "Carregando dados...";
             toolStripProgressBar.Visible = true;
             toolStripProgressBar.Style = ProgressBarStyle.Marquee;
@@ -162,12 +154,9 @@ namespace suporteEngenhariaUI
         {
             if (this.InvokeRequired) { this.Invoke(new Action(FinalizarCarregamento)); return; }
             this.Cursor = Cursors.Default;
-            btnAtualizarEncerradas.Enabled = true;
             var btnAtualizarTudo = this.Controls.Find("btnAtualizarTudo", true).FirstOrDefault() ??
                                   this.Controls.Find("button1", true).FirstOrDefault();
             if (btnAtualizarTudo is Button btn) btn.Enabled = true;
-            btnAtualizarAbertas.Enabled = true;
-            // O estado do botão Finalizar é tratado por AtualizarEstadoBotoesSelecao
             toolStripStatusLabelInfo.Text = $"Pronto. Dados atualizados às {DateTime.Now:HH:mm:ss}";
             toolStripProgressBar.Visible = false;
         }
@@ -211,24 +200,14 @@ namespace suporteEngenhariaUI
             catch (Exception ex) { MostrarErro($"Erro inesperado ao finalizar {senderId}", ex); }
             finally
             {
-                // Assegura que o estado de carregamento termine e a UI seja atualizada
                 FinalizarCarregamento();
                 AtualizarEstadoBotoesSelecao();
             }
         }
-
-        // --- Métodos de Atualização da UI ---
-
-        /// <summary>
-        /// Helper genérico para popular um DataGridView ligado a uma BindingList,
-        /// limpando a lista, adicionando novos itens e tentando restaurar a seleção anterior.
-        /// </summary>
         private void PopularGrid(BindingList<ConversationStatusApi> bindingList, DataGridView dgv, List<ConversationStatusApi> novasConversas, string? selectedSenderId)
         {
             if (this.InvokeRequired) { this.Invoke(new Action(() => PopularGrid(bindingList, dgv, novasConversas, selectedSenderId))); return; }
 
-            // Desvincular temporariamente pode melhorar a performance em alguns cenários, mas BindingList geralmente lida bem.
-            // dgv.DataSource = null;
             try
             {
                 bindingList.RaiseListChangedEvents = false; // Desabilita notificações durante a carga em massa
@@ -243,17 +222,12 @@ namespace suporteEngenhariaUI
             }
             finally
             {
-                bindingList.RaiseListChangedEvents = true; // Reabilita notificações
-                bindingList.ResetBindings(); // Força a atualização do grid
-                                             // dgv.DataSource = bindingList; // Reatribui se desvinculou antes
-                RestaurarSelecaoGrid(dgv, selectedSenderId); // Tenta restaurar a seleção
+                bindingList.RaiseListChangedEvents = true;
+                bindingList.ResetBindings(); 
+                                       
+                RestaurarSelecaoGrid(dgv, selectedSenderId); 
             }
         }
-
-        /// <summary>
-        /// Tenta encontrar e selecionar uma linha no DataGridView baseado no SenderId.
-        /// Limpa a seleção se o ID não for encontrado ou for nulo/vazio.
-        /// </summary>
         private void RestaurarSelecaoGrid(DataGridView dgv, string? selectedSenderId)
         {
             if (string.IsNullOrEmpty(selectedSenderId))
@@ -280,8 +254,7 @@ namespace suporteEngenhariaUI
                     dgv.ClearSelection();
                     rowToSelect.Selected = true;
                 }
-                // Tenta rolar para a linha selecionada
-                // Garante que o índice está dentro dos limites antes de definir FirstDisplayedScrollingRowIndex
+               
                 if (dgv.RowCount > 0 && rowToSelect.Index >= 0 && rowToSelect.Index < dgv.RowCount)
                 {
                     // Centraliza um pouco melhor se possível
@@ -317,26 +290,21 @@ namespace suporteEngenhariaUI
             lblValorOpedAt.Text = string.Empty;
             lblValorTempoAberto.Text = string.Empty;
         }
-
-        /// <summary>
-        /// Exibe os detalhes da conversa fornecida na área de detalhes do formulário.
-        /// Limpa os detalhes se a conversa for nula.
-        /// </summary>
         private void MostrarDetalhesConversaSelecionada(ConversationStatusApi? conv)
         {
             if (this.InvokeRequired) { this.Invoke(new Action(() => MostrarDetalhesConversaSelecionada(conv))); return; }
             if (conv == null) { LimparDetalhes(); return; }
 
-            lblValorSenderId.Text = conv.DisplayName; // Usa a propriedade calculada
+            lblValorSenderId.Text = conv.DisplayName;
             lblValorStatus.Text = conv.Status ?? "N/D";
-            lblValorOpedAt.Text = conv.CreationDateTime.ToString("dd/MM/yyyy HH:mm:ss"); // Formato longo para detalhes
+            lblValorOpedAt.Text = conv.CreationTimestamp.ToString("dd/MM/yyyy HH:mm:ss"); 
 
             // Calcula e formata a duração ou tempo em aberto
             TimeSpan duracao; string tempoFormatado;
             if (conv.Status != null && conv.Status.Equals(StatusConstants.Open, StringComparison.OrdinalIgnoreCase))
             {
                 // Conversa aberta: Calcula tempo desde a criação até agora
-                duracao = DateTime.Now - conv.CreationDateTime;
+                duracao = DateTime.Now - conv.CreationTimestamp;
                 tempoFormatado = FormatarTempoDecorrido(duracao);
                 lblValorTempoAberto.Text = tempoFormatado; // Usa o label padrão
             }
@@ -349,10 +317,6 @@ namespace suporteEngenhariaUI
             }
             else { lblValorTempoAberto.Text = "N/A"; } // Caso inesperado
         }
-
-        /// <summary>
-        /// Formata um TimeSpan em uma string legível (ex: "1d 2h 30m", "< 1m").
-        /// </summary>
         private string FormatarTempoDecorrido(TimeSpan duracao)
         {
             if (duracao.TotalMinutes < 1) return "< 1m";
@@ -365,10 +329,6 @@ namespace suporteEngenhariaUI
             return sb.ToString().TrimEnd();
         }
 
-        /// <summary>
-        /// Exibe uma mensagem de erro formatada em uma MessageBox e no Console.
-        /// Inclui detalhes da API e da exceção interna, se disponíveis.
-        /// </summary>
         private void MostrarErro(string titulo, Exception? ex = null, string? apiResponse = null)
         {
             string mensagemCompleta = titulo;
@@ -399,21 +359,17 @@ namespace suporteEngenhariaUI
                         // Se não encontrar 'error' ou 'message', mantém a string original (erroApiFormatado)
                     }
                 }
-                // --- CORREÇÃO AQUI ---
-                catch (JsonException jsonEx) // Primeiro pega o erro específico de JSON inválido
+                catch (JsonException jsonEx) 
                 {
-                    // Em vez de ignorar silenciosamente, é melhor logar que o parse falhou
                     Console.WriteLine($"WARN: Não foi possível analisar a resposta da API como JSON no MostrarErro: {jsonEx.Message}. Resposta original será exibida.");
-                    // Mantém erroApiFormatado como a string original da API.
                 }
-                catch (Exception pe) // Depois pega qualquer outro erro inesperado durante o parse/processamento
+                catch (Exception pe) 
                 {
                     Console.WriteLine($"Erro inesperado ao processar detalhes da API no MostrarErro: {pe.Message}");
-                    // Mantém erroApiFormatado como a string original da API.
+                    
                 }
-                // --- FIM DA CORREÇÃO ---
 
-                mensagemCompleta += $"\n\nDetalhe API: {erroApiFormatado}"; // Usa o valor formatado ou o original
+                mensagemCompleta += $"\n\nDetalhe API: {erroApiFormatado}"; 
             }
 
             // Adiciona detalhes da exceção principal (InnerMost)
@@ -444,15 +400,8 @@ namespace suporteEngenhariaUI
 
         // --- Event Handlers para DataGridView ---
 
-        /// <summary>
-        /// Evento disparado quando um dos grids ganha foco. Armazena qual grid está ativo.
-        /// </summary>
         private void dgv_GotFocus(object sender, EventArgs e) { _lastFocusedGrid = sender as DataGridView; }
 
-        /// <summary>
-        /// Obtém o objeto ConversationStatusApi da linha atualmente selecionada no DataGridView fornecido.
-        /// Retorna null se nenhuma linha estiver selecionada ou se o objeto vinculado for inválido.
-        /// </summary>
         private ConversationStatusApi? GetSelectedConversation(DataGridView dgv)
         {
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].DataBoundItem is ConversationStatusApi conv)
@@ -462,10 +411,6 @@ namespace suporteEngenhariaUI
             return null;
         }
 
-        /// <summary>
-        /// Handler de evento UNIFICADO para SelectionChanged de ambos os DataGridViews.
-        /// Limpa a seleção do outro grid e atualiza os detalhes e botões.
-        /// </summary>
         private void dgv_SelectionChanged(object? sender, EventArgs e)
         {
             var currentGrid = sender as DataGridView;
@@ -480,15 +425,9 @@ namespace suporteEngenhariaUI
             {
                 otherGrid.ClearSelection();
             }
-
-            // Atualiza o estado dos botões e a área de detalhes com base na seleção atual do grid ativo
             AtualizarEstadoBotoesSelecao();
         }
 
-        /// <summary>
-        /// Atualiza o estado do botão Finalizar e a área de detalhes com base na seleção atual
-        /// do último grid que recebeu foco.
-        /// </summary>
         private void AtualizarEstadoBotoesSelecao()
         {
             // Invoca na thread da UI se necessário
@@ -497,7 +436,6 @@ namespace suporteEngenhariaUI
             ConversationStatusApi? selecionada = null;
             bool isAberta = false;
 
-            // Verifica qual grid teve foco por último (ou se algum tem seleção)
             var gridAtivo = _lastFocusedGrid;
             if (gridAtivo == null)
             { // Tenta pegar algum selecionado se nenhum teve foco ainda
@@ -523,14 +461,13 @@ namespace suporteEngenhariaUI
         private void dgvAbertas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Formata a coluna "Tempo em aberto"
-            // IMPORTANTE: Use o NOME da coluna definido no Designer
             if (e.RowIndex >= 0 && dgvAbertas.Columns[e.ColumnIndex].Name == "colAbertasTempo")
             {
                 if (dgvAbertas.Rows[e.RowIndex].DataBoundItem is ConversationStatusApi conv)
                 {
                     // Calcula a diferença entre agora e a data de criação
-                    TimeSpan tempoDecorrido = DateTime.Now - conv.CreationDateTime;
-                    e.Value = FormatarTempoDecorrido(tempoDecorrido); // Formata o TimeSpan
+                    TimeSpan tempoDecorrido = DateTime.Now - conv.CreationTimestamp;
+                    e.Value = FormatarTempoDecorrido(tempoDecorrido);
                     e.FormattingApplied = true; // Informa ao grid que a formatação foi feita
                 }
                 else
@@ -543,23 +480,59 @@ namespace suporteEngenhariaUI
 
         private void dgvEncerradas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Formata a coluna "Duração"
-            // IMPORTANTE: Use o NOME da coluna definido no Designer
-            if (e.RowIndex >= 0 && dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao")
+            
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) 
             {
-                if (dgvEncerradas.Rows[e.RowIndex].DataBoundItem is ConversationStatusApi conv && conv.DuracaoConversa.HasValue)
+                // Tenta obter o objeto ConversationStatusApi da linha atual
+                if (dgvEncerradas.Rows[e.RowIndex].DataBoundItem is ConversationStatusApi conv)
                 {
-                    // Usa a propriedade calculada DuracaoConversa e formata
-                    e.Value = FormatarTempoDecorrido(conv.DuracaoConversa.Value);
-                    e.FormattingApplied = true;
+                    // Formata a coluna "Aberto em"
+                    if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasInicio") 
+                    {
+                        // Usa a propriedade calculada DateTime
+                        e.Value = conv.CreationTimestamp.ToString("dd/MM/yyyy HH:mm"); 
+                        e.FormattingApplied = true;
+                    }
+                    // Formata a coluna "Data fechamento"
+                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasFim")
+                    {
+                        // Usa a propriedade calculada DateTime? (nullable)
+                        if (conv.ClosedTimestamp.HasValue)
+                        {
+                            e.Value = conv.ClosedTimestamp.Value.ToString("dd/MM/yyyy HH:mm");
+                        }
+                        else
+                        {
+                            e.Value = "N/A";
+                        }
+                        e.FormattingApplied = true;
+                    }
+                    // Formata a coluna "Duração" 
+                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao") 
+                        if (conv.DuracaoConversa.HasValue)
+                        {
+                            e.Value = FormatarTempoDecorrido(conv.DuracaoConversa.Value);
+                        }
+                        else
+                        {
+                            e.Value = "N/A";
+                        }
+                        e.FormattingApplied = true;
+                    }
                 }
-                else
+                else if (e.Value == null) // Se não conseguiu pegar o objeto, define como N/A para evitar erro
                 {
-                    e.Value = "N/A"; // Mostra N/A se não houver duração calculada
-                    e.FormattingApplied = true;
+                    // Para evitar erros se DataBoundItem for null por algum motivo
+                    if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasInicio" ||
+                        dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasFim" ||
+                        dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao")
+                    {
+                        e.Value = "N/A";
+                        e.FormattingApplied = true;
+                    }
                 }
             }
-        }
+        
 
 
         // --- Event Handlers Botões ---
@@ -579,42 +552,9 @@ namespace suporteEngenhariaUI
             }
             else { MessageBox.Show("Nenhuma conversa aberta selecionada para finalizar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
-
-        // Assume que o botão Atualizar Tudo foi renomeado para btnAtualizarTudo ou é button1
         private async void btnAtualizarTudo_Click(object sender, EventArgs e)
         {
             await AtualizarTodosOsDadosAsync();
-        }
-
-        private async void btnAtualizarEncerradas_Click(object sender, EventArgs e)
-        {
-            IniciarCarregamento(); try
-            {
-                var todos = await _apiService.GetAllStatusesAsync();
-                var data = todos?.Values.Where(c => c.Status?.Equals(StatusConstants.Closed, StringComparison.OrdinalIgnoreCase) ?? false)
-                                 .OrderByDescending(c => c.ClosedTimestamp ?? c.CreationTimestamp).ToList() ?? new List<ConversationStatusApi>();
-                // Popula o grid específico e tenta manter a seleção
-                PopularGrid(_conversasEncerradasBindingList, dgvEncerradas, data, GetSelectedConversation(dgvEncerradas)?.SenderId);
-                // Opcional: Atualizar contagens também para consistência
-                // var contagens = await _apiService.GetCountsAsync(); AtualizarLabelsContagem(...);
-            }
-            catch (Exception ex) { MostrarErro("Erro ao atualizar lista de encerradas", ex); }
-            finally { FinalizarCarregamento(); AtualizarEstadoBotoesSelecao(); }
-        }
-
-        private async void btnAtualizarAbertas_Click(object sender, EventArgs e)
-        {
-            IniciarCarregamento(); try
-            {
-                var todos = await _apiService.GetAllStatusesAsync();
-                var data = todos?.Values.Where(c => c.Status?.Equals(StatusConstants.Open, StringComparison.OrdinalIgnoreCase) ?? false)
-                                 .OrderByDescending(c => c.CreationTimestamp).ToList() ?? new List<ConversationStatusApi>();
-                // Popula o grid específico e tenta manter a seleção
-                PopularGrid(_conversasAbertasBindingList, dgvAbertas, data, GetSelectedConversation(dgvAbertas)?.SenderId);
-                // Opcional: Atualizar contagens
-            }
-            catch (Exception ex) { MostrarErro("Erro ao atualizar lista de abertas", ex); }
-            finally { FinalizarCarregamento(); AtualizarEstadoBotoesSelecao(); }
         }
 
     } // Fim da classe FormPrincipal
