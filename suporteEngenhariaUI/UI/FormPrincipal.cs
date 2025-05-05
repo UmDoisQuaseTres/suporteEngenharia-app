@@ -68,14 +68,10 @@ namespace suporteEngenhariaUI
             dgvEncerradas.AutoGenerateColumns = false;
             dgvEncerradas.DataSource = _conversasEncerradasBindingList;
             dgvEncerradas.SelectionChanged += dgv_SelectionChanged;
-            dgvEncerradas.CellFormatting += dgvEncerradas_CellFormatting; // Já estava
-            dgvEncerradas.GotFocus += dgv_GotFocus; // Já estava
-
-            // Verifique os nomes das variáveis das colunas no Designer!
-            colEncerradasCliente.DataPropertyName = "DisplayName";     // OK
-            colEncerradasStatus.DataPropertyName = "Status";          // OK
-
-            // Definir como null pois CellFormatting vai cuidar da exibição
+            dgvEncerradas.CellFormatting += dgvEncerradas_CellFormatting;
+            dgvEncerradas.GotFocus += dgv_GotFocus;
+            colEncerradasCliente.DataPropertyName = "DisplayName";   
+            colEncerradasStatus.DataPropertyName = "Status";         
             colEncerradasInicio.DataPropertyName = null;
             colEncerradasFim.DataPropertyName = null;
             colEncerradasDuracao.DataPropertyName = null;
@@ -143,14 +139,12 @@ namespace suporteEngenhariaUI
         {
             if (this.InvokeRequired) { this.Invoke(new Action(IniciarCarregamento)); return; }
             this.Cursor = Cursors.WaitCursor;
-            btnFinalizarSelecionada.Enabled = false;
-            btnAtualizarEncerradas.Enabled = false;
+
             // Tenta encontrar o botão de atualizar tudo pelo nome padrão ou fallback
             var btnAtualizarTudo = this.Controls.Find("btnAtualizarTudo", true).FirstOrDefault() ??
                                    this.Controls.Find("button1", true).FirstOrDefault();
             if (btnAtualizarTudo is Button btn) btn.Enabled = false;
 
-            btnAtualizarAbertas.Enabled = false;
             toolStripStatusLabelInfo.Text = "Carregando dados...";
             toolStripProgressBar.Visible = true;
             toolStripProgressBar.Style = ProgressBarStyle.Marquee;
@@ -160,12 +154,9 @@ namespace suporteEngenhariaUI
         {
             if (this.InvokeRequired) { this.Invoke(new Action(FinalizarCarregamento)); return; }
             this.Cursor = Cursors.Default;
-            btnAtualizarEncerradas.Enabled = true;
             var btnAtualizarTudo = this.Controls.Find("btnAtualizarTudo", true).FirstOrDefault() ??
                                   this.Controls.Find("button1", true).FirstOrDefault();
             if (btnAtualizarTudo is Button btn) btn.Enabled = true;
-            btnAtualizarAbertas.Enabled = true;
-            // O estado do botão Finalizar é tratado por AtualizarEstadoBotoesSelecao
             toolStripStatusLabelInfo.Text = $"Pronto. Dados atualizados às {DateTime.Now:HH:mm:ss}";
             toolStripProgressBar.Visible = false;
         }
@@ -231,10 +222,10 @@ namespace suporteEngenhariaUI
             }
             finally
             {
-                bindingList.RaiseListChangedEvents = true; // Reabilita notificações
-                bindingList.ResetBindings(); // Força a atualização do grid
-                                             // dgv.DataSource = bindingList; // Reatribui se desvinculou antes
-                RestaurarSelecaoGrid(dgv, selectedSenderId); // Tenta restaurar a seleção
+                bindingList.RaiseListChangedEvents = true;
+                bindingList.ResetBindings(); 
+                                       
+                RestaurarSelecaoGrid(dgv, selectedSenderId); 
             }
         }
         private void RestaurarSelecaoGrid(DataGridView dgv, string? selectedSenderId)
@@ -304,9 +295,9 @@ namespace suporteEngenhariaUI
             if (this.InvokeRequired) { this.Invoke(new Action(() => MostrarDetalhesConversaSelecionada(conv))); return; }
             if (conv == null) { LimparDetalhes(); return; }
 
-            lblValorSenderId.Text = conv.DisplayName; // Usa a propriedade calculada
+            lblValorSenderId.Text = conv.DisplayName;
             lblValorStatus.Text = conv.Status ?? "N/D";
-            lblValorOpedAt.Text = conv.CreationTimestamp.ToString("dd/MM/yyyy HH:mm:ss"); // Formato longo para detalhes
+            lblValorOpedAt.Text = conv.CreationTimestamp.ToString("dd/MM/yyyy HH:mm:ss"); 
 
             // Calcula e formata a duração ou tempo em aberto
             TimeSpan duracao; string tempoFormatado;
@@ -434,8 +425,6 @@ namespace suporteEngenhariaUI
             {
                 otherGrid.ClearSelection();
             }
-
-            // Atualiza o estado dos botões e a área de detalhes com base na seleção atual do grid ativo
             AtualizarEstadoBotoesSelecao();
         }
 
@@ -447,7 +436,6 @@ namespace suporteEngenhariaUI
             ConversationStatusApi? selecionada = null;
             bool isAberta = false;
 
-            // Verifica qual grid teve foco por último (ou se algum tem seleção)
             var gridAtivo = _lastFocusedGrid;
             if (gridAtivo == null)
             { // Tenta pegar algum selecionado se nenhum teve foco ainda
@@ -473,14 +461,13 @@ namespace suporteEngenhariaUI
         private void dgvAbertas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Formata a coluna "Tempo em aberto"
-            // IMPORTANTE: Use o NOME da coluna definido no Designer
             if (e.RowIndex >= 0 && dgvAbertas.Columns[e.ColumnIndex].Name == "colAbertasTempo")
             {
                 if (dgvAbertas.Rows[e.RowIndex].DataBoundItem is ConversationStatusApi conv)
                 {
                     // Calcula a diferença entre agora e a data de criação
                     TimeSpan tempoDecorrido = DateTime.Now - conv.CreationTimestamp;
-                    e.Value = FormatarTempoDecorrido(tempoDecorrido); // Formata o TimeSpan
+                    e.Value = FormatarTempoDecorrido(tempoDecorrido);
                     e.FormattingApplied = true; // Informa ao grid que a formatação foi feita
                 }
                 else
@@ -493,36 +480,35 @@ namespace suporteEngenhariaUI
 
         private void dgvEncerradas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Certifique-se que os NOMES das colunas ("colEncerradasInicio", etc.) estão corretos!
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Boa prática adicionar verificação de ColumnIndex
+            
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) 
             {
                 // Tenta obter o objeto ConversationStatusApi da linha atual
                 if (dgvEncerradas.Rows[e.RowIndex].DataBoundItem is ConversationStatusApi conv)
                 {
                     // Formata a coluna "Aberto em"
-                    if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasInicio") // <-- VERIFIQUE O NOME!
+                    if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasInicio") 
                     {
                         // Usa a propriedade calculada DateTime
-                        e.Value = conv.CreationTimestamp.ToString("dd/MM/yyyy HH:mm"); // Ou outro formato desejado
+                        e.Value = conv.CreationTimestamp.ToString("dd/MM/yyyy HH:mm"); 
                         e.FormattingApplied = true;
                     }
                     // Formata a coluna "Data fechamento"
-                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasFim") // <-- VERIFIQUE O NOME!
+                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasFim")
                     {
                         // Usa a propriedade calculada DateTime? (nullable)
                         if (conv.ClosedTimestamp.HasValue)
                         {
-                            e.Value = conv.ClosedTimestamp.Value.ToString("dd/MM/yyyy HH:mm"); // Ou outro formato
+                            e.Value = conv.ClosedTimestamp.Value.ToString("dd/MM/yyyy HH:mm");
                         }
                         else
                         {
-                            e.Value = "N/A"; // Ou string vazia se preferir
+                            e.Value = "N/A";
                         }
                         e.FormattingApplied = true;
                     }
-                    // Formata a coluna "Duração" (como já estava)
-                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao") // <-- VERIFIQUE O NOME!
-                    {
+                    // Formata a coluna "Duração" 
+                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao") 
                         if (conv.DuracaoConversa.HasValue)
                         {
                             e.Value = FormatarTempoDecorrido(conv.DuracaoConversa.Value);
@@ -546,7 +532,7 @@ namespace suporteEngenhariaUI
                     }
                 }
             }
-        }
+        
 
 
         // --- Event Handlers Botões ---
@@ -566,42 +552,9 @@ namespace suporteEngenhariaUI
             }
             else { MessageBox.Show("Nenhuma conversa aberta selecionada para finalizar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
-
-        // Assume que o botão Atualizar Tudo foi renomeado para btnAtualizarTudo ou é button1
         private async void btnAtualizarTudo_Click(object sender, EventArgs e)
         {
             await AtualizarTodosOsDadosAsync();
-        }
-
-        private async void btnAtualizarEncerradas_Click(object sender, EventArgs e)
-        {
-            IniciarCarregamento(); try
-            {
-                var todos = await _apiService.GetAllStatusesAsync();
-                var data = todos?.Values.Where(c => c.Status?.Equals(StatusConstants.Closed, StringComparison.OrdinalIgnoreCase) ?? false)
-                                 .OrderByDescending(c => c.ClosedTimestamp ?? c.CreationTimestamp).ToList() ?? new List<ConversationStatusApi>();
-                // Popula o grid específico e tenta manter a seleção
-                PopularGrid(_conversasEncerradasBindingList, dgvEncerradas, data, GetSelectedConversation(dgvEncerradas)?.SenderId);
-                // Opcional: Atualizar contagens também para consistência
-                // var contagens = await _apiService.GetCountsAsync(); AtualizarLabelsContagem(...);
-            }
-            catch (Exception ex) { MostrarErro("Erro ao atualizar lista de encerradas", ex); }
-            finally { FinalizarCarregamento(); AtualizarEstadoBotoesSelecao(); }
-        }
-
-        private async void btnAtualizarAbertas_Click(object sender, EventArgs e)
-        {
-            IniciarCarregamento(); try
-            {
-                var todos = await _apiService.GetAllStatusesAsync();
-                var data = todos?.Values.Where(c => c.Status?.Equals(StatusConstants.Open, StringComparison.OrdinalIgnoreCase) ?? false)
-                                 .OrderByDescending(c => c.CreationTimestamp).ToList() ?? new List<ConversationStatusApi>();
-                // Popula o grid específico e tenta manter a seleção
-                PopularGrid(_conversasAbertasBindingList, dgvAbertas, data, GetSelectedConversation(dgvAbertas)?.SenderId);
-                // Opcional: Atualizar contagens
-            }
-            catch (Exception ex) { MostrarErro("Erro ao atualizar lista de abertas", ex); }
-            finally { FinalizarCarregamento(); AtualizarEstadoBotoesSelecao(); }
         }
 
     } // Fim da classe FormPrincipal

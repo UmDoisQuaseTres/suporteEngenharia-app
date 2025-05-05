@@ -117,12 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="colAbertasTempo.HeaderText" xml:space="preserve">
-    <value>Tempo em aberto</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="colAbertasTempo.Width" type="System.Int32, mscorlib">
-    <value>115</value>
+  <data name="colAbertasInicio.Width" type="System.Int32, mscorlib">
+    <value>96</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="dgvAbertas.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -132,11 +129,8 @@
   <data name="dgvAbertas.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 332</value>
   </data>
-  <data name="btnAtualizarAbertas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 268</value>
-  </data>
   <data name="btnFinalizarSelecionada.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 268</value>
+    <value>109, 274</value>
   </data>
   <data name="lblTimeOpened.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -210,8 +204,17 @@
   <data name="dgvEncerradas.Size" type="System.Drawing.Size, System.Drawing">
     <value>689, 338</value>
   </data>
+  <data name="btnAtualizarEncerradas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
   <data name="btnAtualizarEncerradas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>524, 300</value>
+    <value>0, 0</value>
+  </data>
+  <data name="btnAtualizarEncerradas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnAtualizarEncerradas.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="tabPageEncerradas.Size" type="System.Drawing.Size, System.Drawing">
     <value>689, 338</value>
