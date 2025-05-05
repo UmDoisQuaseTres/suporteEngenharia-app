@@ -58,13 +58,27 @@ namespace suporteEngenhariaUI
             dgvAbertas.SelectionChanged += dgv_SelectionChanged;
             dgvAbertas.CellFormatting += dgvAbertas_CellFormatting;
             dgvAbertas.GotFocus += dgv_GotFocus;
+            colAbertasCliente.DataPropertyName = "SenderId";
+            colAbertasInicio.DataPropertyName = "CreationTimestamp";
+            colAbertasStatus.DataPropertyName = "Status";
+
 
             // Grid Encerradas
-            dgvEncerradas.AutoGenerateColumns = false; // Colunas definidas no Designer
-            dgvEncerradas.DataSource = _conversasEncerradasBindingList; // Vincula à lista
-            dgvEncerradas.SelectionChanged += dgv_SelectionChanged; // Associa handler comum
-            dgvEncerradas.CellFormatting += dgvEncerradas_CellFormatting; // Formatação específica
-            dgvEncerradas.GotFocus += dgv_GotFocus; // Rastreia foco
+            // --- Grid Encerradas (Usando CellFormatting para Datas) ---
+            dgvEncerradas.AutoGenerateColumns = false;
+            dgvEncerradas.DataSource = _conversasEncerradasBindingList;
+            dgvEncerradas.SelectionChanged += dgv_SelectionChanged;
+            dgvEncerradas.CellFormatting += dgvEncerradas_CellFormatting; // Já estava
+            dgvEncerradas.GotFocus += dgv_GotFocus; // Já estava
+
+            // Verifique os nomes das variáveis das colunas no Designer!
+            colEncerradasCliente.DataPropertyName = "DisplayName";     // OK
+            colEncerradasStatus.DataPropertyName = "Status";          // OK
+
+            // Definir como null pois CellFormatting vai cuidar da exibição
+            colEncerradasInicio.DataPropertyName = null;
+            colEncerradasFim.DataPropertyName = null;
+            colEncerradasDuracao.DataPropertyName = null;
         }
 
         // --- Evento Load do Formulário ---
@@ -479,20 +493,57 @@ namespace suporteEngenhariaUI
 
         private void dgvEncerradas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Formata a coluna "Duração"
-            // IMPORTANTE: Use o NOME da coluna definido no Designer
-            if (e.RowIndex >= 0 && dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao")
+            // Certifique-se que os NOMES das colunas ("colEncerradasInicio", etc.) estão corretos!
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Boa prática adicionar verificação de ColumnIndex
             {
-                if (dgvEncerradas.Rows[e.RowIndex].DataBoundItem is ConversationStatusApi conv && conv.DuracaoConversa.HasValue)
+                // Tenta obter o objeto ConversationStatusApi da linha atual
+                if (dgvEncerradas.Rows[e.RowIndex].DataBoundItem is ConversationStatusApi conv)
                 {
-                    // Usa a propriedade calculada DuracaoConversa e formata
-                    e.Value = FormatarTempoDecorrido(conv.DuracaoConversa.Value);
-                    e.FormattingApplied = true;
+                    // Formata a coluna "Aberto em"
+                    if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasInicio") // <-- VERIFIQUE O NOME!
+                    {
+                        // Usa a propriedade calculada DateTime
+                        e.Value = conv.CreationTimestamp.ToString("dd/MM/yyyy HH:mm"); // Ou outro formato desejado
+                        e.FormattingApplied = true;
+                    }
+                    // Formata a coluna "Data fechamento"
+                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasFim") // <-- VERIFIQUE O NOME!
+                    {
+                        // Usa a propriedade calculada DateTime? (nullable)
+                        if (conv.ClosedTimestamp.HasValue)
+                        {
+                            e.Value = conv.ClosedTimestamp.Value.ToString("dd/MM/yyyy HH:mm"); // Ou outro formato
+                        }
+                        else
+                        {
+                            e.Value = "N/A"; // Ou string vazia se preferir
+                        }
+                        e.FormattingApplied = true;
+                    }
+                    // Formata a coluna "Duração" (como já estava)
+                    else if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao") // <-- VERIFIQUE O NOME!
+                    {
+                        if (conv.DuracaoConversa.HasValue)
+                        {
+                            e.Value = FormatarTempoDecorrido(conv.DuracaoConversa.Value);
+                        }
+                        else
+                        {
+                            e.Value = "N/A";
+                        }
+                        e.FormattingApplied = true;
+                    }
                 }
-                else
+                else if (e.Value == null) // Se não conseguiu pegar o objeto, define como N/A para evitar erro
                 {
-                    e.Value = "N/A"; // Mostra N/A se não houver duração calculada
-                    e.FormattingApplied = true;
+                    // Para evitar erros se DataBoundItem for null por algum motivo
+                    if (dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasInicio" ||
+                        dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasFim" ||
+                        dgvEncerradas.Columns[e.ColumnIndex].Name == "colEncerradasDuracao")
+                    {
+                        e.Value = "N/A";
+                        e.FormattingApplied = true;
+                    }
                 }
             }
         }

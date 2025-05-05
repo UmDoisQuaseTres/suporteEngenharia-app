@@ -29,15 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             splitContainerFinalizar = new SplitContainer();
             dgvAbertas = new DataGridView();
-            colAbertasCliente = new DataGridViewTextBoxColumn();
-            colAbertasInicio = new DataGridViewTextBoxColumn();
-            colAbertasStatus = new DataGridViewTextBoxColumn();
-            CreationDateTime = new DataGridViewTextBoxColumn();
             btnAtualizarAbertas = new Button();
             btnFinalizarSelecionada = new Button();
             grpDetalhesMensagem = new GroupBox();
@@ -71,6 +67,10 @@
             statusStrip1 = new StatusStrip();
             toolStripStatusLabelInfo = new ToolStripStatusLabel();
             toolStripProgressBar = new ToolStripProgressBar();
+            colAbertasCliente = new DataGridViewTextBoxColumn();
+            colAbertasInicio = new DataGridViewTextBoxColumn();
+            colAbertasStatus = new DataGridViewTextBoxColumn();
+            colAbertasTempo = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)splitContainerFinalizar).BeginInit();
             splitContainerFinalizar.Panel1.SuspendLayout();
             splitContainerFinalizar.Panel2.SuspendLayout();
@@ -114,42 +114,12 @@
             dgvAbertas.AllowUserToResizeColumns = false;
             dgvAbertas.AllowUserToResizeRows = false;
             dgvAbertas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAbertas.Columns.AddRange(new DataGridViewColumn[] { colAbertasCliente, colAbertasInicio, colAbertasStatus, CreationDateTime });
+            dgvAbertas.Columns.AddRange(new DataGridViewColumn[] { colAbertasCliente, colAbertasInicio, colAbertasStatus, colAbertasTempo });
             dgvAbertas.MultiSelect = false;
             dgvAbertas.Name = "dgvAbertas";
             dgvAbertas.ReadOnly = true;
             dgvAbertas.RowHeadersVisible = false;
             dgvAbertas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            // 
-            // colAbertasCliente
-            // 
-            colAbertasCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            resources.ApplyResources(colAbertasCliente, "colAbertasCliente");
-            colAbertasCliente.Name = "colAbertasCliente";
-            colAbertasCliente.ReadOnly = true;
-            // 
-            // colAbertasInicio
-            // 
-            colAbertasInicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Format = "dd/MM/yy HH:mm";
-            colAbertasInicio.DefaultCellStyle = dataGridViewCellStyle4;
-            resources.ApplyResources(colAbertasInicio, "colAbertasInicio");
-            colAbertasInicio.Name = "colAbertasInicio";
-            colAbertasInicio.ReadOnly = true;
-            // 
-            // colAbertasStatus
-            // 
-            colAbertasStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            resources.ApplyResources(colAbertasStatus, "colAbertasStatus");
-            colAbertasStatus.Name = "colAbertasStatus";
-            colAbertasStatus.ReadOnly = true;
-            // 
-            // CreationDateTime
-            // 
-            CreationDateTime.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            resources.ApplyResources(CreationDateTime, "CreationDateTime");
-            CreationDateTime.Name = "CreationDateTime";
-            CreationDateTime.ReadOnly = true;
             // 
             // btnAtualizarAbertas
             // 
@@ -322,8 +292,8 @@
             // colEncerradasInicio
             // 
             colEncerradasInicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.Format = "dd/MM/yy HH:mm";
-            colEncerradasInicio.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "dd/MM/yy HH:mm";
+            colEncerradasInicio.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(colEncerradasInicio, "colEncerradasInicio");
             colEncerradasInicio.Name = "colEncerradasInicio";
             colEncerradasInicio.ReadOnly = true;
@@ -338,8 +308,8 @@
             // colEncerradasFim
             // 
             colEncerradasFim.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Format = "dd/MM/yy HH:mm";
-            colEncerradasFim.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "dd/MM/yy HH:mm";
+            colEncerradasFim.DefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(colEncerradasFim, "colEncerradasFim");
             colEncerradasFim.Name = "colEncerradasFim";
             colEncerradasFim.ReadOnly = true;
@@ -377,6 +347,36 @@
             toolStripProgressBar.Alignment = ToolStripItemAlignment.Right;
             toolStripProgressBar.Name = "toolStripProgressBar";
             toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+            // 
+            // colAbertasCliente
+            // 
+            colAbertasCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colAbertasCliente, "colAbertasCliente");
+            colAbertasCliente.Name = "colAbertasCliente";
+            colAbertasCliente.ReadOnly = true;
+            // 
+            // colAbertasInicio
+            // 
+            colAbertasInicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle1.Format = "dd/MM/yy HH:mm";
+            colAbertasInicio.DefaultCellStyle = dataGridViewCellStyle1;
+            resources.ApplyResources(colAbertasInicio, "colAbertasInicio");
+            colAbertasInicio.Name = "colAbertasInicio";
+            colAbertasInicio.ReadOnly = true;
+            // 
+            // colAbertasStatus
+            // 
+            colAbertasStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colAbertasStatus, "colAbertasStatus");
+            colAbertasStatus.Name = "colAbertasStatus";
+            colAbertasStatus.ReadOnly = true;
+            // 
+            // colAbertasTempo
+            // 
+            colAbertasTempo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            resources.ApplyResources(colAbertasTempo, "colAbertasTempo");
+            colAbertasTempo.Name = "colAbertasTempo";
+            colAbertasTempo.ReadOnly = true;
             // 
             // FormPrincipal
             // 
@@ -444,15 +444,15 @@
         private ToolStripStatusLabel toolStripStatusLabelInfo;
         private ToolStripProgressBar toolStripProgressBar;
         private DataGridView dgvAbertas;
-        private DataGridViewTextBoxColumn colAbertasCliente;
-        private DataGridViewTextBoxColumn colAbertasInicio;
-        private DataGridViewTextBoxColumn colAbertasStatus;
-        private DataGridViewTextBoxColumn CreationDateTime;
         private DataGridView dgvEncerradas;
         private DataGridViewTextBoxColumn colEncerradasCliente;
         private DataGridViewTextBoxColumn colEncerradasInicio;
         private DataGridViewTextBoxColumn colEncerradasStatus;
         private DataGridViewTextBoxColumn colEncerradasFim;
         private DataGridViewTextBoxColumn colEncerradasDuracao;
+        private DataGridViewTextBoxColumn colAbertasCliente;
+        private DataGridViewTextBoxColumn colAbertasInicio;
+        private DataGridViewTextBoxColumn colAbertasStatus;
+        private DataGridViewTextBoxColumn colAbertasTempo;
     }
 }
